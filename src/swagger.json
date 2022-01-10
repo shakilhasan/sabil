@@ -1,0 +1,34 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Contact API",
+        "description": "Contact Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:4000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Contact",
+            "description": "API for Contact Management System"
+        }
+    ],
+    "schemes": [
+        "http", "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/contact": {
+            
+        }
+    }
+}
