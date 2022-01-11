@@ -52,7 +52,7 @@ const postHandler = async (req, res, next) => {
 
 const putHandler = async (req, res, next) => {
     try {
-        const body = {...req.body, ...req.params.id };
+        const body = {...req.body, _id: req.params.id };
         const id = await update(body);
         res.status(200).send(id);
     } catch (error) {

@@ -16,7 +16,7 @@ const save = async (contact) => {
 };
 
 const update = async (contact) => {
-    const id = contact.id;
+    const id = contact._id;
     let model = await Model.findById(id);
     if (model) {
         model.name = contact.name;
