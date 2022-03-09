@@ -1,0 +1,20 @@
+const Joi = require('joi');
+
+const schema = Joi.object().keys({
+    name: Joi.string().min(0).max(30).required(),
+    code: Joi.string().required(),
+    sku: Joi.string().allow('').optional(),
+    cost: Joi.number().required(),
+    price: Joi.number().required(),
+    clientId: Joi.string().required()
+});
+
+const validate = (data) => {
+    const result = schema.validate(data);
+    data.createAt = new Date();
+    data.updatedAt = new Date();
+    result.value = data;
+    return result;
+};
+
+module.exports = validate;

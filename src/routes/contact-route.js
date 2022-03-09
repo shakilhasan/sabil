@@ -4,15 +4,15 @@ const {handleValidation} = require("../middlewares");
 const validators = require("../models/request-models");
 
 const router = express.Router();
-const ContactController = controller.contactController;
+const contactController = controller.contactController;
 
-router.get("/", ContactController.getHandler);
-// router.get("/:page/:pageSize", ContactController.findByPagination);
-router.post('/search', ContactController.searchHandler);
-router.get("/:id", ContactController.getByIdHandler);
-// router.post("/", ContactController.store);
-router.post("/",handleValidation(validators.contactSchemaValidate), ContactController.postHandler);
-router.put("/:id", ContactController.putHandler);
-router.delete("/:id", ContactController.deleteHandler);
+router.get("/", contactController.getHandler);
+// router.get("/:page/:pageSize", contactController.findByPagination);
+router.post('/search', contactController.searchHandler);
+router.get("/:id", contactController.getByIdHandler);
+// router.post("/", contactController.store);
+router.post("/",handleValidation(validators.contactSchemaValidate), contactController.postHandler);
+router.put("/:id", contactController.putHandler);
+router.delete("/:id", contactController.deleteHandler);
 
 module.exports = router;
