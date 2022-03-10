@@ -1,30 +1,27 @@
 import './App.css';
-import React, { useState, useEffect } from "react";
+// import Layout from "./components/Layout";
+import React from "react";
+import {Route, Routes} from "react-router-dom";
+import Homepage from './components/pages/Homepage'
+import Dashboard from './components/pages/Dashboard'
+import PrivateOutlet from './routes/PrivateOutlet'
+import RouterOutlet from "./routes/RouterOutlet";
+import ProductList from "./components/pages/Product";
+import ProductCreate from "./components/pages/Product/create";
 
 function App() {
-  const [factorial, setFactorial] = useState([]);
-
-  const myfactorial = n => !(n > 1) ? 1 : myfactorial(n - 1) * n;
-  const onSubmit = e => {
-    e.preventDefault();
-    const formElems = e.target.elements;
-    setFactorial( myfactorial(parseInt(formElems.number.value)))
-
-
-  }
-  return (
-      <>
-  <div>
-    <h1>Factorial Calculator</h1>
-    <form onSubmit={onSubmit}>
-      <input name="number" type="number" placeholder="Enter a number..." />
-      <br />
-      <button>Calculate Factorial</button>
-    </form>
-    <h2>Factorial: {factorial}</h2>
-  </div>
-  </>
-  );
+    return (
+        <Routes>
+            <Route  element={<RouterOutlet/>}>
+                <Route path='/' element={<Homepage/>}/>
+                <Route path='/*' element={<PrivateOutlet/>}>
+                    <Route path='dashboard' element={<Dashboard/>}/>
+                    <Route path='product' element={<ProductList/>}/>
+                    <Route path='product/create' element={<ProductCreate/>}/>
+                </Route>
+            </Route>
+        </Routes>
+    );
 }
 
 export default App;
