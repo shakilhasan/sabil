@@ -5,7 +5,7 @@ import accessToken from "./jwt-token-access/accessToken"
 const token = accessToken
 
 //apply base url for axios
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000/"
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/"
 
 const axiosApi = axios.create({
   baseURL: API_URL,
