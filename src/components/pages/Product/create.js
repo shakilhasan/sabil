@@ -177,7 +177,7 @@ const CreateProduct = () => {
                             {/*            Choose Images*/}
                             {/*        </label>*/}
                             {/*    </div>*/}
-                            {/*    {imagesPreview.map(image => <img src={image} className='mt-3 mr-2' alt='preview' width={55} height={52} key={image} />)}*/}
+                            {/*    /!*{imagesPreview.map(image => <img src={image} className='mt-3 mr-2' alt='preview' width={55} height={52} key={image} />)}*!/*/}
                             {/*</div>*/}
 
                             <div className="form-group">
