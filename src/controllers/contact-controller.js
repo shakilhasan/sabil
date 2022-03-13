@@ -6,7 +6,7 @@ const {
     getById,
     search
 } = require("../services/contact-service");
-const { NotFound } = require("../utils/errors");
+const { NotFound } = require("../utilities/errors");
 
 
 const getHandler = async (req, res, next) => {

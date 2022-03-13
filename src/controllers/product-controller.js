@@ -1,7 +1,7 @@
 const {
     getAll, save, update, search, getById, deleteById
 } = require('../services/product-service');
-const {NotFound} = require("../utils/errors");
+const {NotFound} = require("../utilities/errors");
 
 const getHandler = async (req, res, next) => {
     try {
@@ -38,8 +38,20 @@ const getByIdHandler = async (req, res, next) => {
 
 const postHandler = async (req, res, next) => {
     try {
+        // save message text/attachment in database
+        let files = null;
+
+        if (req.files && req.files.length > 0) {
+            files= [];
+
+            req.files.forEach((file) => {
+                files.push(file.filename);
+            });
+        }
+
         const body = req.body;
         body.createdAt = new Date();
+        body.files = files;
         body.updatedAt = new Date();
         const id = await save(body);
         res.status(201).send(id);

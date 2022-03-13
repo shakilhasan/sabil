@@ -9,6 +9,7 @@ const schema = Joi.object().keys({
     cost: Joi.number().required(),
     stock: Joi.number().required(),
     price: Joi.number().required(),
+    files: Joi.array().allow('').optional(),
     clientId: Joi.string().required()
 });
 

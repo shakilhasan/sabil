@@ -1,6 +1,6 @@
 const models = require("../models/data-models");
 const { ContactViewModel } = require("../models/view-models/contact-view-model");
-const { NotFound } = require("../utils/errors");
+const { NotFound } = require("../utilities/errors");
 const Model = models.Contact;
 
 const getAll = async () => {

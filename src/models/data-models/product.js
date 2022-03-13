@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {array} = require("joi");
 
 // schema
 const productSchema = new mongoose.Schema({
@@ -11,6 +12,7 @@ const productSchema = new mongoose.Schema({
     price: {type: Number, required: true},
     stock:{type: Number, required: true},
     clientId: {type: String, required: true},
+    files: {type:Array, required:false },
 
     createdAt: {type: String, required: true},
     updatedAt: {type: String, required: true}

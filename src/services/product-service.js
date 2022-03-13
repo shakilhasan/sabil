@@ -1,6 +1,6 @@
 const models = require('../models/data-models');
 const {ProductViewModel} = require('../models/view-models/product-view-model')
-const {NotFound} = require('../utils/errors');
+const {NotFound} = require('../utilities/errors');
 const Model = models.Product;
 
 const getAll = async ()=>{

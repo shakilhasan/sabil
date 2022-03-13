@@ -1,4 +1,4 @@
-const { GeneralError, BadRequest } = require('../utils/errors')
+const { GeneralError, BadRequest } = require('../utilities/errors')
 const logger = require('pino')();
 var jwt = require('jsonwebtoken');
 
