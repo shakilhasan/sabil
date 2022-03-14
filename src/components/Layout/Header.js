@@ -2,6 +2,7 @@ import { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import '../../App.css';
 import { Link } from 'react-router-dom';
+import {logout} from "../../helpers/backend_helper";
 // import Search from './Search';
 // import { logout } from '../../actions/userActions';
 // import logo from "../../../public/images/logo.png";
@@ -20,9 +21,9 @@ const Header = () => {
     //     );
     // }, [totalItems]);
 
-    // const handleLogout = () => {
-    //     dispatch(logout());
-    // };
+    const handleLogout = async () => {
+        await logout({});
+    };
 
     return (
         <>
@@ -103,7 +104,7 @@ const Header = () => {
                                     to="#"
                                     // to="/"
                                     className="dropdown-item text-danger"
-                                    // onClick={handleLogout}
+                                    onClick={handleLogout}
                                     >
                                     Logout
                                 </Link>
@@ -113,7 +114,7 @@ const Header = () => {
                     {/*     !loading && (*/}
                             <Link
                                 to="#"
-                                // to="/login"
+                                to="/login"
                                 className="btn ml-4"
                                 id="login_btn">
                                 Login
