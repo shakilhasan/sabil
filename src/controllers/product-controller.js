@@ -80,4 +80,11 @@ const deleteHandler = async (req, res, next) => {
     }
 }
 
-module.exports = {getHandler, searchHandler, getByIdHandler, postHandler, putHandler, deleteHandler}
+module.exports = {
+    getHandler,
+    searchHandler,
+    getByIdHandler,
+    postHandler,
+    putHandler,
+    deleteHandler
+}
