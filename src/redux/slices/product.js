@@ -3,6 +3,7 @@ import sum from 'lodash/sum';
 import uniqBy from 'lodash/uniqBy';
 // utils
 import axios from '../../utils/axios';
+import axiosHelper from '../../utils/axiosHelper';
 //
 import { dispatch } from '../store';
 
@@ -214,7 +215,8 @@ export function getProducts() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/products');
+      // const response = await axios.get('/api/products');
+      const response = await axiosHelper.get('/product');
       dispatch(slice.actions.getProductsSuccess(response.data.products));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
