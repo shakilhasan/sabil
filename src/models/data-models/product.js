@@ -3,19 +3,44 @@ const {array} = require("joi");
 
 // schema
 const productSchema = new mongoose.Schema({
+    cover: {type: String, required: false},
+    images: [{type: String, required: false}],
     name: {type: String, required: true},
     code: {type: String, unique: true, required: true},
-    category: {type: String, required: true},
-    description: {type: String, required: false},
     sku: {type: String, required: false},
-    cost: {type: Number, required: true},
+    tags: [{type: String, required: false}],
     price: {type: Number, required: true},
-    stock:{type: Number, required: true},
-    clientId: {type: String, required: true},
-    files: {type:Array, required:false },
+    priceSale: {type: Number, required: true},
 
-    createdAt: {type: String, required: true},
-    updatedAt: {type: String, required: true}
+    totalRating: {type: Number, required: false},
+    totalReview: {type: Number, required: false},
+    ratings:[{
+        name: {type: String, required: false},
+        starCount: { type: Number, required: false },
+        reviewCount: { type: Number, required: false },
+    }],
+    reviews:[{
+        id: {type: String, required: false},
+        name : {type : String, required : false},
+        avatarUrl: {type: String, required: false},
+        rating: {type: Number, required: false},
+        isPurchased: {type: Boolean, required: false},
+        helpful: {type: Number, required: false},
+        postedAt: {type: Date, required: false},
+
+    }],
+
+    status: {type: String, required: false},
+    inventoryType: {type: String, required: false},
+    sizes: [{type: String, required: false}],
+    available: {type: Number, required: false},
+    description: {type: String, required: false},
+    sold: {type: Number, required: false},
+    createdAt: {type: String, required: false},
+    category: {type: String, required: false},
+    gender: {type: String, required: false},
+    colors: [{type: String, required: false}],
+
 })
 
 //reference model

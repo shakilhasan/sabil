@@ -1,12 +1,18 @@
+const express = require("express");
 const {
     getAll, save, update, search, getById, deleteById
 } = require('../services/product-service');
 const {NotFound} = require("../utilities/errors");
+const {handleValidation} = require("../middlewares");
+const validators = require("../models/request-models");
+const fileUpload = require("../middlewares/file/fileUpload");
+
+const router = express.Router();
 
 const getHandler = async (req, res, next) => {
     try {
-        const contacts = await getAll();
-        res.status(200).send(contacts);
+        const products = await getAll();
+        res.status(200).send(products);
     } catch (error) {
         return next(error, req, res);
     }
@@ -80,11 +86,13 @@ const deleteHandler = async (req, res, next) => {
     }
 }
 
-module.exports = {
-    getHandler,
-    searchHandler,
-    getByIdHandler,
-    postHandler,
-    putHandler,
-    deleteHandler
-}
+router.get('/', getHandler);
+// router.get('/:page/:pageSize', findByPagination);
+router.post('/search', searchHandler);
+router.get('/:id', getByIdHandler);
+// router.post('/', postHandler);
+router.post('/', handleValidation(validators.productValidate),fileUpload, postHandler);
+router.put('/:id', putHandler)
+router.delete('/:id', deleteHandler);
+
+module.exports = router;

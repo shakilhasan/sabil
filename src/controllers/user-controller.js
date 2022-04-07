@@ -1,10 +1,15 @@
 // external imports
+const express = require("express");
 const bcrypt = require("bcrypt");
 const { unlink } = require("fs");
 const path = require("path");
 
 // internal imports
 const User = require("../models/data-models/user");
+const {checkLogin, requireRole} = require("../middlewares/users/checkLogin");
+const avatarUpload = require("../middlewares/users/avatarUpload");
+
+const router = express.Router();
 
 // get users page
 async function getHandler(req, res, next) {
@@ -85,9 +90,20 @@ async function deleteHandler(req, res, next) {
   }
 }
 
-module.exports = {
-  getHandler,
-  postHandler,
-  deleteHandler,
+// users page
+router.get("/",
+    checkLogin,
+    requireRole(["admin"]),
+    getHandler);
+// add user
+router.post("/",
+    // checkLogin,
+    // requireRole(["admin"]),
+    avatarUpload,
+    // addUserValidators,
+    // addUserValidationHandler,
+    postHandler);
+// remove user
+router.delete("/:id", checkLogin, requireRole(["admin"]), deleteHandler);
 
-};
+module.exports = router;

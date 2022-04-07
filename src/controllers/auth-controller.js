@@ -2,10 +2,15 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
+const express = require("express");
+
 
 // internal imports
+//login-----
 const User = require("../models/data-models/user");
+const {doLoginValidators, doLoginValidationHandler} = require("../middlewares/users/loginValidators");
 
+const router = express.Router();
 
 // do login
 async function login(req, res, next) {
@@ -76,7 +81,16 @@ function logout(req, res) {
 }
 
 
-module.exports = {
-  login,
-  logout,
-};
+// process login
+router.post(
+    "/login",
+    doLoginValidators,
+    doLoginValidationHandler,
+    login
+);
+
+// logout
+router.post("/logout", logout); //.delete
+
+
+module.exports = router;

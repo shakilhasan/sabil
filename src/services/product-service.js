@@ -5,8 +5,7 @@ const Model = models.Product;
 
 const getAll = async ()=>{
     const items= await Model.find();
-    let viewModels = items.map((item)=>ProductViewModel.convert(item));
-    return viewModels;
+    return {products:items.map((item) => ProductViewModel.convert(item))};
 }
 
 const save = async (product)=>{

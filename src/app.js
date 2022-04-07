@@ -1,5 +1,7 @@
 const express = require("express");
-const routes = require('./routes');
+const routes = require('./controllers/routes');
+//test For post mock demo data
+const mockRoutes = require("../test/mock-routes/routes");
 const { authenticateRequest, handleRequest, handleError } = require("./middlewares");
 const cors = require('cors')
 const dotenv = require("dotenv");
@@ -29,6 +31,8 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 try {
     // app.use('/', authenticateRequest, routes);
     app.use('/', routes);
+    //test For post mock demo data
+    app.use('/mock', mockRoutes);
 }
 catch (err) {
     handleError(err);

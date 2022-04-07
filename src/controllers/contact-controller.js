@@ -1,3 +1,4 @@
+const express = require('express');
 const {
     getAll,
     save,
@@ -7,7 +8,10 @@ const {
     search
 } = require("../services/contact-service");
 const { NotFound } = require("../utilities/errors");
+const {handleValidation} = require("../middlewares");
+const validators = require("../models/request-models");
 
+const router = express.Router();
 
 const getHandler = async (req, res, next) => {
     try {
@@ -71,4 +75,13 @@ const deleteHandler = async (req, res, next) => {
 };
 
 
-module.exports = { searchHandler, getHandler, getByIdHandler, postHandler, putHandler, deleteHandler  };
+router.get("/", getHandler);
+// router.get("/:page/:pageSize", findByPagination);
+router.post('/search', searchHandler);
+router.get("/:id", getByIdHandler);
+// router.post("/", store);
+router.post("/",handleValidation(validators.contactSchemaValidate), postHandler);
+router.put("/:id", putHandler);
+router.delete("/:id", deleteHandler);
+
+module.exports = router;
