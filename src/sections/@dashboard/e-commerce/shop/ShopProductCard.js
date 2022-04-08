@@ -1,16 +1,15 @@
-import PropTypes from 'prop-types';
-import { paramCase } from 'change-case';
-import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Box, Card, Link, Typography, Stack } from '@mui/material';
+import { Box, Card, Link, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
+import { ColorPreview } from '../../../../components/color-utils';
+import Image from '../../../../components/Image';
+// components
+import Label from '../../../../components/Label';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
 import { fCurrency } from '../../../../utils/formatNumber';
-// components
-import Label from '../../../../components/Label';
-import Image from '../../../../components/Image';
-import { ColorPreview } from '../../../../components/color-utils';
 
 // ----------------------------------------------------------------------
 
@@ -19,9 +18,10 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { name, cover, price, colors, status, priceSale } = product;
+  const { _id, name, cover, price, colors, status, priceSale } = product;
 
-  const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`;
+  // const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`;
+  const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${_id}`;
 
   return (
     <Card>
