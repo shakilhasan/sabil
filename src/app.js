@@ -30,7 +30,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 try {
     // app.use('/', authenticateRequest, routes);
-    app.use('/', routes);
+    app.use('/api', routes);
     //test For post mock demo data
     app.use('/mock', mockRoutes);
 }

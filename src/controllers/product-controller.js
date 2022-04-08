@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-    getAll, save, update, search, getById, deleteById
+    getAll, save, update, search, getById, getByName, deleteById
 } = require('../services/product-service');
 const {NotFound} = require("../utilities/errors");
 const {handleValidation} = require("../middlewares");
@@ -20,9 +20,11 @@ const getHandler = async (req, res, next) => {
 
 const searchHandler = async (req, res, next) => {
     try {
-        const body = req.body;
-        const result = await search(body);
-        res.status(200).send(result);
+        // const body = req.body;
+        const searchQuery = req.query.query;
+        console.log("searchHandler-",searchQuery);
+        const results = await search(searchQuery);
+        res.status(200).send({results});
     } catch (error) {
         return next(error, req, res);
     }
@@ -30,10 +32,25 @@ const searchHandler = async (req, res, next) => {
 
 const getByIdHandler = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const product = await getById(id);
+        const _id = req.params.id;
+        console.log("getByIdHandler-",_id);
+        const product = await getById(_id);
         if (product) {
-            res.status(200).send(product);
+            res.status(200).send({product});
+        } else {
+            throw new NotFound('Product not found by the id: ' + _id);
+        }
+    } catch (error) {
+        return next(error, req, res);
+    }
+};
+
+const getByNameHandler = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const product = await getByName(id);
+        if (product) {
+            res.status(200).send({product});
         } else {
             throw new NotFound('Product not found by the id: ' + id);
         }
@@ -88,8 +105,9 @@ const deleteHandler = async (req, res, next) => {
 
 router.get('/', getHandler);
 // router.get('/:page/:pageSize', findByPagination);
-router.post('/search', searchHandler);
+router.get('/search', searchHandler);
 router.get('/:id', getByIdHandler);
+// router.get('/:name', getByNameHandler);
 // router.post('/', postHandler);
 router.post('/', handleValidation(validators.productValidate),fileUpload, postHandler);
 router.put('/:id', putHandler)

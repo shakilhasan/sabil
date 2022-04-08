@@ -39,10 +39,17 @@ const getById = async (id)=>{
     return viewModel;
 }
 
+const getByName = async (name)=>{
+    let model=await Model.findOne({name:name});
+    let viewModel = ProductViewModel.convert(model);
+    return viewModel;
+}
+
 const search = async (searchRequest)=>{
-    const items = await Model.find(searchRequest);
-    let viewModels = items.map(item=>ContactViewModel.convert(item));
+    // const items = await Model.find(searchRequest);
+    const items = await Model.find({ $text: { $search: searchRequest } });
+    let viewModels = items.map(item=>ProductViewModel.convert(item));
     return viewModels;
 }
 
-module.exports = {search, getAll, save, update, deleteById, getById};
+module.exports = {search, getAll, save, update, deleteById, getById, getByName};

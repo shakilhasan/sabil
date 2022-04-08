@@ -18,7 +18,7 @@ const getFakeProduct = async () => {
     //Randomly selects the specified number of documents
     // const category=await Model.categoryModel.aggregate([{ $sample: { size: 1 } }]);
     return {
-        cover: faker.image.food(640, 480, false),
+        cover: faker.image.food(640, 480, true),
         images: [faker.image.food(640, 480, false)],
         name: faker.commerce.productName(),
         code: faker.random.hexaDecimal(10),
@@ -45,7 +45,7 @@ const getFakeProduct = async () => {
 
         }],
 
-        status: faker.random.arrayElement(['sale', ]),
+        status: faker.random.arrayElement(['sale','new','' ]),
         inventoryType: faker.random.arrayElement(['in_stock','out_of_stock' ]),
         sizes: ['10','11','12','13','14','15','16','17','18','19'],
         available: faker.datatype.number({max:2000}),
