@@ -19,7 +19,11 @@ const getFakeProduct = async () => {
     // const category=await Model.categoryModel.aggregate([{ $sample: { size: 1 } }]);
     return {
         cover: faker.image.food(640, 480, true),
-        images: [faker.image.food(640, 480, false)],
+        images: [
+            faker.image.food(640, 480, true),
+            faker.image.food(640, 480, true),
+            faker.image.food(640, 480, true),
+        ],
         name: faker.commerce.productName(),
         code: faker.random.hexaDecimal(10),
         sku: faker.random.hexaDecimal(10),
@@ -30,10 +34,27 @@ const getFakeProduct = async () => {
         totalRating: faker.datatype.number({max:20000}),
         totalReview: faker.datatype.number({max:2000}),
         ratings:[{
-            name: faker.word.adjective(100),
-            starCount: faker.datatype.number({max:20}),
-            reviewCount: faker.datatype.number({max:20}),
-        }],
+                name: "1 Star",
+                starCount: faker.datatype.number({max:2000}),
+                reviewCount: faker.datatype.number({max:2000}),
+            },{
+                name: "2 Star",
+                starCount: faker.datatype.number({max:2000}),
+                reviewCount: faker.datatype.number({max:2000}),
+            },{
+                name: "3 Star",
+                starCount: faker.datatype.number({max:2000}),
+                reviewCount: faker.datatype.number({max:2000}),
+            },{
+                name: "4 Star",
+                starCount: faker.datatype.number({max:2000}),
+                reviewCount: faker.datatype.number({max:2000}),
+            },{
+                name: "5 Star",
+                starCount: faker.datatype.number({max:2000}),
+                reviewCount: faker.datatype.number({max:2000}),
+            },
+        ],
         reviews:[{
             id: faker.random.hexaDecimal(10),
             name : faker.name.findName(),
@@ -52,8 +73,8 @@ const getFakeProduct = async () => {
         description: faker.commerce.productDescription(),
         sold: faker.datatype.number({max:20000}),
         createdAt: Date.now().toString(),
-        category: faker.commerce.productMaterial(),
-        gender: faker.random.arrayElement(['Male', 'Female']),
+        category: faker.random.arrayElement(['All', 'Accessories', 'Apparel', 'Shose']),
+        gender: faker.random.arrayElement(['Men', 'Women', 'Kids']),
         colors: [
             faker.internet.color(),
             faker.internet.color(),
