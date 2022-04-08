@@ -1,22 +1,23 @@
-import { useState } from 'react';
-import { paramCase } from 'change-case';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
-import { useNavigate } from 'react-router-dom';
+import { Autocomplete, InputAdornment, Link, Popper, Typography } from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
-// hooks
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-// utils
-import axios from '../../../../utils/axios';
-// routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Iconify from '../../../../components/Iconify';
 // components
 import Image from '../../../../components/Image';
-import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
 import SearchNotFound from '../../../../components/SearchNotFound';
+// hooks
+import useIsMountedRef from '../../../../hooks/useIsMountedRef';
+// routes
+import { PATH_DASHBOARD } from '../../../../routes/paths';
+// utils
+// import axios from '../../../../utils/axios';
+import axiosHelper from '../../../../utils/axiosHelper';
+
 
 // ----------------------------------------------------------------------
 
@@ -39,10 +40,12 @@ export default function ShopProductSearch() {
     try {
       setSearchQuery(value);
       if (value) {
-        const response = await axios.get('/api/products/search', {
+        // const response = await axios.get('/api/products/search', {
+        //   params: { query: value },
+        // });
+        const response = await axiosHelper.get('/api/product/search', {
           params: { query: value },
         });
-
         if (isMountedRef.current) {
           setSearchResults(response.data.results);
         }
@@ -52,13 +55,15 @@ export default function ShopProductSearch() {
     }
   };
 
-  const handleClick = (name) => {
-    navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`);
+  const handleClick = (id) => {
+    // navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`);
+    navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${id}`);
+
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      handleClick(searchQuery);
+      handleClick(searchQuery);  // todo, pass _id
     }
   };
 
@@ -90,14 +95,14 @@ export default function ShopProductSearch() {
         />
       )}
       renderOption={(props, product, { inputValue }) => {
-        const { name, cover } = product;
+        const { _id, name, cover } = product;
         const matches = match(name, inputValue);
         const parts = parse(name, matches);
 
         return (
           <li {...props}>
             <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} />
-            <Link underline="none" onClick={() => handleClick(name)}>
+            <Link underline="none" onClick={() => handleClick(_id)}>
               {parts.map((part, index) => (
                 <Typography
                   key={index}

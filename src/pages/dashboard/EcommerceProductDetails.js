@@ -1,30 +1,27 @@
-import { sentenceCase } from 'change-case';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Box, Card, Container, Divider, Grid, Tab, Typography } from '@mui/material';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Tab, Card, Grid, Divider, Container, Typography } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-// redux
-import { useDispatch, useSelector } from '../../redux/store';
-import { getProduct, addCart, onGotoStep } from '../../redux/slices/product';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
-// hooks
-import useSettings from '../../hooks/useSettings';
-// components
-import Page from '../../components/Page';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import Iconify from '../../components/Iconify';
 import Markdown from '../../components/Markdown';
+// components
+import Page from '../../components/Page';
 import { SkeletonProduct } from '../../components/skeleton';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+// hooks
+import useSettings from '../../hooks/useSettings';
+import { addCart, getProduct, onGotoStep } from '../../redux/slices/product';
+// redux
+import { useDispatch, useSelector } from '../../redux/store';
+// routes
+import { PATH_DASHBOARD } from '../../routes/paths';
+import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 // sections
 import {
-  ProductDetailsSummary,
-  ProductDetailsReview,
-  ProductDetailsCarousel,
+  ProductDetailsCarousel, ProductDetailsReview, ProductDetailsSummary
 } from '../../sections/@dashboard/e-commerce/product-details';
-import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
 
@@ -65,12 +62,12 @@ export default function EcommerceProductDetails() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const [value, setValue] = useState('1');
-  const { name = '' } = useParams();
+  const { id = '' } = useParams();
   const { product, error, checkout } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getProduct(name));
-  }, [dispatch, name]);
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
 
   const handleAddCart = (product) => {
     dispatch(addCart(product));
@@ -95,7 +92,8 @@ export default function EcommerceProductDetails() {
               name: 'Shop',
               href: PATH_DASHBOARD.eCommerce.shop,
             },
-            { name: sentenceCase(name) },
+            // { name: sentenceCase(name) },
+            { name: id },
           ]}
         />
 
