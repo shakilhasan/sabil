@@ -73,7 +73,7 @@ const getFakeProduct = async () => {
         description: faker.commerce.productDescription(),
         sold: faker.datatype.number({max:20000}),
         createdAt: Date.now().toString(),
-        category: faker.random.arrayElement(['All', 'Accessories', 'Apparel', 'Shose']),
+        category: faker.random.arrayElement(['Accessories', 'Apparel', 'Shose']),
         gender: faker.random.arrayElement(['Men', 'Women', 'Kids']),
         colors: [
             faker.internet.color(),
