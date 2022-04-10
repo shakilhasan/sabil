@@ -1,14 +1,50 @@
-const app = require('./app');
-const connectWithDb = require("./mongo");
+const { setup: setupCore } = require("./core");
+const { init } = require("./modules");
+const { handleError, handleRequest } = require("./common/middlewares");
+require("dotenv").config();
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-    res.send("Contact List");
-});
+const start = async () => {
+    const initModules = async (app) => {
+        return await init(app);
+    };
 
-app.listen(port, () => {
-    connectWithDb();
+    const configureRoutes = async (app) => {
+        app.use(handleRequest);
+        const app2 = await initModules(app);
+        app2.get("/", (req, res) => {
+            res.send("Hello World!");
+        });
+        app2.use(handleError);
+        return app2;
+    };
 
-    console.log(`Server is running on port ${port}`);
-});
+    const { app, eventEmitter, connectWithDb, logger } = await setupCore();
+
+    try {
+        await configureRoutes(app);
+        app.listen(PORT, async () => {
+            logger.info(`Server started on port ${PORT}`);
+
+            const broadcastDatabaseConnectionEstablished = (em) => {
+                em.emit("databaseConnectionEstablished");
+            };
+
+            eventEmitter.on("databaseConnectionEstablished", () => {
+                logger.info(
+                    "eventEmitterHealthCheck()=> Database connection established"
+                );
+            });
+
+            await connectWithDb(broadcastDatabaseConnectionEstablished, eventEmitter);
+            logger.info(`Database connection established at ${new Date()}`);
+            console.log(`Server is running on port ${PORT}`);
+
+        });
+    } catch (err) {
+        await handleError(err);
+    }
+};
+
+start()

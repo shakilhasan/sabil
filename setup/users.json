@@ -1,0 +1,38 @@
+[
+    {
+        "firstName": "Super",
+        "lastName": "Admin",
+        "displayName": "Admin",
+        "username": "superadmin",
+        "address": "Wakanda",
+        "phoneNumber": "01000000001",
+        "email": "superadmin@mernboilerplate.com",
+        "roleId": "",
+        "roleAlias": "Super Admin",
+        "password": "mern-boilerplate"
+    },
+    {
+        "firstName": "Admin",
+        "lastName": "Admin",
+        "username": "admin",
+        "displayName": "admin",
+        "address": "Wakanda",
+        "phoneNumber": "01000000002",
+        "email": "admin@mernboilerplate.com",
+        "roleId": "",
+        "roleAlias": "Admin",
+        "password": "mern-boilerplate"
+    },
+    {
+        "firstName": "User",
+        "lastName": "User",
+        "username": "user",
+        "displayName": "user",
+        "address": "Wakanda",
+        "phoneNumber": "01000000003",
+        "email": "user@mernboilerplate.com",
+        "roleId": "",
+        "roleAlias": "User",
+        "password": "mern-boilerplate"
+    }
+]
