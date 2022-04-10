@@ -1,13 +1,9 @@
 import axios from "axios"
 import accessToken from "./jwt-token-access/accessToken"
 
-// pass new generated access token here
-const token = accessToken
 
 // apply base url for axios
-const API_URL =
-    process.env.REACT_APP_API_URL
-    // || "http://localhost:8080/api"
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api"
 
 const axiosApi = axios.create({
     baseURL: API_URL,
@@ -15,7 +11,7 @@ const axiosApi = axios.create({
 const fakeApi = axios.create({
     baseURL: "",
 })
-axiosApi.defaults.headers.common.authorization = token
+axiosApi.defaults.headers.common.authorization = `Bearer ${accessToken}`;
 
 axiosApi.interceptors.response.use(
     response => response,
