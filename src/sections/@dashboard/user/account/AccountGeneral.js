@@ -15,7 +15,9 @@ import { fData } from '../../../../utils/formatNumber';
 import { countries } from '../../../../_mock';
 // components
 import { FormProvider, RHFSwitch, RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
-
+import {
+  updateUser
+} from "../../../../helpers/backend_helper";
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
@@ -28,6 +30,7 @@ export default function AccountGeneral() {
   });
 
   const defaultValues = {
+    _id: user?._id || '',
     displayName: user?.displayName || '',
     email: user?.email || '',
     photoURL: user?.photoURL || '',
@@ -48,13 +51,17 @@ export default function AccountGeneral() {
 
   const {
     setValue,
+    getValues,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = async () => {
     try {
+      console.log("submit ---", getValues())
       await new Promise((resolve) => setTimeout(resolve, 500));
+      await updateUser({...user, ...getValues()});
+
       enqueueSnackbar('Update success!');
     } catch (error) {
       console.error(error);

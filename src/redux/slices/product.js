@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import sum from 'lodash/sum';
 import uniqBy from 'lodash/uniqBy';
-import axiosHelper from '../../utils/axiosHelper';
+import { getProductAll, getProductById } from "../../helpers/backend_helper";
 //
 import { dispatch } from '../store';
 
@@ -214,8 +214,8 @@ export function getProducts() {
     dispatch(slice.actions.startLoading());
     try {
       // const response = await axios.get('/api/products');
-      const response = await axiosHelper.get('/api/product');
-      dispatch(slice.actions.getProductsSuccess(response.data.products));
+      const response = await getProductAll({});
+      dispatch(slice.actions.getProductsSuccess(response));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -231,10 +231,9 @@ export function getProduct(id) {
       // const response = await axios.get('/api/products/product', {
       //   params: { name },
       // });
-      const response = await axiosHelper.get(`/api/product/${id}`, {
-        params: { id },
-      });
-      dispatch(slice.actions.getProductSuccess(response.data.product));
+
+      const response = await getProductById(id);
+      dispatch(slice.actions.getProductSuccess(response));
     } catch (error) {
       console.error(error);
       dispatch(slice.actions.hasError(error));
