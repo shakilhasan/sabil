@@ -2,14 +2,14 @@
     {
         "firstName": "Super",
         "lastName": "Admin",
-        "displayName": "Admin",
-        "username": "superadmin",
-        "address": "Wakanda",
+        "displayName": "Super Admin",
+        "username": "superadmin@sabil.com",
+        "address": "Dhaka, Bangladesh",
         "phoneNumber": "01000000001",
-        "email": "superadmin@mernboilerplate.com",
+        "email": "superadmin@sabil.com",
         "roleId": "",
         "roleAlias": "Super Admin",
-        "password": "mern-boilerplate"
+        "password": "sabil1234"
     },
     {
         "firstName": "Admin",
@@ -18,10 +18,10 @@
         "displayName": "admin",
         "address": "Wakanda",
         "phoneNumber": "01000000002",
-        "email": "admin@mernboilerplate.com",
+        "email": "admin@sabil.com",
         "roleId": "",
         "roleAlias": "Admin",
-        "password": "mern-boilerplate"
+        "password": "sabil1234"
     },
     {
         "firstName": "User",
@@ -30,9 +30,9 @@
         "displayName": "user",
         "address": "Wakanda",
         "phoneNumber": "01000000003",
-        "email": "user@mernboilerplate.com",
+        "email": "user@sabil.com",
         "roleId": "",
         "roleAlias": "User",
-        "password": "mern-boilerplate"
+        "password": "sabil1234"
     }
 ]

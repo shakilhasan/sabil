@@ -57,8 +57,11 @@ const handleValidation = (validate) => (req, res, next) => {
 
 const authenticateRequest = async (req, res, next) => {
   let auth = req.headers.authorization;
+  // eslint-disable-next-line no-console
   if (auth) {
     auth = auth.replace("Bearer ", "");
+    // eslint-disable-next-line no-console
+    console.log("auth-token---", auth);
     jwt.verify(auth, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         const { stack, name, ...errorProps } = err;

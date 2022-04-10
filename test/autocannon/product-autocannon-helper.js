@@ -1,17 +1,18 @@
-const autocannon = require('autocannon')
-const url = 'http://localhost:8080'
+const autocannon = require("autocannon");
+
+const url = "http://localhost:8080";
 
 const productEntryOptions = {
   url,
-  connections: 10, //default
+  connections: 10, // default
   pipelining: 1, // default
   duration: 10, // default
   requests: [
     {
-      method: 'POST',
-      path: '/mock/product',
+      method: "POST",
+      path: "/mock/product",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       // body:JSON.stringify(getFakeItem()),
       // onResponse: (status, body, context) => {
@@ -25,20 +26,23 @@ const productEntryOptions = {
     //     //     console.log(status, 'customers', body);
     //     // }
     // 3
-  ]
-}
+  ],
+};
 
 const finishedBench = (err, result) => {
-  console.log(result)
-}
+  // eslint-disable-next-line no-console
+  console.log(result);
+};
 
 // autocannon(options, finishedBench);
 let count = 0;
 setInterval(() => {
-  console.log('starting benchmark', count);
+  // eslint-disable-next-line no-console
+  console.log("starting benchmark", count);
   autocannon(productEntryOptions, finishedBench);
-  console.log('finished benchmark', count++);
+  // eslint-disable-next-line no-console
+  console.log("finished benchmark", count++);
   if (count === 20) {
-    process.exit(0)
+    process.exit(0);
   }
 }, 12000);

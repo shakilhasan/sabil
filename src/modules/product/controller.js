@@ -11,7 +11,7 @@ const {
 } = require("../../core/controller");
 const { validate } = require("./request");
 const { handleValidation } = require("../../common/middlewares");
-const {getAll} = require("../../core/repository");
+const { getAll } = require("../../core/repository");
 
 const router = express.Router();
 
@@ -25,15 +25,16 @@ const countHandler = async (req, res, next) => {
   return baseCountHandler(req, res, next);
 };
 
-const getHandler = async (req, res, next) => {  // todo remove later
+const getHandler = async (req, res, next) => {
+  // todo remove later
   try {
-    const products = await getAll('Product');
+    const products = await getAll("Product");
     res.status(200).send(products);
   } catch (error) {
     return next(error, req, res);
   }
 };
-router.get('/', getHandler);  // todo remove later
+router.get("/", getHandler); // todo remove later
 router.get("/detail", getByIdHandler);
 router.post("/create", handleValidation(validate), saveHandler);
 router.put("/update", handleValidation(validate), updateHandler);

@@ -1,7 +1,8 @@
-const express = require('express');
-let router = express.Router();
-const productMockRoutes = require('./product-controller-mock');
+const express = require("express");
 
-router.use('/product',productMockRoutes);
+const router = express.Router();
+const { router: productMockRoutes } = require("./product-controller-mock");
+
+router.use("/products", productMockRoutes);
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
+const bcrypt = require("bcrypt");
 const { handleValidation } = require("../../common/middlewares");
 const { validateRegistration, validateUsername } = require("./request");
 const {
@@ -10,8 +11,7 @@ const {
   tryCreateUser,
   searchPermissions,
 } = require("./service");
-const bcrypt = require("bcrypt");
-const {User} = require("./model");
+const { User } = require("./model");
 
 const router = express.Router();
 const modelName = "User";
@@ -152,10 +152,11 @@ const checkUsernameHandler = async (req, res) => {
 };
 
 // add user
-async function postHandler(req, res, next) {   // todo remove later by /register
+async function postHandler(req, res, next) {
+  // todo remove later by /register
   console.log("postHandler....");
-  let newUser={
-    displayName : "hasan"
+  let newUser = {
+    displayName: "hasan",
   };
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -174,20 +175,18 @@ async function postHandler(req, res, next) {   // todo remove later by /register
   // prepare the user object to generate token
   const userObject = {
     displayName: newUser.displayName,
-
   };
   // generate token
   const accessToken = jwt.sign(userObject, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRY,
   });
 
-
   // postHandler user or send error
   try {
     const result = await newUser.save();
     res.status(200).send({
-      user:newUser,
-      accessToken
+      user: newUser,
+      accessToken,
     });
   } catch (err) {
     res.status(500).json({

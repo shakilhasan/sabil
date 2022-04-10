@@ -1,7 +1,7 @@
 [
   // API
 
-  // Users API
+  // Users API  ------------------------------------------------------------
 
   // default
   {
@@ -53,7 +53,7 @@
     "type": "api"
   },
 
-  // Roles API
+  // Roles API   ------------------------------------------------------------
 
   // default
   {
@@ -104,7 +104,8 @@
     "type": "api"
   },
 
-  // Resources API
+
+  // Resources API  ------------------------------------------------------------
 
   // default
   {
@@ -155,7 +156,8 @@
     "type": "api"
   },
 
-  // Permissions API
+
+  // Permissions API  ------------------------------------------------------------
 
   // default
   {
@@ -206,8 +208,8 @@
     "type": "api"
   },
 
-  // Products API
 
+  // Products API  ------------------------------------------------------------
   // default
   {
     "name": "/api/products",
@@ -257,9 +259,17 @@
     "type": "api"
   },
 
-  // Client
 
-  // Products
+
+
+
+
+
+
+
+  // Client  **************************************************
+
+  // Products  ------------------------------------------
   {
     "name": "/products",
     "alias": "Products menu",
@@ -275,7 +285,7 @@
     "alias": "Products new",
     "type": "client"
   },
-  // Users
+  // Users  ------------------------------------------
   {
     "name": "/users",
     "alias": "Users menu",
@@ -291,7 +301,7 @@
     "alias": "Users new",
     "type": "client"
   },
-  // Resources
+  // Resources  ------------------------------------------
   {
     "name": "/resources",
     "alias": "Resources menu",
@@ -307,7 +317,7 @@
     "alias": "Resources new",
     "type": "client"
   },
-  // Roles
+  // Roles  ------------------------------------------
   {
     "name": "/roles",
     "alias": "Roles menu",
@@ -323,7 +333,9 @@
     "alias": "Roles new",
     "type": "client"
   },
-  // Permissions
+
+
+  // Permissions  ------------------------------------------
   {
     "name": "/permissions",
     "alias": "Permissions menu",
@@ -340,7 +352,8 @@
     "type": "client"
   },
 
-  // Components
+
+  // Components ------------------------------------------
   {
     "name": "user-list-delete-btn",
     "alias": "User list delete button",

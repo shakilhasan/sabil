@@ -14,7 +14,7 @@ const init = async (app) => {
   app.use(
     "/api/products",
     authenticateRequest,
-    // authorizeRequest,
+    authorizeRequest,
     processRequest,
     routes
   );

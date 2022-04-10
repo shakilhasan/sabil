@@ -1,5 +1,6 @@
 [
-  // Superadmin users api permissions
+
+  // Superadmin users api permissions ----------------------------
 
   // /api/users/detail for superadmin
   {
@@ -64,8 +65,82 @@
     "isAllowed": true,
     "isDisabled": false
   },
+  
+  // Superadmin products api permissions ----------------------------
+      // /api/products for superadmin
+      {
+        "resourceName": "/api/products",
+        "resourceAlias": "Products Products menu API",
+        "roleName": "superadmin",
+        "roleAlias": "Superadmin",
+        "isAllowed": true,
+        "isDisabled": false
+      },
+    // /api/products/detail for superadmin
+    {
+      "resourceName": "/api/products/detail",
+      "resourceAlias": "Products detail API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/create for superadmin
+    {
+      "resourceName": "/api/products/create",
+      "resourceAlias": "Products create API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/update for superadmin
+    {
+      "resourceName": "/api/products/update",
+      "resourceAlias": "Products update API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/search for superadmin
+    {
+      "resourceName": "/api/products/search",
+      "resourceAlias": "Products search API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/count for superadmin
+    {
+      "resourceName": "/api/products/count",
+      "resourceAlias": "Products count API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/delete for superadmin
+    {
+      "resourceName": "/api/products/delete",
+      "resourceAlias": "Products delete API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
+    // /api/products/check for superadmin
+    {
+      "resourceName": "/api/products/check",
+      "resourceAlias": "Products check API",
+      "roleName": "superadmin",
+      "roleAlias": "Superadmin",
+      "isAllowed": true,
+      "isDisabled": false
+    },
 
-  // Superadmin roles api permissions
+  // Superadmin roles api permissions  ----------------------------
 
   // /api/roles/detail for superadmin
   {
@@ -122,7 +197,9 @@
     "isDisabled": false
   },
 
-  // Superadmin resources api permissions
+
+
+  // Superadmin resources api permissions  ----------------------------
 
   // /api/resources/detail for superadmin
   {
@@ -179,7 +256,9 @@
     "isDisabled": false
   },
 
-  // Superadmin permissions api permissions
+
+
+  // Superadmin permissions api permissions ----------------------------
 
   // /api/permissions/detail for superadmin
   {
@@ -236,9 +315,11 @@
     "isDisabled": false
   },
 
-  // Admin users api permissions
 
-  // admin roles api permissions
+
+  // Admin users api permissions ****************************************
+
+  // admin roles api permissions  ----------------------------
 
   // /api/roles/detail for Admin
   {
@@ -295,6 +376,9 @@
     "isDisabled": false
   },
 
+
+  // admin permissions api permissions ----------------------------
+
   // admin permissions for resources
   // /api/resources/search for admin
   {
@@ -306,7 +390,6 @@
     "isDisabled": false
   },
 
-  // admin permissions api permissions
 
   // /api/permissions/detail for Admin
   {
@@ -436,7 +519,11 @@
     "isDisabled": false
   },
 
-  // User role product permissions
+
+
+
+
+  // User role product permissions  **********************************
 
   // /api/products/detail for user
   {
@@ -493,11 +580,16 @@
     "isDisabled": false
   },
 
-  // Components permissions
+
+
+
+
+
+  // Components permissions  ##############################################
 
   // superadmin permissions for users pages
 
-  // /users permissions for superadmin
+  // /users permissions for superadmin ----------------------------
   {
     "resourceName": "/users",
     "resourceAlias": "Users menu",
@@ -525,7 +617,7 @@
     "isDisabled": false
   },
 
-  // admin permissions for users pages
+  // admin permissions for users pages  ----------------------------
 
   // /users permissions for admin
   {
@@ -555,7 +647,7 @@
     "isDisabled": false
   },
 
-  // superadmin permissions for roles pages
+  // superadmin permissions for roles pages  ----------------------------
 
   // /roles permissions for superadmin
   {
@@ -585,7 +677,7 @@
     "isDisabled": false
   },
 
-  // admin permissions for roles pages
+  // admin permissions for roles pages  ----------------------------
 
   // /roles permissions for admin
   {
@@ -615,7 +707,7 @@
     "isDisabled": false
   },
 
-  // superadmin permissions for resources pages
+  // superadmin permissions for resources pages  ----------------------------
 
   // /resources permissions for superadmin
   {
@@ -645,7 +737,7 @@
     "isDisabled": false
   },
 
-  // superadmin permissions for permissions pages
+  // superadmin permissions for permissions pages  ----------------------------
 
   // /permissions permissions for superadmin
   {
@@ -675,7 +767,7 @@
     "isDisabled": false
   },
 
-  // admin permissions for permissions pages
+  // admin permissions for permissions pages  ----------------------------
 
   // /permissions permissions for admin
   {
@@ -705,7 +797,7 @@
     "isDisabled": false
   },
 
-  // user permissions for products pages
+  // user permissions for products pages  ----------------------------
 
   // /products permissions for user
   {
