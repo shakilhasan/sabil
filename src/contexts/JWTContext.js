@@ -1,8 +1,7 @@
-import { createContext, useEffect, useReducer } from 'react';
+import {createContext, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
 // utils
-import { isValidToken, setSession } from '../utils/jwt';
-import axiosHelper from "../utils/axiosHelper";
+import {isValidToken, setSession} from '../utils/jwt';
 import {getUserAccount, userLogin, userSignup} from "../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
@@ -74,10 +73,8 @@ function AuthProvider({ children }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-
-          const response = await getUserAccount({});
-          const  user  = response.data;
-
+          const  user  = await getUserAccount({});
+          console.log("getUserAccount--",user);
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -86,6 +83,8 @@ function AuthProvider({ children }) {
             },
           });
         } else {
+          console.log("isAuthenticated: false--");
+
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -123,7 +122,6 @@ function AuthProvider({ children }) {
       type: 'LOGIN',
       payload: {
         user,
-        permissions,
       },
     });
   };

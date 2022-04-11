@@ -21,3 +21,4 @@ export const COUNT_USERS = "/users/count"
 // PRODUCTS
 export const GET_PRODUCT = "/products/detail"
 export const GET_PRODUCTS = "/products"
+export const SEARCH_PRODUCTS = "/products/search"

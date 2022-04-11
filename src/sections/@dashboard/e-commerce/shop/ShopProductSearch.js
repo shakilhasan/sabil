@@ -15,8 +15,7 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
-// import axios from '../../../../utils/axios';
-import axiosHelper from '../../../../utils/axiosHelper';
+import {searchProducts} from "../../../../helpers/backend_helper";
 
 
 // ----------------------------------------------------------------------
@@ -40,14 +39,9 @@ export default function ShopProductSearch() {
     try {
       setSearchQuery(value);
       if (value) {
-        // const response = await axios.get('/api/products/search', {
-        //   params: { query: value },
-        // });
-        const response = await axiosHelper.get('/api/product/search', {
-          params: { query: value },
-        });
+        const response = await searchProducts({name:value,pageSize:20});
         if (isMountedRef.current) {
-          setSearchResults(response.data.results);
+          setSearchResults(response.data);
         }
       }
     } catch (error) {

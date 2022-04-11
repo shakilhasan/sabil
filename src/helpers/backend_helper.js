@@ -33,5 +33,7 @@ export const deleteUser = user =>
 //  .............................. PRODUCT ....................................
 // get products
 export const getProductAll = product => get(url.GET_PRODUCTS, { params: { ...product } })
+// search products
+export const searchProducts = product => post(url.SEARCH_PRODUCTS, product)
 // get product
 export const getProductById = id => get(`${url.GET_PRODUCT}`, { params: { id } })
