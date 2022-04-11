@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navigate, useLocation, useRoutes } from 'react-router-dom';
 // components
 import LoadingScreen from '../components/LoadingScreen';
-// import RoleBasedGuard from '../guards/RoleBasedGuard';
+import RoledGuard from '../guards/RoleGuard';
 // config
 import { PATH_AFTER_LOGIN } from '../config';
 import AuthGuard from '../guards/AuthGuard';
@@ -58,10 +58,12 @@ export default function Router() {
     {
       path: 'dashboard',
       element: (
-        <AuthGuard>
-          <DashboardLayout />
-        </AuthGuard>
-      ),
+          <RoledGuard>
+              {/* <AuthGuard> */}
+                <DashboardLayout />
+              {/* </AuthGuard> */}
+            </RoledGuard>
+            ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralApp /> },

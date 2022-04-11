@@ -115,13 +115,15 @@ function AuthProvider({ children }) {
     //   password,
     // });
     const response = await userLogin({username:email, password,})
-    const { accessToken, user } = response;
+    const { accessToken, user, permissions } = response;
+    localStorage.setItem('permissions', JSON.stringify(permissions)); // todo -  unused when st to state
 
     setSession(accessToken);
     dispatch({
       type: 'LOGIN',
       payload: {
         user,
+        permissions,
       },
     });
   };
