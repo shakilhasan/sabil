@@ -1,10 +1,9 @@
 import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
-import axios from '../utils/axios';
 import { isValidToken, setSession } from '../utils/jwt';
 import axiosHelper from "../utils/axiosHelper";
-import {userLogin} from "../helpers/backend_helper";
+import {getUserAccount, userLogin, userSignup} from "../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -76,8 +75,8 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/api/account/my-account');
-          const { user } = response.data;
+          const response = await getUserAccount({});
+          const  user  = response.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -135,14 +134,18 @@ function AuthProvider({ children }) {
     //   lastName,
     // });
 
-    const response = await axiosHelper.post('/api/user', {
+    const response = await userSignup( {
       email,
+      username:email,
+      phoneNumber:email,
       password,
       displayName: `${firstName}  ${lastName}`,
     });
-    const { accessToken, user } = response.data;
+    console.log("register response--",response)
+    const { accessToken, user } = response;
 
-    window.localStorage.setItem('accessToken', accessToken);
+    setSession(accessToken); // todo - remove if unnecessary
+    // window.localStorage.setItem('accessToken', accessToken);
     dispatch({
       type: 'REGISTER',
       payload: {

@@ -1,6 +1,4 @@
 import axios from "axios"
-import accessToken from "./jwt-token-access/accessToken"
-
 
 // apply base url for axios
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api"
@@ -8,15 +6,13 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api"
 const axiosApi = axios.create({
     baseURL: API_URL,
 })
-const fakeApi = axios.create({
-    baseURL: "",
-})
-axiosApi.defaults.headers.common.authorization = `Bearer ${accessToken}`;
 
 axiosApi.interceptors.response.use(
     response => response,
     error => Promise.reject(error)
 )
+
+export default axiosApi;
 
 export async function get(url, config = {}) {
     // eslint-disable-next-line no-return-await
@@ -43,12 +39,6 @@ export async function postMultipart(
             "Content-Type": "multipart/form-data",
         },
     }).then(response => response.data)
-}
-
-export async function fakePost(url, data, config = {}) {
-    return fakeApi
-        .post(url, { ...data }, { ...config })
-        .then(response => response.data)
 }
 
 export async function put(url, data, config = {}) {
