@@ -165,6 +165,8 @@ async function postHandler(req, res) {
   const accessToken = jwt.sign(
     {
       id: newUser._id,
+      roleId: newUser?.roleId,
+      username: newUser?.username,
       exp:
         Math.floor(Date.now() / 1000) +
         parseInt(process.env.JWT_EXPIRES_IN, 10),

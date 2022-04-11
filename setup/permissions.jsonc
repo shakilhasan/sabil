@@ -4,6 +4,15 @@
 
   // /api/users/detail for superadmin
   {
+    "resourceName": "/api/users/account",
+    "resourceAlias": "Users account API",
+    "roleName": "superadmin",
+    "roleAlias": "Superadmin",
+    "isAllowed": true,
+    "isDisabled": false
+  },
+    // /api/users/detail for superadmin
+  {
     "resourceName": "/api/users/detail",
     "resourceAlias": "Users detail API",
     "roleName": "superadmin",
