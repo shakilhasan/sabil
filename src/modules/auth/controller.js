@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 const { handleValidation } = require("../../common/middlewares");
 const { validateRegistration, validateUsername } = require("./request");
 const {
@@ -11,7 +12,6 @@ const {
   tryCreateUser,
   searchPermissions,
 } = require("./service");
-const { User } = require("./model");
 
 const router = express.Router();
 const modelName = "User";
@@ -152,50 +152,34 @@ const checkUsernameHandler = async (req, res) => {
 };
 
 // add user
-async function postHandler(req, res, next) {
+async function postHandler(req, res) {
   // todo remove later by /register
+  // eslint-disable-next-line no-console
   console.log("postHandler....");
-  let newUser = {
-    displayName: "hasan",
-  };
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-  if (req.files && req.files.length > 0) {
-    newUser = new User({
-      ...req.body,
-      avatar: req.files[0].filename,
-      password: hashedPassword,
-    });
-  } else {
-    newUser = new User({
-      ...req.body,
-      password: hashedPassword,
-    });
-  }
-  // prepare the user object to generate token
-  const userObject = {
-    displayName: newUser.displayName,
-  };
-  // generate token
-  const accessToken = jwt.sign(userObject, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY,
+  const passwordHash = await bcrypt.hash(req.body.password, 10);
+  const newUser = new mongoose.models[modelName]({
+    ...req.body,
+    passwordHash,
   });
-
+  // generate token
+  const accessToken = jwt.sign(
+    {
+      id: newUser._id,
+      exp:
+        Math.floor(Date.now() / 1000) +
+        parseInt(process.env.JWT_EXPIRES_IN, 10),
+    },
+    process.env.JWT_SECRET
+  );
   // postHandler user or send error
   try {
-    const result = await newUser.save();
-    res.status(200).send({
-      user: newUser,
-      accessToken,
-    });
+    await newUser.save();
+    res.status(200).send({ user: newUser, accessToken });
   } catch (err) {
-    res.status(500).json({
-      errors: {
-        common: {
-          msg: "Unknown error occurred!",
-        },
-      },
-    });
+    console.error("error---------",err);
+    res
+      .status(500)
+      .json({ errors: { common: { msg: "Unknown error occurred!" } } });
   }
 }
 router.post("/signup", postHandler); // todo remove later by /register

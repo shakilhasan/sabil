@@ -8,9 +8,8 @@ const {
   countHandler: baseCountHandler,
   deleteHandler,
 } = require("../../core/controller");
-const { validateUserUpdate, validateUserCreate } = require("./request");
+const { validateUserCreate } = require("./request");
 const { handleValidation } = require("../../common/middlewares");
-const bcrypt = require("bcrypt");
 
 const router = express.Router();
 
@@ -55,12 +54,20 @@ const checkUserHandler = async (req, res) => {
   return res.status(200).send({ status: "error", message: "User not found" });
 };
 
+const processRequestForAccount = async (req, res, next) => {
+  // todo - remove if unnecessary
+  req.query.id = req.user.id;
+  return next();
+};
 
+router.get("/account", processRequestForAccount, getByIdHandler); // todo - remove if unnecessary
 router.get("/detail", getByIdHandler);
 router.post("/create", handleValidation(validateUserCreate), saveHandler);
-router.put("/update",
-    // handleValidation(validateUserUpdate),  // todo - uncommit when ready
-    updateHandler);
+router.put(
+  "/update",
+  // handleValidation(validateUserUpdate),  // todo - uncommit when ready
+  updateHandler
+);
 router.post("/search", searchHandler);
 router.post("/count", countHandler);
 router.delete("/delete", deleteHandler);
