@@ -27,24 +27,24 @@ const Loadable = (Component) => (props) => {
 };
 
 export default function Router() {
-  return useRoutes([
+  const allRoutes = [
     {
       path: 'auth',
       children: [
         {
           path: 'login',
           element: (
-            <GuestGuard>
-              <Login />
-            </GuestGuard>
+              <GuestGuard>
+                <Login />
+              </GuestGuard>
           ),
         },
         {
           path: 'register',
           element: (
-            <GuestGuard>
-              <Register />
-            </GuestGuard>
+              <GuestGuard>
+                <Register />
+              </GuestGuard>
           ),
         },
         { path: 'login-unprotected', element: <Login /> },
@@ -59,11 +59,11 @@ export default function Router() {
       path: 'dashboard',
       element: (
           <RoledGuard>
-              {/* <AuthGuard> */}
-                <DashboardLayout />
-              {/* </AuthGuard> */}
-            </RoledGuard>
-            ),
+            {/* <AuthGuard> */}
+            <DashboardLayout />
+            {/* </AuthGuard> */}
+          </RoledGuard>
+      ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralApp /> },
@@ -155,7 +155,22 @@ export default function Router() {
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
-  ]);
+  ]
+
+  const resources=[];
+  for(let i=0; i<allRoutes.length; i+=1){
+     for(let j=0; j<allRoutes[i]?.children?.length; j+=1){
+       for(let k=0; j<allRoutes[k]?.children[j]?.children?.length; k+=1){
+         const path = allRoutes[i]?.children[j]?.children[k]?.path;
+         resources.push(path);
+         console.log("path---", path)
+       }
+    }
+
+  }
+
+console.log("resources---", resources)
+  return useRoutes(allRoutes);
 }
 
 // IMPORT COMPONENTS
