@@ -3,6 +3,7 @@ const { init } = require("./modules");
 const { handleError, handleRequest } = require("./common/middlewares");
 // todo: remove in production
 const mockRoutes = require("../test/mock-routes/routes");
+const { generateResource } = require("./common/utils");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
@@ -46,6 +47,9 @@ const start = async () => {
       // eslint-disable-next-line no-console
       console.log(`Server is running on port ${PORT}`);
     });
+
+    // auto-generated resource-model from routes todo: remove if unnecessary
+    await generateResource(app);
   } catch (err) {
     await handleError(err);
   }
