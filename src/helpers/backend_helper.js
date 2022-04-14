@@ -7,7 +7,7 @@ export const userLogin = user => post(url.USER_LOGIN, user, { params: { ...user 
 export const userSignup = user => post(url.USER_SIGNUP, user);   // todo remove later by /register
 
 
-//  .............................. USER ....................................
+//  .............................. USERS ....................................
 // add user
 export const addUser = user => post(url.ADD_USER, user)
 // get Users
@@ -30,10 +30,15 @@ export const deleteUser = user =>
 
 
 
-//  .............................. PRODUCT ....................................
+//  .............................. PRODUCTS ....................................
 // get products
 export const getProductAll = product => get(url.GET_PRODUCTS, { params: { ...product } })
 // search products
 export const searchProducts = product => post(url.SEARCH_PRODUCTS, product)
 // get product
 export const getProductById = id => get(`${url.GET_PRODUCT}`, { params: { id } })
+
+
+//  .............................. RESOURCES ....................................
+// add user
+export const addManyResources = resources => post(url.ADD_MANY_RESOURCES, resources)

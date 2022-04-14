@@ -2,16 +2,17 @@ import { lazy, Suspense } from 'react';
 import { Navigate, useLocation, useRoutes } from 'react-router-dom';
 // components
 import LoadingScreen from '../components/LoadingScreen';
-import RoledGuard from '../guards/RoleGuard';
 // config
 import { PATH_AFTER_LOGIN } from '../config';
-import AuthGuard from '../guards/AuthGuard';
 // guards
 import GuestGuard from '../guards/GuestGuard';
+import RoledGuard from '../guards/RoleGuard';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // layouts
 import MainLayout from '../layouts/main';
+
+const { addManyResources} = require('../helpers/backend_helper');
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ const Loadable = (Component) => (props) => {
   );
 };
 
-export default function Router() {
+export default function  Router() {
   const allRoutes = [
     {
       path: 'auth',
@@ -157,16 +158,33 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> },
   ]
 
+  // genarate all router paths
   const resources=[];
-  for(let i=0; i<allRoutes.length; i+=1){
-     for(let j=0; j<allRoutes[i]?.children?.length; j+=1){
-       for(let k=0; j<allRoutes[k]?.children[j]?.children?.length; k+=1){
-         const path = allRoutes[i]?.children[j]?.children[k]?.path;
-         resources.push(path);
-         console.log("path---", path)
-       }
-    }
-
+  const push =(pathStr)=>{
+    const path = `/${pathStr.replace(/^\/+/g, '')}` 
+    resources.push({
+      name: path,
+      alias: path,// `${path.split("/")?.[1] ?? ""}-${path.split("/")?.[2] ?? ""}`,
+      type: "ui",
+    });
+  }
+  // eslint-disable-next-line array-callback-return
+  allRoutes.map(routeA=>{
+    // eslint-disable-next-line no-unused-expressions,array-callback-return
+    routeA?.children && routeA.children.map(routeB=>{
+      // eslint-disable-next-line no-unused-expressions,array-callback-return
+      !routeB.children ? routeB?.path && push((`${routeA?.path }/${ routeB?.path}`).replace("*","")) : routeB.children.map(routeC=>{
+        const path = `${routeA?.path }/${ routeB?.path}/${routeC.path}`;
+        // eslint-disable-next-line no-unused-expressions
+        routeC.path && push(path);
+      })
+    })
+  })
+// post paths to resources api
+  try{
+  addManyResources(resources).then((result) => result);
+  }catch(error){
+    console.error("addManyResources error---",error);
   }
 
 console.log("resources---", resources)

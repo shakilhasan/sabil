@@ -22,3 +22,9 @@ export const COUNT_USERS = "/users/count"
 export const GET_PRODUCT = "/products/detail"
 export const GET_PRODUCTS = "/products"
 export const SEARCH_PRODUCTS = "/products/search"
+
+// RESOURCES
+export const GET_RESOURCES = "/resources"
+export const ADD_MANY_RESOURCES = "/resources/createMany"
+
+
