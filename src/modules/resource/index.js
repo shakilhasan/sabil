@@ -15,7 +15,7 @@ const init = async (app) => {
   app.use(
     "/api/resources",
     authenticateRequest,
-    authorizeRequest,
+    // authorizeRequest,
     processRequest,
     routes
   );

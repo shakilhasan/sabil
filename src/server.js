@@ -19,6 +19,7 @@ const start = async () => {
       res.send("Hello World!");
     });
 
+    console.log(" routes", app2._router.stack);
     // todo: remove in production
     app2.use("/mock", mockRoutes);
     app2.use(handleError);
