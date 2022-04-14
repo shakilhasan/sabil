@@ -33,7 +33,10 @@ const saveHandler = async (req, res, next) => {
 };
 
 const searchHandler = async (req, res, next) => {
-  const query = { ...req.body, userId: req.user.id };
+  const query = {
+    ...req.body,
+    // userId: req.user.id // todo - uncomment if needed
+  };
   req.searchQuery = getQuery(query);
   return baseSearchHandler(req, res, next);
 };

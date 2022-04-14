@@ -9,7 +9,11 @@
         "email": "superadmin@sabil.com",
         "roleId": "",
         "roleAlias": "Super Admin",
-        "password": "sabil1234"
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
     },
     {
         "firstName": "Admin",
@@ -21,7 +25,12 @@
         "email": "admin@sabil.com",
         "roleId": "",
         "roleAlias": "Admin",
-        "password": "sabil1234"
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+
     },
     {
         "firstName": "User",
@@ -33,6 +42,11 @@
         "email": "user@sabil.com",
         "roleId": "",
         "roleAlias": "User",
-        "password": "sabil1234"
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+
     }
 ]

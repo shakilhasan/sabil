@@ -67,6 +67,10 @@ const count = async (query, modelName) => {
   const data = await mongoose.models[modelName].find(query).count();
   return data;
 };
+const countDocuments = async ( modelName) => {
+
+  return mongoose.models[modelName].countDocuments();
+};
 
 const getAll = async ( modelName) => {  // todo - remove later
   const data = await mongoose.models[modelName].find();
@@ -75,26 +79,23 @@ const getAll = async ( modelName) => {  // todo - remove later
 
 const search = async (payload, query, modelName) => {
   const sort = getSortClause(payload);
-  const take = parseInt(process.env.DEFAULT_PAGE_SIZE, 10);
-  const skip = (parseInt(payload.current, 10) - 1) * take;
+  const take = parseInt(payload?.pageSize ?? process.env.DEFAULT_PAGE_SIZE, 10);
+  const skip = (parseInt(payload?.current, 10) - 1) * take;
 
-  const data = await mongoose.models[modelName]
-    .find(query)
-    .sort(sort)
-    .skip(skip)
-    .limit(take);
-
-  return data;
+  return mongoose.models[modelName]
+      .find(query)
+      .sort(sort)
+      .skip(skip)
+      .limit(take);
 };
 
 const getDropdownData = async (query, project, modelName) => {
-  const data = await mongoose.models[modelName]
-    .find(query)
-    .select(project)
-    .sort(project)
-    .lean()
-    .exec();
-  return data;
+  return await mongoose.models[modelName]
+      .find(query)
+      .select(project)
+      .sort(project)
+      .lean()
+      .exec();
 };
 
 module.exports = {
@@ -108,6 +109,7 @@ module.exports = {
   updateAll,
   getSortClause,
   count,
+  countDocuments,
   search,
   getDropdownData,
 };

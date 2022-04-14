@@ -79,13 +79,13 @@ const tryCreateUser = async (user) => {
 const getQuery = (payload) => {
   const createdBySubQuery = {
     $or: [
-      { createdBy: ObjectId(payload.userId) },
-      { _id: ObjectId(payload.userId) },
+      { createdBy: ObjectId(payload?.userId) },
+      { _id: ObjectId(payload?.userId) },
     ],
   };
 
   let query = {};
-  if (payload.name) {
+  if (payload?.name && payload?.userId) {
     query = {
       $and: [
         createdBySubQuery,
@@ -98,7 +98,9 @@ const getQuery = (payload) => {
         },
       ],
     };
-  } else query = createdBySubQuery;
+  } else if(payload?.userId){
+    query = createdBySubQuery;
+  }
 
   return query;
 };

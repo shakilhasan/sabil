@@ -6,8 +6,9 @@ const {
   count,
   save,
   update,
-  deleteById,
+  deleteById, countDocuments,
 } = require("./repository");
+const mongoose = require("mongoose");
 
 const getByIdHandler = async (req, res, next) => {
   try {
@@ -28,6 +29,7 @@ const searchHandler = async (req, res, next) => {
     const ModelName = req.modelName;
     const { body } = req;
     req.log.info({ body }, `search ${ModelName}`);
+    const total = await countDocuments(ModelName);
     const data =
       body.pageSize === -1
         ? await getDropdownData(
@@ -36,7 +38,7 @@ const searchHandler = async (req, res, next) => {
             ModelName
           )
         : await search(body, req.searchQuery, ModelName);
-    return res.status(200).send({ data, total: 0 });
+    return res.status(200).send({ data, total});
   } catch (error) {
     return next(error, req, res);
   }

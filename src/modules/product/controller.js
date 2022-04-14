@@ -25,16 +25,6 @@ const countHandler = async (req, res, next) => {
   return baseCountHandler(req, res, next);
 };
 
-const getHandler = async (req, res, next) => {
-  // todo remove later
-  try {
-    const products = await getAll("Product");
-    res.status(200).send(products);
-  } catch (error) {
-    return next(error, req, res);
-  }
-};
-router.get("/", getHandler); // todo remove later
 router.get("/detail", getByIdHandler);
 router.post("/create", handleValidation(validate), saveHandler);
 router.put("/update", handleValidation(validate), updateHandler);

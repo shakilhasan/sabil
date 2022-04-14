@@ -10,7 +10,7 @@ const productEntryOptions = {
   requests: [
     {
       method: "POST",
-      path: "/mock/product",
+      path: "/mock/users",
       headers: {
         "Content-Type": "application/json",
       },

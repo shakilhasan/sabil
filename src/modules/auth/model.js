@@ -33,7 +33,10 @@ const userSchema = new mongoose.Schema(
     city: { type: String, required: false },
     zipCode: { type: String, required: false },
     about: { type: String, required: false },
+    company: { type: String, required: false },
+    status: { type: String, required: false },
     isPublic: { type: Boolean, required: false, default: true },
+    isVerified: { type: Boolean, required: false, default: true },
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
