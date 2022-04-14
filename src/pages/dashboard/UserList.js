@@ -1,5 +1,5 @@
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -32,13 +32,14 @@ import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { UserListHead, UserListToolbar, UserMoreMenu } from '../../sections/@dashboard/user/list';
+import {deleteUser, searchUsers} from "../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
+  { id: 'username', label: 'Username', alignRight: false },
   { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
+  { id: 'roleAlias', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
@@ -50,14 +51,22 @@ export default function UserList() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
 
-  const [userList, setUserList] = useState(_userList);
+  const [userList, setUserList] = useState([]); // _userList
+  const [total, setTotal] = useState(0); // _userList
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('username');
+  const [reload, setReload] = useState(false);
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  useEffect(()=>{
+    searchUsers({current: page+1, pageSize: rowsPerPage, sort: orderBy, order:1}).then(res => {
+          console.log("userSearch", res);
+          setUserList(res.data);
+          setTotal(res.total);
+    })
+  },[page, rowsPerPage, reload, orderBy]);
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -73,11 +82,11 @@ export default function UserList() {
     setSelected([]);
   };
 
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (username) => {
+    const selectedIndex = selected.indexOf(username);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, username);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -98,14 +107,20 @@ export default function UserList() {
     setPage(0);
   };
 
-  const handleDeleteUser = (userId) => {
-    const deleteUser = userList.filter((user) => user.id !== userId);
+  const handleDeleteUser = async (userId) => {
+    // const deleteUser = userList.filter((user) => user._id !== userId);
+    try {
+      await deleteUser({id: userId})
+      setReload(true);
+    }catch (e) {
+      console.error("deleteUser error---", e);
+    }
     setSelected([]);
-    setUserList(deleteUser);
+    // setUserList(deleteUser);
   };
 
   const handleDeleteMultiUser = (selected) => {
-    const deleteUsers = userList.filter((user) => !selected.includes(user.name));
+    const deleteUsers = userList.filter((user) => !selected.includes(user.username));
     setSelected([]);
     setUserList(deleteUsers);
   };
@@ -160,8 +175,9 @@ export default function UserList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    // const { id, name, role, status, company, photoURL, isVerified } = row;
+                    const { _id:id, displayName:name, username, roleAlias, status, company, photoURL, isVerified } = row;
+                    const isItemSelected = selected.indexOf(username) !== -1;
 
                     return (
                       <TableRow
@@ -173,16 +189,16 @@ export default function UserList() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
+                          <Checkbox checked={isItemSelected} onClick={() => handleClick(username)} />
                         </TableCell>
                         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} />
+                          <Avatar alt={username} src={photoURL} sx={{ mr: 2 }} />
                           <Typography variant="subtitle2" noWrap>
-                            {name}
+                            {username}
                           </Typography>
                         </TableCell>
                         <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{roleAlias}</TableCell>
                         <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
                         <TableCell align="left">
                           <Label
@@ -194,7 +210,7 @@ export default function UserList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <UserMoreMenu onDelete={() => handleDeleteUser(id)} userName={name} />
+                           <UserMoreMenu onDelete={() => handleDeleteUser(id)} id={id} />
                         </TableCell>
                       </TableRow>
                     );
@@ -221,7 +237,7 @@ export default function UserList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={userList.length}
+            count={total}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(e, page) => setPage(page)}
@@ -259,7 +275,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return array.filter((_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return array.filter((_user) => _user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }

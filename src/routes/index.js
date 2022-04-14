@@ -94,7 +94,7 @@ export default function  Router() {
             { path: 'cards', element: <UserCards /> },
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
-            { path: ':name/edit', element: <UserCreate /> },
+            { path: 'edit/:id', element: <UserCreate /> },
             { path: 'account', element: <UserAccount /> },
           ],
         },
@@ -182,7 +182,7 @@ export default function  Router() {
   })
 // post paths to resources api
   try{
-  addManyResources(resources).then((result) => result);
+  // addManyResources(resources).then((result) => result);
   }catch(error){
     console.error("addManyResources error---",error);
   }

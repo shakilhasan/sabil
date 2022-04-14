@@ -119,7 +119,7 @@ export const _userInvoices = [...Array(10)].map((_, index) => ({
 
 export const _userList = [...Array(24)].map((_, index) => ({
   id: _mock.id(index),
-  avatarUrl: _mock.image.avatar(index),
+  photoURL: _mock.image.avatar(index),
   name: _mock.name.fullName(index),
   email: _mock.email(index),
   phoneNumber: _mock.phoneNumber(index),
