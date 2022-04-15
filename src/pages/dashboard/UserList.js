@@ -22,7 +22,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // _mock_
-import { _userList } from '../../_mock';
+// import { _userList } from '../../_mock';
 // components
 import Page from '../../components/Page';
 import Label from '../../components/Label';
@@ -39,7 +39,7 @@ import {deleteUser, searchUsers} from "../../helpers/backend_helper";
 const TABLE_HEAD = [
   { id: 'username', label: 'Username', alignRight: false },
   { id: 'company', label: 'Company', alignRight: false },
-  { id: 'roleAlias', label: 'Role', alignRight: false },
+  { id: 'roleAlias', label: 'Role Alias', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
@@ -62,7 +62,6 @@ export default function UserList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   useEffect(()=>{
     searchUsers({current: page+1, pageSize: rowsPerPage, sort: orderBy, order:1}).then(res => {
-          console.log("userSearch", res);
           setUserList(res.data);
           setTotal(res.total);
     })
@@ -75,7 +74,7 @@ export default function UserList() {
 
   const handleSelectAllClick = (checked) => {
     if (checked) {
-      const newSelecteds = userList.map((n) => n.name);
+      const newSelecteds = userList.map((n) => n.username);
       setSelected(newSelecteds);
       return;
     }

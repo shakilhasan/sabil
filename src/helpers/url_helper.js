@@ -20,11 +20,11 @@ export const COUNT_USERS = "/users/count"
 
 // PRODUCTS
 export const GET_PRODUCT = "/products/detail"
-export const GET_PRODUCTS = "/products"
 export const SEARCH_PRODUCTS = "/products/search"
+export const ADD_PRODUCT = "/products/create"
+export const UPDATE_PRODUCT = "/products/update"
 
 // RESOURCES
-export const GET_RESOURCES = "/resources"
 export const ADD_MANY_RESOURCES = "/resources/createMany"
 
 

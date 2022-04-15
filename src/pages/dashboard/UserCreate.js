@@ -22,10 +22,11 @@ export default function UserCreate() {
   const { pathname } = useLocation();
   const { id = '' } = useParams();
   const isEdit = pathname.includes('edit');
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState({});
 
     useEffect(()=>{
-        getUser({id}).then(res => {
+        // eslint-disable-next-line no-unused-expressions
+       id && getUser({id}).then(res => {
             console.log("userSearch", res);
             setCurrentUser(res);
         })

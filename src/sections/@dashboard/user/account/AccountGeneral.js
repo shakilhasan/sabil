@@ -24,7 +24,7 @@ export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuth();
-
+  console.log("Account General user--", user);
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
   });

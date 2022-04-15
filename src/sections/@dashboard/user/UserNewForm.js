@@ -18,7 +18,7 @@ import {countries} from '../../../_mock';
 // components
 import Label from '../../../components/Label';
 import {FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar} from '../../../components/hook-form';
-import {updateUser} from "../../../helpers/backend_helper";
+import {addUser, updateUser} from "../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -97,7 +97,18 @@ export default function UserNewForm({isEdit, currentUser}) {
         try {
             await new Promise((resolve) => setTimeout(resolve, 500));
             console.log("submit ---", getValues())
-            await updateUser({...currentUser, ...getValues()});
+            const user = {...currentUser, ...getValues()}
+            if(isEdit){
+                await updateUser(user);
+            }else{
+                delete user._id;
+                await addUser({
+                    ...user,
+                    password: 'sabil1234',
+                    displayName: user.email,
+                    photoURL:"https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg",
+                });
+            }
             reset();
             enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
             navigate(PATH_DASHBOARD.user.list);

@@ -22,6 +22,7 @@ import {
   RHFRadioGroup,
   RHFUploadMultiFile,
 } from '../../../components/hook-form';
+import {addProduct, addUser, updateProduct, updateUser} from "../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -123,6 +124,17 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   const onSubmit = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log(isEdit,"submit ---", getValues())
+      const product = {...currentProduct, ...getValues()}
+      if(isEdit){
+        await updateProduct(product);
+      }else{
+        delete product._id;
+        await addProduct({
+          ...product,
+          images:["https://minimal-assets-api.vercel.app/assets/images/products/product_1.jpg"],
+        });
+      }
       reset();
       enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
       navigate(PATH_DASHBOARD.eCommerce.list);
@@ -161,7 +173,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
               <RHFTextField name="name" label="Product Name" />
-
               <div>
                 <LabelStyle>Description</LabelStyle>
                 <RHFEditor simple name="description" />
@@ -257,7 +268,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   label="Sale Price"
                   placeholder="0.00"
                   value={getValues('priceSale') === 0 ? '' : getValues('priceSale')}
-                  onChange={(event) => setValue('price', Number(event.target.value))}
+                  onChange={(event) => setValue('priceSale', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,

@@ -81,7 +81,7 @@ export default function  Router() {
             { path: 'product/:id', element: <EcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/new', element: <EcommerceProductCreate /> },
-            { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
+            { path: 'product/edit/:id', element: <EcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },
             { path: 'invoice', element: <EcommerceInvoice /> },
           ],

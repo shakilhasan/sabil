@@ -70,11 +70,11 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
-
+        // console.log("AuthProvider accessToken--",accessToken)
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           const  user  = await getUserAccount({});
-          console.log("getUserAccount--",user);
+          console.log("AuthProvider getUserAccount--",user);
           dispatch({
             type: 'INITIALIZE',
             payload: {

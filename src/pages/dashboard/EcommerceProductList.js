@@ -171,7 +171,7 @@ export default function EcommerceProductList() {
 
                 <TableBody>
                   {filteredProducts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, cover, price, createdAt, inventoryType } = row;
+                    const { _id:id, name, cover, price, createdAt, inventoryType } = row;
 
                     const isItemSelected = selected.indexOf(name) !== -1;
 
@@ -213,7 +213,7 @@ export default function EcommerceProductList() {
                         </TableCell>
                         <TableCell align="right">{fCurrency(price)}</TableCell>
                         <TableCell align="right">
-                          <ProductMoreMenu productName={name} onDelete={() => handleDeleteProduct(id)} />
+                          <ProductMoreMenu id={id} onDelete={() => handleDeleteProduct(id)} />
                         </TableCell>
                       </TableRow>
                     );
