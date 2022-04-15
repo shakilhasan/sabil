@@ -18,8 +18,8 @@
     "lint": "eslint"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Md.Shakil Hasan",
+  "license": "MIT",
   "dependencies": {
     "@faker-js/faker": "^6.1.2",
     "@sendgrid/mail": "^7.6.2",
