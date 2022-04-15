@@ -65,10 +65,12 @@ const processRequestForAccount = async (req, res, next) => {
 
 router.get("/account", processRequestForAccount, getByIdHandler); // todo - remove if unnecessary
 router.get("/detail", getByIdHandler);
-router.post("/create", handleValidation(validateUserCreate), saveHandler);
+router.post("/create",
+    // handleValidation(validateUserCreate), // todo - uncomment when ready
+    saveHandler);
 router.put(
   "/update",
-  // handleValidation(validateUserUpdate),  // todo - uncommit when ready
+  // handleValidation(validateUserUpdate),  // todo - uncomment when ready
   updateHandler
 );
 router.post("/search", searchHandler);

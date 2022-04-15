@@ -2,7 +2,7 @@
 
   // Superadmin users api permissions ----------------------------
 
-  // /api/users/detail for superadmin
+  // /api/users/account for superadmin
   {
     "resourceName": "/api/users/account",
     "resourceAlias": "Users account API",
@@ -329,7 +329,15 @@
   // Admin users api permissions ****************************************
 
   // admin roles api permissions  ----------------------------
-
+  // /api/users/account for superadmin
+  {
+    "resourceName": "/api/users/account",
+    "resourceAlias": "Users account API",
+    "roleName": "admin",
+    "roleAlias": "Admin",
+    "isAllowed": true,
+    "isDisabled": false
+  },
   // /api/roles/detail for Admin
   {
     "resourceName": "/api/roles/detail",

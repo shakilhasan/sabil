@@ -45,10 +45,10 @@ const schema = new mongoose.Schema(
     colors: [{ type: String, required: false }],
 
     // added later todo: merge both
-    cost: { type: Number, required: true },
-    size: { type: Number, required: true },
-    manufacturingDate: { type: Date, required: true },
-    expiryDate: { type: Date, required: true },
+    cost: { type: Number, required: false },  // todo: required: true
+    size: { type: Number, required: false }, // todo: required: true
+    manufacturingDate: { type: Date, required: false }, // todo: required: true
+    expiryDate: { type: Date, required: false }, // todo: required: true
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
