@@ -1,5 +1,5 @@
 # Welcome to the Sabil Project By MERN-STACK
-### This is a functional ecommerce web application that is developed by using react, redux, node.js, express, mongodb.
+### This is a functional ecommerce web application that is developed by using React, Redux, Node.js, Express, MongoDB.
 #### This Project includes two repositories, this repo is client-side, server-side repo is [here](https://github.com/shakilhasan/sabil-api)
 
 Below are the sample of a product-shop and list page:
