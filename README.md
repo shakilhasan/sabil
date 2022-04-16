@@ -3,4 +3,4 @@ This repository is built on top of React.js, however in the implementation detai
 
 ## 🔥 Important Links 🔥
 - ✅ Back-End:  [Source Code](https://github.com/shakilhasan/sabil-api)
-- ✅ Project Live : [Sabil-App](https://sabil-app.herokuapp.com)
+- ✅ Project Live : [Sabil-App](https://sabil.vercel.app)
