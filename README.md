@@ -75,6 +75,6 @@ npm run db:migrate
 
 You should be able to see the username and password in the `/setup/users.json` file.
 
-## 🔥 Important Links 🔥
-- ✅ Back-End:  [Source Code](https://github.com/shakilhasan/sabil-api)
-- ✅ Project Live : [Sabil-App](https://sabil.vercel.app)
+## 🔗 Important Links ❗
+- ✅ Server-side (Back-End):  [Source Code](https://github.com/shakilhasan/sabil-api)
+- 🔴 Project Live : [Sabil-App](https://sabil.vercel.app)
