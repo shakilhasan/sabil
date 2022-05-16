@@ -4,9 +4,9 @@
 
 Below are the sample of a product-shop and list page:
 
-![Product List Page](./docs/images/product-shop.png)
+![Product List Page](docs/images/product-shop.png)
 
-![Product List Page](./docs/images/product-list-search.png)
+![Product List Page](docs/images/product-list-search.png)
 
 ## Technology stack
 
