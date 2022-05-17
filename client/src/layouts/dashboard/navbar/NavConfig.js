@@ -24,16 +24,46 @@ const ICONS = {
 };
 
 const navConfig = [
-  // GENERAL
+  // // GENERAL
+  // // ----------------------------------------------------------------------
+  // {
+  //   subheader: 'general',
+  //   items: [
+  //     { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
+  //     { title: 'e-commerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
+  //     // { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics }, //todo uncommitted when ready
+  //     // { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
+  //     // { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+  //   ],
+  // },
+
+  // CATEGORY
   // ----------------------------------------------------------------------
   {
-    subheader: 'general',
+    subheader: 'category',
     items: [
-      { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
-      { title: 'e-commerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      // { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics }, //todo uncommitted when ready
-      // { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
-      // { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      // CATEGORY : Fruits
+      {
+        title: 'Fruits & Vegetables',
+        path: PATH_DASHBOARD.user.root,
+        icon: ICONS.ecommerce,
+        children: [
+          { title: 'Dates (Khejur)', path: PATH_DASHBOARD.shop.datesKhejur },
+          { title: 'Fresh Fruits', path: PATH_DASHBOARD.shop.freshFruit },
+        ],
+      },
+
+      // CATEGORY : Meat
+      {
+        title: 'Meat & Fish',
+        path: PATH_DASHBOARD.eCommerce.root,
+        icon: ICONS.cart,
+        children: [
+          { title: 'Meat', path: PATH_DASHBOARD.shop.meat },
+          { title: 'Frozen Fish', path: PATH_DASHBOARD.shop.frozenFish },
+        ],
+      },
+
     ],
   },
 

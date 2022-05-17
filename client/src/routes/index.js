@@ -87,6 +87,18 @@ export default function  Router() {
           ],
         },
         {
+          path: 'shop',
+          children: [
+            { element: <Navigate to="/dashboard/shop" replace />, index: true },
+            { path: 'dates-khejur', element: <EcommerceShop category={"datesKhejur"} /> },
+            { path: 'fresh-fruit', element: <EcommerceShop category={"freshFruit"} /> },
+            { path: 'meat', element: <EcommerceShop category={"meat"} /> },
+            { path: 'frozen-fish', element: <EcommerceShop category={"frozenFish"} /> },
+
+          ],
+        },
+
+        {
           path: 'user',
           children: [
             { element: <Navigate to="/dashboard/user/profile" replace />, index: true },

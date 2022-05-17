@@ -27,7 +27,7 @@ import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceShop() {
+export default function EcommerceShop(props) {
   const { themeStretch } = useSettings();
 
   const dispatch = useDispatch();
@@ -62,8 +62,9 @@ export default function EcommerceShop() {
     values.category === 'All';
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    console.log('useEffect props?.category--', props?.category)
+    dispatch(getProducts({ current:1, pageSize:20, category: props?.category }));
+  }, [dispatch,props?.category]);
 
   useEffect(() => {
     dispatch(filterProducts(values));

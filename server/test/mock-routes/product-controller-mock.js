@@ -11,8 +11,7 @@ const findAll = async (req, res) => {
   const products = await Product.find();
   res.send(products);
 };
-const getFakeUniqueProductName = () =>
-  faker.fake("{{commerce.productName}} {{datatype.uuid}}");
+const getFakeUniqueProductName = () => faker.fake("{{commerce.productName}}");
 const getFakeProduct = async () => ({
   cover: faker.image.food(640, 480, true),
   images: [
@@ -75,7 +74,15 @@ const getFakeProduct = async () => ({
   description: faker.commerce.productDescription(),
   sold: faker.datatype.number({ max: 20000 }),
   createdAt: faker.date.past(),
-  category: faker.random.arrayElement(["Accessories", "Apparel", "Shose"]),
+  category: faker.random.arrayElement([
+    "Accessories",
+    "Apparel",
+    "Shose",
+    "datesKhejur",
+    "freshFruit",
+    "meat",
+    "frozenFish",
+  ]),
   gender: faker.random.arrayElement(["Men", "Women", "Kids"]),
   colors: [
     faker.internet.color(),

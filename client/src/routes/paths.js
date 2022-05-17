@@ -72,6 +72,15 @@ export const PATH_DASHBOARD = {
     checkout: path(ROOTS_DASHBOARD, '/e-commerce/checkout'),
     invoice: path(ROOTS_DASHBOARD, '/e-commerce/invoice')
   },
+  shop: {
+    root: path(ROOTS_DASHBOARD, '/shop'),
+    datesKhejur: path(ROOTS_DASHBOARD, '/shop/dates-khejur'),
+    freshFruit: path(ROOTS_DASHBOARD, '/shop/fresh-fruit'),
+    meat: path(ROOTS_DASHBOARD, '/shop/meat'),
+    frozenFish: path(ROOTS_DASHBOARD, '/shop/frozen-fish'),
+
+  },
+
   blog: {
     root: path(ROOTS_DASHBOARD, '/blog'),
     posts: path(ROOTS_DASHBOARD, '/blog/posts'),

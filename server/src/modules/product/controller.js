@@ -26,9 +26,11 @@ const countHandler = async (req, res, next) => {
 };
 
 router.get("/detail", getByIdHandler);
-router.post("/create",
-    // handleValidation(validate),
-    saveHandler);
+router.post(
+  "/create",
+  // handleValidation(validate),
+  saveHandler
+);
 router.put("/update", handleValidation(validate), updateHandler);
 router.post("/search", searchHandler);
 router.post("/count", countHandler);

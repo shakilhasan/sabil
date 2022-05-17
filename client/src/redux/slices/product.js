@@ -209,12 +209,12 @@ export const {
 
 // ----------------------------------------------------------------------
 
-export function getProducts() {
+export function getProducts(product) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
       // const response = await axios.get('/api/products');
-      const response = await searchProducts({ current:1, pageSize:20 });
+      const response = await searchProducts(product);
       dispatch(slice.actions.getProductsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

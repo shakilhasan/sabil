@@ -12,6 +12,9 @@ const getQuery = (payload) => {
   if (payload.size) {
     queries.push({ size: parseInt(payload.size, 10) });
   }
+  if (payload.category) {
+    queries.push({ category: payload.category });
+  }
 
   // payload.fromDate && payload.toDate
   if (payload.manufacturingDateRange) {
