@@ -52,7 +52,7 @@ Details frameworks and packages can be found in the package.json files in server
 We assume mongodb is up and running.
 ```sh
 npm i
-npm run db:up
+npm run db:seed
 npm start
 ```
 
