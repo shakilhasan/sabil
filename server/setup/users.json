@@ -1,0 +1,52 @@
+[
+    {
+        "firstName": "Super",
+        "lastName": "Admin",
+        "displayName": "Super Admin",
+        "username": "superadmin@sabil.com",
+        "address": "Dhaka, Bangladesh",
+        "phoneNumber": "01000000001",
+        "email": "superadmin@sabil.com",
+        "roleId": "",
+        "roleAlias": "Super Admin",
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+    },
+    {
+        "firstName": "Admin",
+        "lastName": "Admin",
+        "username": "admin",
+        "displayName": "admin",
+        "address": "Wakanda",
+        "phoneNumber": "01000000002",
+        "email": "admin@sabil.com",
+        "roleId": "",
+        "roleAlias": "Admin",
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+
+    },
+    {
+        "firstName": "User",
+        "lastName": "User",
+        "username": "user",
+        "displayName": "user",
+        "address": "Wakanda",
+        "phoneNumber": "01000000003",
+        "email": "user@sabil.com",
+        "roleId": "",
+        "roleAlias": "User",
+        "password": "sabil1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "sabil",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+
+    }
+]

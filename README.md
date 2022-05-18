@@ -4,9 +4,9 @@
 
 Below are the sample of a product-shop and list page:
 
-![Product List Page](./docs/images/product-shop.png)
+![Product List Page](docs/images/product-shop.png)
 
-![Product List Page](./docs/images/product-list-search.png)
+![Product List Page](docs/images/product-list-search.png)
 
 ## Technology stack
 
@@ -52,7 +52,7 @@ Details frameworks and packages can be found in the package.json files in server
 We assume mongodb is up and running.
 ```sh
 npm i
-npm run db:up
+npm run db:seed
 npm start
 ```
 
