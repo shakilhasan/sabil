@@ -3,7 +3,7 @@
         "firstName": "Super",
         "lastName": "Admin",
         "displayName": "Super Admin",
-        "username": "superadmin",
+        "username": "superadmin@sabil.com",
         "address": "Dhaka, Bangladesh",
         "phoneNumber": "01000000001",
         "email": "superadmin@sabil.com",
@@ -18,7 +18,7 @@
     {
         "firstName": "Admin",
         "lastName": "Admin",
-        "username": "admin",
+        "username": "admin@sabil.com",
         "displayName": "admin",
         "address": "Wakanda",
         "phoneNumber": "01000000002",
@@ -35,7 +35,7 @@
     {
         "firstName": "User",
         "lastName": "User",
-        "username": "user",
+        "username": "user@sabil.com",
         "displayName": "user",
         "address": "Wakanda",
         "phoneNumber": "01000000003",
