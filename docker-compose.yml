@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - mydockernet
+    volumes:
+      - 'app_mongo:/data/db'
+  appserver:
+    image: appserver:123
+    container_name: appserver
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
+    networks:
+      - mydockernet
+    environment:
+      - DEBUG=1
+      - NODE_ENV=production
+      - TEST=test123
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_NAME=sabil
+      - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
+      - JWT_EXPIRES_IN=3600
+      - PORT=8002
+    depends_on:
+      - mongo
+  appclient:
+    image: appclient:123
+    container_name: appclient
+    build:
+      context: ./client
+      args:
+        REACT_APP_API_URL: http://{API_SERVER_IP}:8002
+        REACT_APP_ENV: production
+      dockerfile: Dockerfile
+    networks:
+      - mydockernet
+    environment:
+      - REACT_APP_ENV=production
+    ports:
+      - 8001:8001
+    depends_on:
+      - appserver
+networks:
+  mydockernet:
+    driver: bridge
+volumes:
+  app_mongo: null

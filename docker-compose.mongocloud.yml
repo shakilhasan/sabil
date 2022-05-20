@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  appserver:
+    image: appserver:pi
+    container_name: appserver
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
+    networks:
+      - mydockernet
+    environment:
+      - DEBUG=1
+      - NODE_ENV=production
+      - TEST=test123
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_NAME=sabil
+      - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
+      - JWT_EXPIRES_IN=3600
+      - PORT=8002
+      - IS_MONGODB_CLOUD_URL=true
+      - MONGODB_CLOUD_URL=mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/sabil?retryWrites=true&w=majority
+  appclient:
+    image: appclient:123
+    container_name: appclient
+    build:
+      context: ./client
+      args:
+        REACT_APP_API_URL: http://localhost:8002
+        REACT_APP_ENV: production
+      dockerfile: Dockerfile
+    networks:
+      - mydockernet
+    environment:
+      - REACT_APP_ENV=production
+    ports:
+      - 8001:8001
+    depends_on:
+      - appserver
+networks:
+  mydockernet:
+    driver: bridge
+volumes:
+  app_mongo: null
