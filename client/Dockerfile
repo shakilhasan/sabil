@@ -5,7 +5,7 @@ ARG REACT_APP_API_URL
 COPY package*.json ./
 #RUN npm ci
 RUN npm install
-COPY . ./
+COPY . .
 # RUN yarn
 # RUN yarn build
 
