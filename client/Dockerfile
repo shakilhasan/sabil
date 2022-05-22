@@ -3,14 +3,15 @@ WORKDIR /usr/src/app
 ARG REACT_APP_API_URL
 # ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package*.json ./
-RUN npm ci
+#RUN npm ci
+RUN npm install
 COPY . ./
 # RUN yarn
 # RUN yarn build
 
 EXPOSE 8001
 # CMD [ "yarn", "serve" ]
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start" ]
 
 # production environment
 # FROM nginx:stable-alpine
