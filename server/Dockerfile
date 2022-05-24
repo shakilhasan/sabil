@@ -4,5 +4,5 @@ COPY package*.json ./
 ENV NODE_ENV=production
 RUN npm ci
 COPY . .
-EXPOSE 8002
+EXPOSE 8008
 CMD [ "npm", "start" ]

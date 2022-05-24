@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8002:8002
+      - 8008:8008
     environment:
       - DEBUG=1
       - NODE_ENV=production
@@ -17,6 +17,6 @@ services:
       - DB_NAME=sabil
       - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
       - JWT_EXPIRES_IN=3600
-      - PORT=8002
+      - PORT=8008
       - IS_MONGODB_CLOUD_URL=false
       - MONGODB_CLOUD_URL=mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/sabil?retryWrites=true&w=majority

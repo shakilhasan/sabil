@@ -6,7 +6,7 @@ const mockRoutes = require("../test/mock-routes/routes");
 const { generateResource } = require("./common/utils");
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 const start = async () => {
   // eslint-disable-next-line no-return-await
