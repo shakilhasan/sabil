@@ -4,7 +4,7 @@ services:
     image: mongo
     container_name: mongo
     ports:
-      - 20717:20717
+      - 27000:27017
     networks:
       - mydockernet
     volumes:
@@ -24,7 +24,7 @@ services:
       - NODE_ENV=production
       - TEST=test123
       - DB_HOST=mongo
-      - DB_PORT=20717
+      - DB_PORT=27000
       - DB_NAME=sabil
       - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
       - IS_MONGODB_CLOUD_URL=false
