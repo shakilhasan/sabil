@@ -4,7 +4,7 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - 20717:20717
+      - 27000:27017
     networks:
       - mydockernet
     volumes:
