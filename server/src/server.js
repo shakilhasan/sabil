@@ -1,9 +1,9 @@
-const {setup : setupCore} = require("./core");
-const {init} = require("./modules");
-const {handleError, handleRequest} = require("./common/middlewares");
+const { setup: setupCore } = require("./core");
+const { init } = require("./modules");
+const { handleError, handleRequest } = require("./common/middlewares");
 // todo: remove in production
 const mockRoutes = require("../test/mock-routes/routes");
-const {generateResource} = require("./common/utils");
+const { generateResource } = require("./common/utils");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -15,7 +15,9 @@ const start = async () => {
   const configureRoutes = async (app) => {
     app.use(handleRequest);
     const app2 = await initModules(app);
-    app2.get("/", (req, res) => { res.send("Hello World!"); });
+    app2.get("/", (req, res) => {
+      res.send("Hello World!");
+    });
 
     console.log(" routes", app2._router.stack);
     // todo: remove in production
@@ -24,19 +26,21 @@ const start = async () => {
     return app2;
   };
 
-  const {app, eventEmitter, connectWithDb, logger} = await setupCore();
+  const { app, eventEmitter, connectWithDb, logger } = await setupCore();
 
   try {
     await configureRoutes(app);
     app.listen(PORT, async () => {
       logger.info(`Server started on port ${PORT}`);
 
-      const broadcastDatabaseConnectionEstablished =
-          (em) => { em.emit("databaseConnectionEstablished"); };
+      const broadcastDatabaseConnectionEstablished = (em) => {
+        em.emit("databaseConnectionEstablished");
+      };
 
       eventEmitter.on("databaseConnectionEstablished", () => {
         logger.info(
-            "eventEmitterHealthCheck()=> Database connection established");
+          "eventEmitterHealthCheck()=> Database connection established"
+        );
       });
 
       await connectWithDb(broadcastDatabaseConnectionEstablished, eventEmitter);
