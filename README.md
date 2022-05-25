@@ -1,5 +1,6 @@
 # Welcome to the Sabil Project By MERN-STACK
-### This is a full-functional (Work in progress now)  ecommerce web application that is developed by using MERN (MongoDB, Express.js, React.js, and Node.js).
+
+### This is a full-functional (Work in progress now) ecommerce web application that is developed by using MERN (MongoDB, Express.js, React.js, and Node.js).
 
 In this repository I will keep adding the best practices we should follow in a MERN project. Also for better UX I am using MUI for the UI.
 
@@ -55,7 +56,6 @@ Currently we have two docker-compose files:
 
 It is expected that the machine must have docker and docker-compose installed. Go to the root of the repository and execute appropriate commands. This will spin up the server and client containers along with the MongoDB container (if we are using local MongoDB server) inside of Docker environment.
 
-
 **Using docker containers with cloud hosted MongoDB**
 
 ```sh
@@ -65,6 +65,7 @@ It is expected that the machine must have docker and docker-compose installed. G
 ```
 
 **Using docker containers with local MongoDB**
+
 ```sh
 > cd project-root
 > docker-compose build
@@ -74,7 +75,6 @@ It is expected that the machine must have docker and docker-compose installed. G
 The client and server both are up and running and we should see the following screen if we navigate to the client url.
 
 ![Login screen](./docs/images/login-screen.png)
-
 
 - seed data
   Go inside of the docker container and execute below commands. These will seed the database with `roles`, `users` and `products` data.
@@ -118,7 +118,9 @@ The client and server both are up and running and we should see the following sc
   ```
 
 #### Server commands
+
 We assume we run the MongoDB in the docker container.
+
 ```sh
 cd server
 npm i
@@ -149,4 +151,5 @@ npm run db:migrate
 You should be able to see the username and password in the `/server/setup/users.json` file.
 
 ## 🔗 Important Links ❗
+
 - 🔴 Project Live : [Sabil](https://sabil.vercel.app)
