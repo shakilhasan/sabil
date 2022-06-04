@@ -17,6 +17,7 @@ import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
+import {searchBlogs} from "../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -54,10 +55,13 @@ export default function BlogPosts() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog/posts/all');
+      // const response = await axios.get('/api/blog/posts/all');
+      const response = await searchBlogs({ current:1, pageSize:20 });
+      console.log(response,"response blogs--",response.data);
 
       if (isMountedRef.current) {
-        setPosts(response.data.posts);
+        // setPosts(response.data.posts);
+        setPosts(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -66,7 +70,7 @@ export default function BlogPosts() {
 
   useEffect(() => {
     getAllPosts();
-  }, [getAllPosts]);
+  }, []);
 
   const handleChangeSort = (value) => {
     if (value) {
