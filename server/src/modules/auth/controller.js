@@ -54,12 +54,12 @@ const loginHandler = async (req, res) => {
 
       const antdPayload = {
         status: "ok",
+        accessToken: token,
         type: "account",
         currentAuthority: "admin",
         user: rest,
         permissions,
         sessionId: uuidv4(),
-        accessToken: token,
         userInfo: {
           name: "Serati Ma",
           avatar:

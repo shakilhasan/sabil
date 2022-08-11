@@ -18,7 +18,7 @@ services:
       - DB_PORT=27000
       - DB_NAME=sabil
       - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
-      - JWT_EXPIRES_IN=3600
+      - JWT_EXPIRES_IN=10000
       - PORT=8008
       - IS_MONGODB_CLOUD_URL=true
       - MONGODB_CLOUD_URL=mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/sabil?retryWrites=true&w=majority

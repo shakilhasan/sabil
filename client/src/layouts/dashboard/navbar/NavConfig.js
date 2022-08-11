@@ -94,12 +94,12 @@ const navConfig = [
         icon: ICONS.cart,
         children: [
           { title: 'shop', path: PATH_DASHBOARD.eCommerce.shop },
-          { title: 'product', path: PATH_DASHBOARD.eCommerce.productById },
+          // { title: 'product', path: PATH_DASHBOARD.eCommerce.productById },
           { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
           { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },
-          { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
-          { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout },
-          { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice },
+          // { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
+          // { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout },
+          // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice },
         ],
       },
 
