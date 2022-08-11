@@ -10,7 +10,7 @@ const seed = async (logger) => {
 
   // eslint-disable-next-line func-names
   await (async function () {
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 40; i++) {
       // eslint-disable-next-line no-await-in-loop
       const product = await getFakeProduct();
       products.push(product);

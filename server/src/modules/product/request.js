@@ -32,6 +32,7 @@ const schema = Joi.object().keys({
   totalRating: Joi.number().optional(),
   totalReview: Joi.number().optional(),
   inStock: Joi.boolean().optional(),
+  isVariant: Joi.boolean().optional(),
   taxes: Joi.boolean().optional(), // todo -
 
   __v: Joi.number().optional(),

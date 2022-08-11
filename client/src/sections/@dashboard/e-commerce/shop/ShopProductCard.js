@@ -18,7 +18,7 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { _id, name, cover, price, colors, status, priceSale } = product;
+  const { _id, name, cover, price, isVariant, colors, status, priceSale } = product;
 
   // const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`;
   const linkTo = `${PATH_DASHBOARD.eCommerce.root}/product/${_id}`;
@@ -52,7 +52,7 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={colors} />
+          {isVariant && <ColorPreview colors={colors} />}
 
           <Stack direction="row" spacing={0.5}>
             {priceSale && (
