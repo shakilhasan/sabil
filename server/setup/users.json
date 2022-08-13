@@ -13,6 +13,7 @@
         "isVerified": true,
         "status": "active",
         "company": "murmur",
+        "country": "Bangladesh",
         "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
     },
     {
@@ -29,6 +30,7 @@
         "isVerified": true,
         "status": "active",
         "company": "murmur",
+        "country": "Bangladesh",
         "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
 
     },
@@ -46,6 +48,7 @@
         "isVerified": true,
         "status": "active",
         "company": "murmur",
+        "country": "Bangladesh",
         "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
 
     }
