@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 // @mui
 import { Box, Chip, Avatar, Checkbox, AvatarGroup, FormControlLabel } from '@mui/material';
 // utils
+import {useState} from "react";
 import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/Iconify';
+import {updateLikeBlog} from "../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -13,8 +15,21 @@ BlogPostTags.propTypes = {
 };
 
 export default function BlogPostTags({ post }) {
-  const { favorite, tags, favoritePerson } = post;
+  const { _id,favorite, tags, favoritePerson } = post;
+  const [favoriteChecked, setFavoriteChecked] = useState(favorite);
+  const handleLike= async () => {
+      console.log("handleLike-----");
+      try{
+          setFavoriteChecked((prev) => prev + 1);
+          const res=await updateLikeBlog({id: _id, favorite: favoriteChecked});
+          console.log("handleLike res-----",res);
 
+
+      }catch (e) {
+          console.log("handleLike error-----",e);
+
+      }
+  };
   return (
     <Box sx={{ py: 3 }}>
       {tags.map((tag) => (
@@ -25,6 +40,7 @@ export default function BlogPostTags({ post }) {
         <FormControlLabel
           control={
             <Checkbox
+              onClick={()=>handleLike()}
               defaultChecked
               size="small"
               color="error"
@@ -32,7 +48,7 @@ export default function BlogPostTags({ post }) {
               checkedIcon={<Iconify icon="eva:heart-fill" />}
             />
           }
-          label={fShortenNumber(favorite)}
+          label={fShortenNumber(favoriteChecked)}
         />
         <AvatarGroup
           max={4}
