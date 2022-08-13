@@ -27,7 +27,7 @@ const countHandler = async (req, res, next) => {
   req.searchQuery = getQuery(req.body);
   return baseCountHandler(req, res, next);
 };
-const updateLikeHandler = async (req,next) => {
+const updateLikeHandler = async (req, next) => {
   const { body } = req;
   const favorite = parseInt(body.favorite, 10) + 1;
   try {
@@ -40,12 +40,16 @@ const updateLikeHandler = async (req,next) => {
     return doc.favorite;
   } catch (e) {
     return next(error, req, res);
-
   }
+};
+const processRequestCreate = async (req, res, next) => {
+  req.body.authorId = req.user.id;
+  return next();
 };
 router.get("/detail", getByIdHandler);
 router.post(
   "/create",
+  processRequestCreate,
   // handleValidation(validate),
   saveHandler
 );

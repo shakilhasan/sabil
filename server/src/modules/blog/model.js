@@ -14,7 +14,11 @@ const schema = new mongoose.Schema(
       name: { type: String, required: false },
       avatarUrl: { type: String, required: false },
     },
-    authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
     avatarUrl: { type: String, required: false },
     tags: [],
