@@ -8,21 +8,21 @@ import {updateFollowUser} from "../../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
-ProfileFollowers.propTypes = {
-  followers: PropTypes.array,
+ProfileFollowings.propTypes = {
+  followings: PropTypes.array,
 };
 
-export default function ProfileFollowers({ followers, userFollowers }) {
+export default function ProfileFollowings({ followings, userFollowings }) {
   return (
     <Box sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Followers
+        Followings
       </Typography>
 
       <Grid container spacing={3}>
-        {followers.map((follower) => (
-            userFollowers.includes(follower._id) && <Grid key={follower?._id} item xs={12} md={4}>
-            <FollowerCard follower={follower} />
+        {followings.map((following) => (
+            userFollowings.includes(following._id) && <Grid key={following?._id} item xs={12} md={4}>
+            <FollowingCard following={following} />
           </Grid>
         ))}
       </Grid>
@@ -32,12 +32,12 @@ export default function ProfileFollowers({ followers, userFollowers }) {
 
 // ----------------------------------------------------------------------
 
-FollowerCard.propTypes = {
-  follower: PropTypes.object,
+FollowingCard.propTypes = {
+  following: PropTypes.object,
 };
 
-function FollowerCard({ follower }) {
-  const { firstName:name,_id:id, country, photoURL:avatarUrl, isFollowed } = follower;
+function FollowingCard({ following }) {
+  const { firstName:name,_id:id, country, photoURL:avatarUrl, isFollowed } = following;
 
   const [toggle, setToogle] = useState(isFollowed);
   const handleFollow = async (id) => {

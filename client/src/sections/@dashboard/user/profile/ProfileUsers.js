@@ -9,20 +9,20 @@ import {updateFollowUser} from "../../../../helpers/backend_helper";
 // ----------------------------------------------------------------------
 
 ProfileFollowers.propTypes = {
-  followers: PropTypes.array,
+  users: PropTypes.array,
 };
 
-export default function ProfileFollowers({ followers, userFollowers }) {
+export default function ProfileFollowers({ users, userFollowings }) {
   return (
     <Box sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Followers
+        Users
       </Typography>
 
       <Grid container spacing={3}>
-        {followers.map((follower) => (
-            userFollowers.includes(follower._id) && <Grid key={follower?._id} item xs={12} md={4}>
-            <FollowerCard follower={follower} />
+        {users.map((user) => (
+          <Grid key={user.id} item xs={12} md={4}>
+            <FollowerCard user={user} userFollowings={userFollowings} />
           </Grid>
         ))}
       </Grid>
@@ -33,16 +33,21 @@ export default function ProfileFollowers({ followers, userFollowers }) {
 // ----------------------------------------------------------------------
 
 FollowerCard.propTypes = {
-  follower: PropTypes.object,
+  user: PropTypes.object,
 };
 
-function FollowerCard({ follower }) {
-  const { firstName:name,_id:id, country, photoURL:avatarUrl, isFollowed } = follower;
+function FollowerCard({ user, userFollowings }) {
+  const { firstName:name,_id:id, country, photoURL:avatarUrl, isFollowed } = user;
 
-  const [toggle, setToogle] = useState(isFollowed);
+  const [toggle, setToogle] = useState(userFollowings.includes(id));
   const handleFollow = async (id) => {
-      setToogle(!toggle);
-      await updateFollowUser({id});
+      try {
+          // setToogle(!toggle);
+          setToogle((prevState)=>!prevState);
+          await updateFollowUser({id,toggle:!toggle});
+      }catch (e) {
+            console.log("handleFollow error",e);
+      }
       console.log(id, "------------------");
   };
   return (
@@ -59,15 +64,15 @@ function FollowerCard({ follower }) {
           </Typography>
         </Box>
       </Box>
-        {false && <Button
+      <Button
         size="small"
         onClick={()=>handleFollow(id)}
         variant={toggle ? 'text' : 'outlined'}
         color={toggle ? 'primary' : 'inherit'}
         startIcon={toggle && <Iconify icon={'eva:checkmark-fill'} />}
       >
-        {toggle ? 'Followed' : 'Follow'}
-      </Button>}
+         {toggle ? 'Followed' : 'Follow'}
+      </Button>
     </Card>
   );
 }
