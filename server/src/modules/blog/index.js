@@ -12,7 +12,7 @@ const processRequest = async (req, res, next) => {
 
 const init = async (app) => {
   app.use(
-    "/api/blogs",
+    "/api/murmurs",
     authenticateRequest,
     // authorizeRequest,
     processRequest,

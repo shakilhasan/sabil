@@ -32,12 +32,12 @@ export const ADD_SALES_ORDER = "/sales-orders/create";
 export const UPDATE_SALES_ORDER = "/sales-orders/update";
 
 // BLOGS
-export const GET_BLOG = "/blogs/detail";
-export const SEARCH_BLOGS = "/blogs/search";
-export const ADD_BLOG = "/blogs/create";
-export const UPDATE_BLOG = "/blogs/update";
-export const UPDATE_LIKE_BLOG = "/blogs/updateLike";
-export const DELETE_BLOG = "/blogs/delete";
+export const GET_BLOG = "/murmurs/detail";
+export const SEARCH_BLOGS = "/murmurs/search";
+export const ADD_BLOG = "/murmurs/create";
+export const UPDATE_BLOG = "/murmurs/update";
+export const UPDATE_LIKE_BLOG = "/murmurs/updateLike";
+export const DELETE_BLOG = "/murmurs/delete";
 
 // RESOURCES
 export const ADD_MANY_RESOURCES = "/resources/createMany";
