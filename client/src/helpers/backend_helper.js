@@ -34,6 +34,7 @@ export const getBlogById = id => get(url.GET_BLOG, { params: { id } });
 export const addBlog = blog => post(url.ADD_BLOG, blog);
 export const updateBlog = blog =>  put(url.UPDATE_BLOG, blog);
 export const updateLikeBlog = blog =>  put(url.UPDATE_LIKE_BLOG, blog);
+export const deleteBlog = blog => del(url.DELETE_BLOG, { params: { ...blog } });
 
 //  .............................. RESOURCES ....................................
 // add user
