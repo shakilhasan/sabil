@@ -94,7 +94,7 @@ export default function BlogPosts() {
     <Page title="Blog: Posts">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Blog"
+          heading="Murmurs"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Blog', href: PATH_DASHBOARD.blog.root },

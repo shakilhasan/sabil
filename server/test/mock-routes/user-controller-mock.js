@@ -23,7 +23,7 @@ const getFakeUser = async () => ({
   roleName: 'User', // todo: add real-role
   roleId: "625819b25236a335c166de36", // todo -
   roleAlias: "User", // todo -
-  passwordHash: await bcrypt.hash("sabil1234", 10),
+  passwordHash: await bcrypt.hash("murmur1234", 10),
   address: faker.address.streetAddress(true),
 
   photoURL: faker.image.avatar(),

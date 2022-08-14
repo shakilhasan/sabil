@@ -32,7 +32,7 @@ export default function LoginForm() {
 
   const defaultValues = {
     email: 'superadmin@murmur.com',
-    password: 'sabil1234',
+    password: 'murmur1234',
     remember: true,
   };
 

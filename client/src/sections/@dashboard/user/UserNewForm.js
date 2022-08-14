@@ -104,7 +104,7 @@ export default function UserNewForm({isEdit, currentUser}) {
                 delete user._id;
                 await addUser({
                     ...user,
-                    password: 'sabil1234',
+                    password: 'murmur1234',
                     displayName: user.email,
                     photoURL:"https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg",
                 });
