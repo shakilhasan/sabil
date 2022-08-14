@@ -48,6 +48,7 @@ const updateLikeHandler = async (req) => {
 const processRequestCreate = async (req, res, next) => {
   // const fakeBlog = await getFakeBlog();
   req.body.authorId = req.user.id;
+  req.body.author.name = req.user.username;
   req.body.favorite = 0;
   // res.body = { ...req.body, ...fakeBlog };
   return next();

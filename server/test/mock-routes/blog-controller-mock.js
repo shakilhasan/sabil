@@ -24,8 +24,8 @@ const getFakeBlog = async () => {
     share: faker.datatype.number({ max: 20000 }),
     favorite: faker.datatype.number({ max: 20000 }),
     author: {
-      name: faker.name.findName(),
-      avatarUrl: faker.image.avatar(),
+      name: user.length && `${user[0].firstName} ${user[0].lastName}`,
+      avatarUrl: user.length && user[0].photoURL,
     },
     authorId: user.length && user[0]._id,
     avatarUrl: faker.image.avatar(),
