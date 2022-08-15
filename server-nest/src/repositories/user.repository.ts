@@ -43,6 +43,15 @@ export class UserRepository {
 
         return user;
     }
+    async getUserByUsername(username: string) {
+        let user;
+        try {
+            user = await this.userModel.findOne({ username }, 'username email displayName roleAlias').exec();
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        return user;
+    }
 
     async getUserByEmail(email: string) {
         let user;
