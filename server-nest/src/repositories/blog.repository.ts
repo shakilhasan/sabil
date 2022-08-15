@@ -7,7 +7,7 @@ import { CreateBlogDto } from '../modules/blog/dto/createBlog.dto';
 import { UpdateBlogDto } from '../modules/blog/dto/updateBlog.dto';
 
 export class BlogRepository {
-    constructor(@InjectModel(Blog.title) private readonly blogModel: Model<Blog>) {}
+    constructor(@InjectModel(Blog.name) private readonly blogModel: Model<Blog>) {}
 
     async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
         let blog = new this.blogModel(createBlogDto);
