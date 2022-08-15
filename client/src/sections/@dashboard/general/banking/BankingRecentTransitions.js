@@ -168,7 +168,7 @@ function AvatarIcon({ icon }) {
 
 function renderAvatar(category, avatar) {
   if (category === 'Books') {
-    return <AvatarIcon icon={'eva:book-fill'} />;
+    return <AvatarIcon icon={'eva:blog-fill'} />;
   }
   if (category === 'Beauty & Health') {
     return <AvatarIcon icon={'eva:heart-fill'} />;

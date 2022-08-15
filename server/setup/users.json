@@ -9,10 +9,11 @@
         "email": "superadmin@murmur.com",
         "roleId": "",
         "roleAlias": "Super Admin",
-        "password": "sabil1234",
+        "password": "murmur1234",
         "isVerified": true,
         "status": "active",
         "company": "murmur",
+        "country": "Bangladesh",
         "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
     },
     {
@@ -25,11 +26,12 @@
         "email": "admin@murmur.com",
         "roleId": "",
         "roleAlias": "Admin",
-        "password": "sabil1234",
+        "password": "murmur1234",
         "isVerified": true,
         "status": "active",
         "company": "murmur",
-        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_3.jpg"
 
     },
     {
@@ -42,11 +44,12 @@
         "email": "user@murmur.com",
         "roleId": "",
         "roleAlias": "User",
-        "password": "sabil1234",
+        "password": "murmur1234",
         "isVerified": true,
         "status": "active",
         "company": "murmur",
-        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_4.jpg"
 
     }
 ]

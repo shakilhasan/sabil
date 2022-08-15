@@ -116,7 +116,7 @@ export default function Login() {
             </Stack>
 
             <Alert severity="info" sx={{ mb: 3 }}>
-              Use email : <strong>superadmin@murmur.com</strong> / password : <strong>sabil1234</strong>
+              Use email : <strong>superadmin@murmur.com</strong> / password : <strong>murmur1234</strong>
             </Alert>
 
             <LoginForm />

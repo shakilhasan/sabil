@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Avatar, SpeedDial, Typography, SpeedDialAction } from '@mui/material';
 // hooks
+import {useNavigate} from "react-router-dom";
 import useResponsive from '../../../hooks/useResponsive';
 // utils
 import { fDate } from '../../../utils/formatTime';
 // components
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
+import {deleteBlog} from "../../../helpers/backend_helper";
+import {PATH_DASHBOARD} from "../../../routes/paths";
+import useAuth from "../../../hooks/useAuth";
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +34,16 @@ const SOCIALS = [
     icon: <Iconify icon="eva:twitter-fill" width={20} height={20} color="#1C9CEA" />,
   },
 ];
-
+const ACTIONS = [
+  {
+    name: 'Delete',
+    icon: <Iconify icon="ant-design:delete-twotone" width={20} height={20} color="#1877F2" />,
+  },
+  {
+    name: 'Edit',
+    icon: <Iconify icon="akar-icons:edit" width={20} height={20} color="#D7336D" />,
+  },
+];
 const OverlayStyle = styled('h1')(({ theme }) => ({
   top: 0,
   right: 0,
@@ -81,10 +94,23 @@ BlogPostHero.propTypes = {
 };
 
 export default function BlogPostHero({ post }) {
-  const { cover, title, author, createdAt } = post;
-
+  const navigate = useNavigate();
+  const { _id:id, cover, title, author, createdAt } = post;
+  const { user } = useAuth();
   const isDesktop = useResponsive('up', 'sm');
+  const handleClick= async (actionName) => {
+    if (actionName === 'Delete') {
+      try {
+        console.log('Delete');
+        await deleteBlog({id});
+        navigate(PATH_DASHBOARD.blog.posts);
+      }catch (error) {
+        console.error(error);
+      }
 
+    }
+    console.log("handleClick actionName---", actionName);
+  }
   return (
     <Box sx={{ position: 'relative' }}>
       <TitleStyle>{title}</TitleStyle>
@@ -101,7 +127,6 @@ export default function BlogPostHero({ post }) {
             </Typography>
           </Box>
         </Box>
-
         <SpeedDial
           direction={isDesktop ? 'left' : 'up'}
           ariaLabel="Share post"
@@ -118,6 +143,23 @@ export default function BlogPostHero({ post }) {
             />
           ))}
         </SpeedDial>
+        { (user._id===post.authorId) && <SpeedDial
+            direction={isDesktop ? 'left' : 'up'}
+            ariaLabel="Share post"
+            icon={<Iconify icon="healthicons:i-note-action" sx={{ width: 20, height: 20 }} />}
+            sx={{ '& .MuiSpeedDial-fab': { width: 48, height: 48 } }}
+        >
+          {ACTIONS.map((action) => (
+              <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                  tooltipPlacement="top"
+                  FabProps={{ color: 'default' }}
+                  onClick={()=>handleClick(action.name)}
+              />
+          ))}
+        </SpeedDial>}
       </FooterStyle>
 
       <OverlayStyle />

@@ -16,7 +16,7 @@ export default axiosApi;
 
 export async function get(url, config = {}) {
     // eslint-disable-next-line no-return-await
-    return await axiosApi.get(url, { ...config }).then(response => response.data)
+    return await axiosApi.get(url, { ...config }).then(response => response.data);
 }
 
 export async function post(
@@ -44,7 +44,7 @@ export async function postMultipart(
 export async function put(url, data, config = {}) {
     return axiosApi
         .put(url, { ...data }, { ...config })
-        .then(response => response.data)
+        .then(response => response.data);
 }
 
 export async function del(url, config = {}) {

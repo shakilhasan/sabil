@@ -2,7 +2,7 @@ import orderBy from 'lodash/orderBy';
 import { Link as RouterLink } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack } from '@mui/material';
+import {Grid, Button, Container, Stack, TablePagination} from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -50,15 +50,31 @@ export default function BlogPosts() {
   const [posts, setPosts] = useState([]);
 
   const [filters, setFilters] = useState('latest');
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(5);
 
   const sortedPosts = applySort(posts, filters);
-
-  const getAllPosts = useCallback(async () => {
+  useEffect(async () => {
+    await getAllPosts(page+1, rowsPerPage);
+  }, []);
+  const handleChangeRowsPerPage = async (event) => {
+    console.log("handleChangeRowsPerPage----------------",event.target.value);
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    await getAllPosts(1, parseInt(event.target.value, 10));
+  };
+  const handlePageChange=async (event,value) => {
+    console.log(event,"event handlePageChange value---------",value);
+    setPage(value);
+    await getAllPosts(parseInt(value,10)+1, rowsPerPage);
+  };
+  const getAllPosts = useCallback(async (current=page+1, pageSize=rowsPerPage) => {
     try {
       // const response = await axios.get('/api/blog/posts/all');
-      const response = await searchBlogs({ current:1, pageSize:20 });
+      const response = await searchBlogs({ current, pageSize:pageSize+2 });
       console.log(response,"response blogs--",response.data);
-
+      setTotal(response.total);
       if (isMountedRef.current) {
         // setPosts(response.data.posts);
         setPosts(response.data);
@@ -67,10 +83,6 @@ export default function BlogPosts() {
       console.error(error);
     }
   }, [isMountedRef]);
-
-  useEffect(() => {
-    getAllPosts();
-  }, []);
 
   const handleChangeSort = (value) => {
     if (value) {
@@ -82,7 +94,7 @@ export default function BlogPosts() {
     <Page title="Blog: Posts">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Blog"
+          heading="Murmurs"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Blog', href: PATH_DASHBOARD.blog.root },
@@ -116,6 +128,15 @@ export default function BlogPosts() {
             )
           )}
         </Grid>
+        <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={total}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={ (event, value) =>handlePageChange(event,value)}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Container>
     </Page>
   );

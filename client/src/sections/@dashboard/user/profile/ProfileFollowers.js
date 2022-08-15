@@ -12,7 +12,7 @@ ProfileFollowers.propTypes = {
   followers: PropTypes.array,
 };
 
-export default function ProfileFollowers({ followers }) {
+export default function ProfileFollowers({ followers, userFollowers }) {
   return (
     <Box sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -21,7 +21,7 @@ export default function ProfileFollowers({ followers }) {
 
       <Grid container spacing={3}>
         {followers.map((follower) => (
-          <Grid key={follower.id} item xs={12} md={4}>
+            userFollowers.includes(follower._id) && <Grid key={follower?._id} item xs={12} md={4}>
             <FollowerCard follower={follower} />
           </Grid>
         ))}
@@ -59,7 +59,7 @@ function FollowerCard({ follower }) {
           </Typography>
         </Box>
       </Box>
-      <Button
+        {false && <Button
         size="small"
         onClick={()=>handleFollow(id)}
         variant={toggle ? 'text' : 'outlined'}
@@ -67,7 +67,7 @@ function FollowerCard({ follower }) {
         startIcon={toggle && <Iconify icon={'eva:checkmark-fill'} />}
       >
         {toggle ? 'Followed' : 'Follow'}
-      </Button>
+      </Button>}
     </Card>
   );
 }
