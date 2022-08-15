@@ -46,7 +46,7 @@ export class UserRepository {
     async getUserByUsername(username: string) {
         let user;
         try {
-            user = await this.userModel.findOne({ username }, 'username email displayName roleAlias').exec();
+            user = await this.userModel.findOne({ username }, 'username email displayName roleAlias passwordHash').exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

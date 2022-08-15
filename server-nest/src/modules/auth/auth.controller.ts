@@ -5,15 +5,16 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
     constructor(private readonly authService: AuthService, private readonly userService: UserService) { }
 
     @Post('login')
     async login(@Body() payload: JwtPayload) {
         const user = await this.userService.findByUsername(payload);
+        console.log("login user----",user);
         if (user) {
-            if (await this.userService.compareHash(payload.password, user['password'])) {
+            if (await this.userService.compareHash(payload.password, user['passwordHash'])) {
                 return await this.authService.createToken(payload);
             } else {
                 throw new HttpException({
