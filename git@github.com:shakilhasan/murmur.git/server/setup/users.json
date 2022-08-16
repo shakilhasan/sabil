@@ -1,0 +1,55 @@
+[
+    {
+        "firstName": "Super",
+        "lastName": "Admin",
+        "displayName": "Super Admin",
+        "username": "superadmin@murmur.com",
+        "address": "Dhaka, Bangladesh",
+        "phoneNumber": "01000000001",
+        "email": "superadmin@murmur.com",
+        "roleId": "",
+        "roleAlias": "Super Admin",
+        "password": "murmur1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "murmur",
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+    },
+    {
+        "firstName": "Admin",
+        "lastName": "Admin",
+        "username": "admin@murmur.com",
+        "displayName": "admin",
+        "address": "Wakanda",
+        "phoneNumber": "01000000002",
+        "email": "admin@murmur.com",
+        "roleId": "",
+        "roleAlias": "Admin",
+        "password": "murmur1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "murmur",
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_3.jpg"
+
+    },
+    {
+        "firstName": "User",
+        "lastName": "User",
+        "username": "user@murmur.com",
+        "displayName": "user",
+        "address": "Wakanda",
+        "phoneNumber": "01000000003",
+        "email": "user@murmur.com",
+        "roleId": "",
+        "roleAlias": "User",
+        "password": "murmur1234",
+        "isVerified": true,
+        "status": "active",
+        "company": "murmur",
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_4.jpg"
+
+    }
+]

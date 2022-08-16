@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  appserver:
+    image: appserver:pi
+    container_name: appserver
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8008:8008
+    networks:
+      - mydockernet
+    environment:
+      - DEBUG=1
+      - NODE_ENV=production
+      - TEST=test123
+      - DB_HOST=mongo
+      - DB_PORT=27000
+      - DB_NAME=murmur
+      - JWT_SECRET=JWT_SECRETfsdfsdfsdsd3435353
+      - JWT_EXPIRES_IN=10000
+      - PORT=8008
+      - IS_MONGODB_CLOUD_URL=true
+      - MONGODB_CLOUD_URL=mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/murmur?retryWrites=true&w=majority
+  appclient:
+    image: appclient:123
+    container_name: appclient
+    build:
+      context: ./client
+      args:
+        REACT_APP_API_URL: http://localhost:8008/api
+        REACT_APP_ENV: production
+      dockerfile: Dockerfile
+    networks:
+      - mydockernet
+    environment:
+      - FAST_REFRESH=false
+      - PORT=8001
+      - REACT_APP_HOST_API_KEY=https://minimal-assets-api.vercel.app
+      - REACT_APP_ENV=production
+      - SKIP_PREFLIGHT_CHECK=true
+      - REACT_APP_API_URL=http://localhost:8008/api
+    ports:
+      - 8001:8001
+    depends_on:
+      - appserver
+networks:
+  mydockernet:
+    driver: bridge
+volumes:
+  app_mongo: null
