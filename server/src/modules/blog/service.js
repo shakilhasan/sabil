@@ -1,7 +1,7 @@
 // load repository.js
 const { name: ModelName } = require("./model");
 
-const getQuery = (payload) => {
+const getQuery = (payload,followings) => {
   const queries = [];
 
   if (payload.name) {
@@ -14,6 +14,9 @@ const getQuery = (payload) => {
   }
   if (payload.category) {
     queries.push({ category: payload.category });
+  }
+  if (followings) {
+    queries.push({ authorId: { $in: followings } });
   }
 
   // payload.fromDate && payload.toDate

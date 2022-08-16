@@ -8,7 +8,6 @@ const {
   update,
   deleteById, countDocuments,
 } = require("./repository");
-const mongoose = require("mongoose");
 
 const getByIdHandler = async (req, res, next) => {
   try {

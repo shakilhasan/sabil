@@ -13,6 +13,9 @@ export const getUserAccount = user => get(url.ACCOUNT_USER, { params: { ...user 
 export const updateUser = user =>  put(url.UPDATE_USER, user);
 export const deleteUser = user => del(url.DELETE_USER, { params: { ...user } });
 
+export const updateFollowUser = user =>  put(url.UPDATE_FOLLOW_USER, user);
+
+
 //  .............................. PRODUCTS ....................................
 export const searchProducts = product => post(url.SEARCH_PRODUCTS, product);
 export const getProductById = id => get(url.GET_PRODUCT, { params: { id } });
@@ -30,6 +33,8 @@ export const searchBlogs = blog => post(url.SEARCH_BLOGS, blog);
 export const getBlogById = id => get(url.GET_BLOG, { params: { id } });
 export const addBlog = blog => post(url.ADD_BLOG, blog);
 export const updateBlog = blog =>  put(url.UPDATE_BLOG, blog);
+export const updateLikeBlog = blog =>  put(url.UPDATE_LIKE_BLOG, blog);
+export const deleteBlog = blog => del(url.DELETE_BLOG, { params: { ...blog } });
 
 //  .............................. RESOURCES ....................................
 // add user

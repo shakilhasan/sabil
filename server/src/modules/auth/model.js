@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema(
     isPublic: { type: Boolean, required: false, default: true },
     isVerified: { type: Boolean, required: false, default: true },
 
+    followings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }],
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
