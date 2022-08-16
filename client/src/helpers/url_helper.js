@@ -13,6 +13,7 @@ export const ADD_USER = "/users/create";
 export const SEARCH_USERS = "/users/search";
 export const GET_USER = "/users/detail";
 export const UPDATE_USER = "/users/update";
+export const UPDATE_FOLLOW_USER = "/users/updateFollow";
 export const DELETE_USER = "/users/delete";
 export const CHECK_USER = "/users/check";
 export const COUNT_USERS = "/users/count";
@@ -35,6 +36,8 @@ export const GET_BLOG = "/blogs/detail";
 export const SEARCH_BLOGS = "/blogs/search";
 export const ADD_BLOG = "/blogs/create";
 export const UPDATE_BLOG = "/blogs/update";
+export const UPDATE_LIKE_BLOG = "/blogs/updateLike";
+export const DELETE_BLOG = "/blogs/delete";
 
 // RESOURCES
 export const ADD_MANY_RESOURCES = "/resources/createMany";

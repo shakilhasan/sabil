@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Box, Grid, Card, Button, Avatar, Typography } from '@mui/material';
 // components
 import Iconify from '../../../../components/Iconify';
+import {updateFollowUser} from "../../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ ProfileFollowers.propTypes = {
   followers: PropTypes.array,
 };
 
-export default function ProfileFollowers({ followers }) {
+export default function ProfileFollowers({ followers, userFollowers }) {
   return (
     <Box sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
@@ -20,7 +21,7 @@ export default function ProfileFollowers({ followers }) {
 
       <Grid container spacing={3}>
         {followers.map((follower) => (
-          <Grid key={follower.id} item xs={12} md={4}>
+            userFollowers.includes(follower._id) && <Grid key={follower?._id} item xs={12} md={4}>
             <FollowerCard follower={follower} />
           </Grid>
         ))}
@@ -36,10 +37,14 @@ FollowerCard.propTypes = {
 };
 
 function FollowerCard({ follower }) {
-  const { name, country, avatarUrl, isFollowed } = follower;
+  const { firstName:name,_id:id, country, photoURL:avatarUrl, isFollowed } = follower;
 
   const [toggle, setToogle] = useState(isFollowed);
-
+  const handleFollow = async (id) => {
+      setToogle(!toggle);
+      await updateFollowUser({id});
+      console.log(id, "------------------");
+  };
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
       <Avatar alt={name} src={avatarUrl} sx={{ width: 48, height: 48 }} />
@@ -54,15 +59,15 @@ function FollowerCard({ follower }) {
           </Typography>
         </Box>
       </Box>
-      <Button
+        {false && <Button
         size="small"
-        onClick={() => setToogle(!toggle)}
+        onClick={()=>handleFollow(id)}
         variant={toggle ? 'text' : 'outlined'}
         color={toggle ? 'primary' : 'inherit'}
         startIcon={toggle && <Iconify icon={'eva:checkmark-fill'} />}
       >
         {toggle ? 'Followed' : 'Follow'}
-      </Button>
+      </Button>}
     </Card>
   );
 }
