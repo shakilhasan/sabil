@@ -1,71 +1,81 @@
-import {capitalCase} from 'change-case';
-import {Link as RouterLink} from 'react-router-dom';
+import {
+  Alert,
+  Box,
+  Card,
+  Container,
+  Link,
+  Stack,
+  Tooltip,
+  Typography
+} from '@mui/material';
 // @mui
 import {styled} from '@mui/material/styles';
-import {Box, Card, Stack, Link, Alert, Tooltip, Container, Typography} from '@mui/material';
-// routes
-import {PATH_AUTH} from '../../routes/paths';
+import {capitalCase} from 'change-case';
+import {Link as RouterLink} from 'react-router-dom';
+
+import Image from '../../components/Image';
+import Logo from '../../components/Logo';
+// components
+import Page from '../../components/Page';
 // hooks
 import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
-// components
-import Page from '../../components/Page';
-import Logo from '../../components/Logo';
-import Image from '../../components/Image';
+// routes
+import {PATH_AUTH} from '../../routes/paths';
 // sections
 import {LoginForm} from '../../sections/auth/login';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({theme}) => ({
-    [theme.breakpoints.up('md')]: {
-        display: 'flex',
-    },
-}));
+                                  [theme.breakpoints.up('md')] : {
+                                    display : 'flex',
+                                  },
+                                }));
 
 const HeaderStyle = styled('header')(({theme}) => ({
-    top: 0,
-    zIndex: 9,
-    lineHeight: 0,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    position: 'absolute',
-    padding: theme.spacing(3),
-    justifyContent: 'space-between',
-    [theme.breakpoints.up('md')]: {
-        alignItems: 'flex-start',
-        padding: theme.spacing(7, 5, 0, 7),
-    },
-}));
+                                       top : 0,
+                                       zIndex : 9,
+                                       lineHeight : 0,
+                                       width : '100%',
+                                       display : 'flex',
+                                       alignItems : 'center',
+                                       position : 'absolute',
+                                       padding : theme.spacing(3),
+                                       justifyContent : 'space-between',
+                                       [theme.breakpoints.up('md')] : {
+                                         alignItems : 'flex-start',
+                                         padding : theme.spacing(7, 5, 0, 7),
+                                       },
+                                     }));
 
 const SectionStyle = styled(Card)(({theme}) => ({
-    width: '100%',
-    maxWidth: 464,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    margin: theme.spacing(2, 0, 2, 2),
-}));
+                                    width : '100%',
+                                    maxWidth : 464,
+                                    display : 'flex',
+                                    flexDirection : 'column',
+                                    justifyContent : 'center',
+                                    margin : theme.spacing(2, 0, 2, 2),
+                                  }));
 
 const ContentStyle = styled('div')(({theme}) => ({
-    maxWidth: 480,
-    margin: 'auto',
-    display: 'flex',
-    minHeight: '100vh',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    padding: theme.spacing(12, 0),
-}));
+                                     maxWidth : 480,
+                                     margin : 'auto',
+                                     display : 'flex',
+                                     minHeight : '100vh',
+                                     flexDirection : 'column',
+                                     justifyContent : 'center',
+                                     padding : theme.spacing(12, 0),
+                                   }));
 
 // ----------------------------------------------------------------------
 
 export default function Login() {
-    const {method} = useAuth();
+  const {method} = useAuth();
 
-    const smUp = useResponsive('up', 'sm');
+  const smUp = useResponsive('up', 'sm');
 
-    const mdUp = useResponsive('up', 'md');
+  const mdUp = useResponsive('up', 'md');
 
     return (
         <Page title="Login">
@@ -73,7 +83,8 @@ export default function Login() {
                 <HeaderStyle>
                     <Logo/>
                     {smUp && (
-                        <Typography variant="body2" sx={{mt: {md: -2}}}>
+                        <Typography variant="body2" sx={{
+    mt: {md: -2}}}>
                             Don’t have an account? {''}
                             <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                                 Get started
@@ -88,10 +99,11 @@ export default function Login() {
                             Hi, Welcome Back
                         </Typography>
                         <Image
-                            alt="login"
-                            src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_login.png"
-                        />
-                    </SectionStyle>
+    alt = "login"
+    src =
+        "https://minimal-assets-api.vercel.app/assets/illustrations/illustration_login.png" /
+        >
+        </SectionStyle>
                 )}
 
                 <Container maxWidth="sm">
@@ -101,17 +113,17 @@ export default function Login() {
                                 <Typography variant="h4" gutterBottom>
                                     Sign in to Minimal
                                 </Typography>
-                                <Typography sx={{color: 'text.secondary'}}>Enter your details below.</Typography>
+        <Typography sx = {{ color: 'text.secondary' }}>Enter your details
+            below.</Typography>
                             </Box>
 
-                            <Tooltip title={capitalCase(method)} placement="right">
-                                <>
-                                    <a href="https://github.com/shakilhasan/sabil">
-                                        <Image
-                                            disabledEffect
-                                            // src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
+        <Tooltip title = {capitalCase(method)} placement = "right"><>
+        <a href = "https://github.com/shakilhasan/sabil">< Image
+    disabledEffect
+    // src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
                                             src={`/icons/ic_github.svg`}
-                                            sx={{width: 32, height: 32}}
+                                            sx={
+    { width: 32, height: 32 }}
                                         /></a>
                                 </>
                             </Tooltip>
@@ -124,7 +136,8 @@ export default function Login() {
                         <LoginForm/>
 
                         {!smUp && (
-                            <Typography variant="body2" align="center" sx={{mt: 3}}>
+                            <Typography variant="body2" align="center" sx={{
+    mt: 3}}>
                                 Don’t have an account?{' '}
                                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                                     Get started
