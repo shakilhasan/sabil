@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar } from '@mui/material';
+import {Box, Stack, AppBar, Toolbar, Tooltip} from '@mui/material';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive';
@@ -19,6 +19,7 @@ import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import ContactsPopover from './ContactsPopover';
 import NotificationsPopover from './NotificationsPopover';
+import Image from "../../../components/Image";
 
 // ----------------------------------------------------------------------
 
@@ -82,6 +83,16 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
+          <IconButtonAnimate placement="right">
+            <a href="https://github.com/shakilhasan/sabil">
+              <Image
+                  disabledEffect
+                  // src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
+                  src={`/icons/ic_github.svg`}
+                  sx={{width: 32, height: 32}}
+              />
+            </a>
+          </IconButtonAnimate>
           <LanguagePopover />
           <NotificationsPopover />
           <ContactsPopover />
