@@ -15,7 +15,7 @@ export class AuthController {
         console.log("login user----",user);
         if (user) {
             if (await this.userService.compareHash(payload.password, user['passwordHash'])) {
-                return await this.authService.createToken(payload);
+                return await this.authService.createToken({...payload, roleAlias:user['roleAlias']});
             } else {
                 throw new HttpException({
                     status: HttpStatus.UNAUTHORIZED,

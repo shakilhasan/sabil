@@ -18,8 +18,8 @@ import { AuthModule } from './modules/auth/auth.module';
             useFactory: async (configService: ConfigService) => configService.getMongoConfig(),
         }),
         BlogModule,
+        AuthModule,
         UserModule,
-        AuthModule
     ],
     controllers: [AppController],
     providers: [AppService],
