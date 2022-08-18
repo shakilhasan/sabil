@@ -1,5 +1,5 @@
 import { capitalCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Tab, Box, Card, Tabs, Container } from '@mui/material';
@@ -21,7 +21,10 @@ import {
   ProfileFriends,
   ProfileGallery,
   ProfileFollowers,
+  ProfileFollowings,
+  ProfileUsers
 } from '../../sections/@dashboard/user/profile';
+import {searchUsers} from "../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -49,6 +52,12 @@ export default function UserProfile() {
 
   const [currentTab, setCurrentTab] = useState('profile');
   const [findFriends, setFindFriends] = useState('');
+  const [users, setUsers] = useState([]);
+
+  useEffect(async () => {
+    const response = await searchUsers({current:1,pageSize:20});
+    setUsers(response.data);
+  }, []);
 
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
@@ -65,15 +74,28 @@ export default function UserProfile() {
       component: <Profile myProfile={_userAbout} posts={_userFeeds} />,
     },
     {
-      value: 'followers',
-      icon: <Iconify icon={'eva:heart-fill'} width={20} height={20} />,
-      component: <ProfileFollowers followers={_userFollowers} />,
+      value: 'users',
+      icon: <Iconify icon={'eva:people-fill'}  width={20} height={20} />,
+      // component: <ProfileFollowers followers={_userFollowers} />,
+      component: <ProfileUsers users={users} userFollowings={user.followings} />,
     },
     {
-      value: 'friends',
-      icon: <Iconify icon={'eva:people-fill'} width={20} height={20} />,
-      component: <ProfileFriends friends={_userFriends} findFriends={findFriends} onFindFriends={handleFindFriends} />,
+      value: 'followings',
+      icon: <Iconify icon={'eva:heart-fill'} width={20} height={20} />,
+      // component: <ProfileFollowers followers={_userFollowers} />,
+      component: <ProfileFollowings followings={users} userFollowings={user.followings} />,
     },
+    {
+      value: 'followers',
+      icon: <Iconify icon={'eva:heart-fill'} width={20} height={20} />,
+      // component: <ProfileFollowers followers={_userFollowers} />,
+      component: <ProfileFollowers followers={users} userFollowers={user.followers} />,
+    },
+    // {
+    //   value: 'friends',
+    //   icon: <Iconify icon={'eva:people-fill'} width={20} height={20} />,
+    //   component: <ProfileFriends friends={_userFriends} findFriends={findFriends} onFindFriends={handleFindFriends} />,
+    // },
     {
       value: 'gallery',
       icon: <Iconify icon={'ic:round-perm-media'} width={20} height={20} />,

@@ -33,6 +33,7 @@ const schema = new mongoose.Schema(
       },
     ],
 
+    isVariant: { type: Boolean, required: false },
     status: { type: String, required: false },
     inventoryType: { type: String, required: false },
     sizes: [{ type: String, required: false }],

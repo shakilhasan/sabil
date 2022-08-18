@@ -18,7 +18,7 @@
     {
         "firstName": "Admin",
         "lastName": "Admin",
-        "username": "admin",
+        "username": "admin@sabil.com",
         "displayName": "admin",
         "address": "Wakanda",
         "phoneNumber": "01000000002",
@@ -29,13 +29,14 @@
         "isVerified": true,
         "status": "active",
         "company": "sabil",
-        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_3.jpg"
 
     },
     {
         "firstName": "User",
         "lastName": "User",
-        "username": "user",
+        "username": "user@sabil.com",
         "displayName": "user",
         "address": "Wakanda",
         "phoneNumber": "01000000003",
@@ -46,7 +47,8 @@
         "isVerified": true,
         "status": "active",
         "company": "sabil",
-        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_2.jpg"
+        "country": "Bangladesh",
+        "photoURL": "https://minimal-assets-api.vercel.app/assets/images/avatars/avatar_4.jpg"
 
     }
 ]

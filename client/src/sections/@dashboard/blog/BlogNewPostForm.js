@@ -15,6 +15,8 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 //
 import BlogNewPostPreview from './BlogNewPostPreview';
+import {addBlog} from "../../../helpers/backend_helper";
+import product from "../../../redux/slices/product";
 
 // ----------------------------------------------------------------------
 
@@ -87,6 +89,7 @@ export default function BlogNewPostForm() {
     watch,
     control,
     setValue,
+    getValues,
     handleSubmit,
     formState: { isSubmitting, isValid },
   } = methods;
@@ -96,6 +99,19 @@ export default function BlogNewPostForm() {
   const onSubmit = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+      const blog = getValues();
+      delete blog._id;
+      await addBlog({
+        ...blog,
+        body:blog.content,
+        comments:[],
+        author: {
+          name: "Miss Mabel Kris",
+          avatarUrl: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1176.jpg"
+        },
+        cover:"https://minimal-assets-api.vercel.app/assets/images/products/product_1.jpg"
+      })
+
       reset();
       handleClosePreview();
       enqueueSnackbar('Post success!');

@@ -56,6 +56,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
   const {
     id,
     name,
+    isVariant,
     sizes,
     price,
     cover,
@@ -161,7 +162,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
+        { isVariant && <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
           <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
             Color
           </Typography>
@@ -183,9 +184,9 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
               />
             )}
           />
-        </Stack>
+        </Stack>}
 
-        <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
+        { isVariant && <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
           <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
             Size
           </Typography>
@@ -209,7 +210,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
               </option>
             ))}
           </RHFSelect>
-        </Stack>
+        </Stack>}
 
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
           <Typography variant="subtitle1" sx={{ mt: 0.5 }}>

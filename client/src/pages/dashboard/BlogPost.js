@@ -23,6 +23,7 @@ import {
   BlogPostCommentList,
   BlogPostCommentForm,
 } from '../../sections/@dashboard/blog';
+import {getBlogById, searchBlogs} from "../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +32,7 @@ export default function BlogPost() {
 
   const isMountedRef = useIsMountedRef();
 
-  const { title } = useParams();
+  const { id } = useParams();
 
   const [recentPosts, setRecentPosts] = useState([]);
 
@@ -41,32 +42,38 @@ export default function BlogPost() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog/post', {
-        params: { title },
-      });
+      // const response = await axios.get('/api/blog/post', {
+      //   params: { id },
+      // });
+      const response = await getBlogById(id);
+      console.log("getPost-----",response);
+
 
       if (isMountedRef.current) {
-        setPost(response.data.post);
+        // setPost(response.data.post);
+        setPost(response);
       }
     } catch (error) {
       console.error(error);
       setError(error.message);
     }
-  }, [isMountedRef, title]);
+  }, [isMountedRef, id]);
 
   const getRecentPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog/posts/recent', {
-        params: { title },
-      });
+      const response = await axios.get('/api/blog/posts/recent',
+          // {params: { id },}
+      );
+      // const response = await searchBlogs({ current:1, pageSize:20 });
 
       if (isMountedRef.current) {
         setRecentPosts(response.data.recentPosts);
+        // setRecentPosts(response.data);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef, title]);
+  }, [isMountedRef, id]);
 
   useEffect(() => {
     getPost();
@@ -81,7 +88,8 @@ export default function BlogPost() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Blog', href: PATH_DASHBOARD.blog.root },
-            { name: sentenceCase(title) },
+            // { name: sentenceCase(title) },
+            { name: id },
           ]}
         />
 
@@ -115,7 +123,7 @@ export default function BlogPost() {
                 <Pagination count={8} color="primary" />
               </Box>
 
-              <BlogPostCommentForm />
+              <BlogPostCommentForm post={post} />
             </Box>
           </Card>
         )}

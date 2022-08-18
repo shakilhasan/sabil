@@ -16,12 +16,14 @@ export default function BlogPostCommentList({ post }) {
   return (
     <List disablePadding>
       {comments.map((comment) => {
-        const { id, replyComment, users } = comment;
+        const { _id:id, replyComment, users } = comment;
         const hasReply = replyComment.length > 0;
 
         return (
           <Box key={id} sx={{}}>
             <BlogPostCommentItem
+              id={id}
+              post={post}
               name={comment.name}
               avatarUrl={comment.avatarUrl}
               postedAt={comment.postedAt}
@@ -32,6 +34,8 @@ export default function BlogPostCommentList({ post }) {
                 const user = users.find((user) => user.id === reply.userId);
                 return (
                   <BlogPostCommentItem
+                    id={id}
+                    post={post}
                     key={reply.id}
                     message={reply.message}
                     tagUser={reply.tagUser}

@@ -12,12 +12,16 @@ import {
   ListItemText,
   ListItemAvatar,
 } from '@mui/material';
+import produce from "immer"
 // utils
 import { fDate } from '../../../utils/formatTime';
+import {updateBlog} from "../../../helpers/backend_helper";
 
 // ----------------------------------------------------------------------
 
 BlogPostCommentItem.propTypes = {
+  post: PropTypes.object,
+  id: PropTypes.string,
   name: PropTypes.string,
   avatarUrl: PropTypes.string,
   message: PropTypes.string,
@@ -26,13 +30,33 @@ BlogPostCommentItem.propTypes = {
   hasReply: PropTypes.bool,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser, postedAt, hasReply }) {
+export default function BlogPostCommentItem({ post, id, name, avatarUrl, message, tagUser, postedAt, hasReply }) {
   const [openReply, setOpenReply] = useState(false);
+  const [replyMessage, setReplyMessage] = useState('');
 
   const handleOpenReply = () => {
     setOpenReply(true);
   };
-
+    const handleSubmit = async () => {
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            console.log(id,"-handleSubmit-",post);
+            const comments = produce(post.comments, draft => {
+                const draftName = draft.find(draftEvent => draftEvent._id === id);
+                draftName.replyComment = [
+                    ...draftName.replyComment,
+                    {
+                        userId:"43f34f34r3fceewf",
+                        message:replyMessage,
+                        postedAt: new Date(),
+                    }
+                ];
+            });
+            await updateBlog({...post, comments});
+        } catch (error) {
+            console.error(error);
+        }
+    };
   return (
     <>
       <ListItem
@@ -88,6 +112,8 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
           }}
         >
           <TextField
+            name="message"
+            onChange={(e)=>{setReplyMessage(e.target.value)}}
             fullWidth
             size="small"
             placeholder="Write comment"
@@ -98,6 +124,7 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
               },
             }}
           />
+            <input type="button" value="submit" onClick={handleSubmit}/>
         </Box>
       )}
 

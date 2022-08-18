@@ -66,7 +66,7 @@ const getFakeProduct = async () => ({
       postedAt: faker.datatype.datetime(),
     },
   ],
-
+  isVariant: true,
   status: faker.random.arrayElement(["sale", "new", ""]),
   inventoryType: faker.random.arrayElement(["in_stock", "out_of_stock"]),
   sizes: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19"],
