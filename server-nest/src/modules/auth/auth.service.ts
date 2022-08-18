@@ -10,15 +10,15 @@ export class AuthService {
     // const user: JwtPayload = { email: 'test@email.com' };
     const accessToken = this.jwtService.sign(user);
     return {
-      expiresIn: 3600,
+      expiresIn: 100000,
       accessToken,
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<any> {
+  async validateUser(username: string, password: string): Promise<any> {
     // Validate if token passed along with HTTP request
     // is associated with any registered account in the database
-    return await this.userService.findByUsername(payload);
+    return await this.userService.findByUsername({ username, password });
   }
 
 }
