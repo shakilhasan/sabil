@@ -8,6 +8,7 @@ export class AuthService {
 
   async createToken(user: JwtPayload) {
     // const user: JwtPayload = { email: 'test@email.com' };
+    console.log("createToken user----",user);
     const accessToken = this.jwtService.sign(user);
     return {
       expiresIn: 100000,

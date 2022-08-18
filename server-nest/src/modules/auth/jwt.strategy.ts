@@ -20,6 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException();
     }
+    console.log("JwtStrategy validate user----",user);
     return user;
   }
 }

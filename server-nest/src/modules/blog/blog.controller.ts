@@ -7,7 +7,11 @@ import { CreateBlogDto } from './dto/createBlog.dto';
 import { UpdateBlogDto } from './dto/updateBlog.dto';
 import { BlogService } from './blog.service';
 import { AuthGuard } from '@nestjs/passport';
+import {Roles} from "../auth/roles.decorator";
+import {Role} from "../auth/role.enum";
+import { RolesGuard } from '../auth/guards/roles.guard';
 
+@UseGuards(RolesGuard)
 @Controller('api/blogs')
 export class BlogController {
     constructor(@InjectConnection() private readonly mongoConnection: Connection, private blogService: BlogService) {}
@@ -30,6 +34,8 @@ export class BlogController {
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @Roles(Role.SuperAdmin)
+    @Roles(Role.Admin)
     @Post('/search')
     async getAllBlogs(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
         const storages: any = await this.blogService.getBlogs(getQueryDto);
