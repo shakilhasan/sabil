@@ -16,84 +16,84 @@ import { InjectConnection } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Connection, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../../dto/getQueryDto';
-import { CreateBlogDto } from './dto/createBlog.dto';
-import { UpdateBlogDto } from './dto/updateBlog.dto';
-import { BlogService } from './blog.service';
+import { CreateProductDto } from './dto/createProduct.dto';
+import { UpdateProductDto } from './dto/updateProduct.dto';
+import { ProductService } from './product.service';
 import { AuthGuard } from '@nestjs/passport';
 import {Roles} from "../auth/roles.decorator";
 import {RoleEnum} from "../auth/role.enum";
 import { RolesGuard } from '../auth/guards/roles.guard';
-import {Blog} from "../../entities/blog.entity";
+import {Product} from "../../entities/product.entity";
 
 @UseGuards(RolesGuard)
-@Controller('api/blogs')
-export class BlogController {
-    constructor(@InjectConnection() private readonly mongoConnection: Connection, private blogService: BlogService) {}
+@Controller('api/products')
+export class ProductController {
+    constructor(@InjectConnection() private readonly mongoConnection: Connection, private productService: ProductService) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Post('/create')
-    async createBlog(@Body() createBlogDto: CreateBlogDto, @Res() res: Response) {
+    async createProduct(@Body() createProductDto: CreateProductDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.createBlog(createBlogDto, session);
+            const newProduct: any = await this.productService.createProduct(createProductDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newProduct);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
         } finally {
-            session.endSession();
+            await session.endSession();
         }
     }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Roles(RoleEnum.SuperAdmin)
+    // @UseGuards(AuthGuard('jwt'))
+    // @Roles(RoleEnum.SuperAdmin)
     // @Roles(Role.Admin)
     @Post('/search')
-    async getAllBlogs(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
-        const storages: any = await this.blogService.getBlogs(getQueryDto);
+    async getAllProducts(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
+        const storages: any = await this.productService.getProducts(getQueryDto);
         return res.status(HttpStatus.OK).send(storages);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/detail')
-    async getBlogById(@Query() query: Blog, @Res() res: Response) {
-        const storage: any = await this.blogService.getBlogById(query?.id);
+    async getProductById(@Query() query: Product, @Res() res: Response) {
+        const storage: any = await this.productService.getProductById(query?.id);
         return res.status(HttpStatus.OK).send(storage);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Put('/update')
-    async updateBlog(@Body() updateBlogDto: UpdateBlogDto, @Res() res: Response) {
+    async updateProduct(@Body() updateProductDto: UpdateProductDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.updateBlog(updateBlogDto, session);
+            const newProduct: any = await this.productService.updateProduct(updateProductDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newProduct);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
         } finally {
-            session.endSession();
+            await session.endSession();
         }
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Delete('/delete')
-    async deleteBlog(@Query() query: Blog, @Res() res: Response) {
+    async deleteProduct(@Query() query: Product, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const deletedBlog: any = await this.blogService.deleteBlog(query.id, session);
+            const deletedProduct: any = await this.productService.deleteProduct(query.id, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(deletedBlog);
+            return res.status(HttpStatus.OK).send(deletedProduct);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
         } finally {
-            session.endSession();
+            await session.endSession();
         }
     }
 }

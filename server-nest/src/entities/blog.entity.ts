@@ -5,10 +5,10 @@ import {User} from "./user.entity";
 @Schema()
 export class Blog extends Document {
 
-    @Prop({ type: String })
+    @Prop({ type: String, required: false })
     cover: string;
 
-    @Prop({ type: String })
+    @Prop({ type: String, required: false })
     title: string;
 
     @Prop({ type: String, required: false })

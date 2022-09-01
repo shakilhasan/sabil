@@ -15,7 +15,10 @@ export class AuthController {
         console.log("login user----",user);
         if (user) {
             if (await this.userService.compareHash(payload.password, user['passwordHash'])) {
-                return await this.authService.createToken({...payload, roleAlias:user['roleAlias']});
+                // const permissions = await this.authService.searchPermissions(user['roleId']);
+                const tokenIfo= await this.authService.createToken({...payload, roleAlias:user['roleAlias']});
+                console.log("login user----",tokenIfo);
+                return {...tokenIfo, };
             } else {
                 throw new HttpException({
                     status: HttpStatus.UNAUTHORIZED,

@@ -2,25 +2,25 @@ import { ConflictException, InternalServerErrorException, NotFoundException } fr
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../dto/getQueryDto';
-import { Blog } from '../entities/blog.entity';
-import { CreateBlogDto } from '../modules/blog/dto/createBlog.dto';
-import { UpdateBlogDto } from '../modules/blog/dto/updateBlog.dto';
+import { Resource } from '../entities/resource.entity';
+import { CreateResourceDto } from '../modules/resource/dto/createResource.dto';
+import { UpdateResourceDto } from '../modules/resource/dto/updateResource.dto';
 
-export class BlogRepository {
-    constructor(@InjectModel(Blog.name) private readonly blogModel: Model<Blog>) {}
+export class ResourceRepository {
+    constructor(@InjectModel(Resource.name) private readonly resourceModel: Model<Resource>) {}
 
-    async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
-        let blog = new this.blogModel(createBlogDto);
+    async createResource(createResourceDto: CreateResourceDto, session: ClientSession) {
+        let resource = new this.resourceModel(createResourceDto);
         try {
-            blog = await blog.save({ session });
+            resource = await resource.save({ session });
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        return blog;
+        return resource;
     }
 
-    async updateBlog(updateBlog: UpdateBlogDto, session: ClientSession) {
+    async updateResource(updateResource: UpdateResourceDto, session: ClientSession) {
         const actualDate = new Date();
         actualDate.toUTCString();
 
@@ -28,10 +28,10 @@ export class BlogRepository {
             updatedAt: actualDate,
         };
 
-        let blog;
+        let resource;
         try {
-            blog = await this.blogModel
-                .findOneAndUpdate({ _id: updateBlog.id }, updateData, {
+            resource = await this.resourceModel
+                .findOneAndUpdate({ _id: updateResource.id }, updateData, {
                     new: true,
                 })
                 .session(session)
@@ -40,14 +40,14 @@ export class BlogRepository {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new ConflictException('Error trying to update blog');
+        if (!resource) {
+            throw new ConflictException('Error trying to update resource');
         }
 
-        return blog;
+        return resource;
     }
 
-    async getBlogs(payload: GetQueryDto) {
+    async getResources(payload: GetQueryDto) {
         let limit = payload?.pageSize || 0;
         limit = Number(limit);
 
@@ -55,11 +55,11 @@ export class BlogRepository {
         let skip = (payload?.current - 1) * limit || 0;
         skip = Number(skip);
 
-        let blogs: Blog[];
+        let resources: Resource[];
 
         try {
             if (limit === 0) {
-                blogs = await this.blogModel
+                resources = await this.resourceModel
                     .find()
                     .populate('client')
                     .populate('user', 'name email')
@@ -67,7 +67,7 @@ export class BlogRepository {
                     .sort({ createdAt: -1 })
                     .exec();
             } else {
-                blogs = await this.blogModel
+                resources = await this.resourceModel
                     .find()
                     .skip(skip)
                     .limit(limit)
@@ -77,19 +77,19 @@ export class BlogRepository {
 
             let response;
 
-            if (blogs.length > 0) {
+            if (resources.length > 0) {
                 response = {
                     ok: true,
                     total:30,
-                    data: blogs,
-                    message: 'Get Blogs Ok!',
+                    data: resources,
+                    message: 'Get Resources Ok!',
                 };
             } else {
                 response = {
                     ok: true,
                     total:0,
                     data: [],
-                    message: 'No hay blogs',
+                    message: 'No hay resources',
                 };
             }
             return response;
@@ -98,35 +98,35 @@ export class BlogRepository {
         }
     }
 
-    async getBlogById(id: MongooseSchema.Types.ObjectId) {
-        let blog;
+    async getResourceById(id: MongooseSchema.Types.ObjectId) {
+        let resource;
         try {
-            blog = await this.blogModel.findById(id).exec();
+            resource = await this.resourceModel.findById(id).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new NotFoundException('The blog with this id does not exist');
+        if (!resource) {
+            throw new NotFoundException('The resource with this id does not exist');
         }
 
-        return blog;
+        return resource;
     }
 
 
-    async deleteBlog(blogId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        let blog;
+    async deleteResource(resourceId: MongooseSchema.Types.ObjectId, session: ClientSession) {
+        let resource;
         try {
-            blog = await this.blogModel
-                .findOneAndDelete({ _id: blogId })
+            resource = await this.resourceModel
+                .findOneAndDelete({ _id: resourceId })
                 .session(session)
                 .exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
-        if (!blog) {
-            throw new ConflictException('Error trying to delete blog');
+        if (!resource) {
+            throw new ConflictException('Error trying to delete resource');
         }
-        return blog;
+        return resource;
     }
 }

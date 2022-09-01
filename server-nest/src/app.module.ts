@@ -5,9 +5,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
-import { BlogModule } from './modules/blog/blog.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { BlogModule } from './modules/blog/blog.module';
+import { ProductModule } from './modules/product/product.module';
+import { PermissionModule } from './modules/permission/permission.module';
+import { RoleModule } from './modules/role/role.module';
+import { ResourceModule } from './modules/resource/resource.module';
 
 @Module({
     imports: [
@@ -17,9 +21,14 @@ import { AuthModule } from './modules/auth/auth.module';
             inject: [ConfigService],
             useFactory: async (configService: ConfigService) => configService.getMongoConfig(),
         }),
-        BlogModule,
         AuthModule,
         UserModule,
+        BlogModule,
+        ProductModule,
+        PermissionModule,
+        RoleModule,
+        ResourceModule,
+
     ],
     controllers: [AppController],
     providers: [AppService],

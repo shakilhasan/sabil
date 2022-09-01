@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { JwtPayload } from '../auth/jwt-payload.interface';
 import { User } from '../../entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import * as mongoose from "mongoose";
 
 @Injectable()
 export class UserService {
@@ -22,5 +23,8 @@ export class UserService {
     }
     async getUserById(id: MongooseSchema.Types.ObjectId) {
         return await this.userRepository.getUserById(id);
+    }
+    async searchPermissions(roleId: mongoose.Types.ObjectId) {
+        return await this.userRepository.searchPermissions(roleId);
     }
 }
