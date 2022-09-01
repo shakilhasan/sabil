@@ -4,7 +4,7 @@ const {
   authorizeRequest,
 } = require("../../common/middlewares");
 
-const {name : ModelName} = require("./model");
+const { name: ModelName } = require("./model");
 
 const processRequest = async (req, res, next) => {
   req.modelName = ModelName;
@@ -12,10 +12,14 @@ const processRequest = async (req, res, next) => {
 };
 
 const init = async (app) => {
-  app.use("/api/roles", authenticateRequest,
-          // authorizeRequest,
-          processRequest, routes);
+  app.use(
+    "/api/roles",
+    authenticateRequest,
+    // authorizeRequest,
+    processRequest,
+    routes
+  );
   return app;
 };
 
-module.exports = {init};
+module.exports = { init };
