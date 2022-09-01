@@ -59,7 +59,7 @@ const seed = async (logger) => {
 
 const migrate = async (logger) => {
   logger.info(`Starting migration of permissions`);
-  const superadminUser = await searchOne({ username: "superadmin" }, "User");
+  const superadminUser = await searchOne({ username: "superadmin@sabil.com" }, "User");
   if (!superadminUser) {
     throw new Error("Superadmin user not found");
   }
