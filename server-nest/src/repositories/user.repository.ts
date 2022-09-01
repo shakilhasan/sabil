@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../modules/user/dto/createUser.dto';
+import * as mongoose from "mongoose";
 
 export class UserRepository {
     constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
@@ -46,7 +47,7 @@ export class UserRepository {
     async getUserByUsername(username: string) {
         let user;
         try {
-            user = await this.userModel.findOne({ username }, 'username email displayName roleAlias passwordHash').exec();
+            user = await this.userModel.findOne({ username }, 'username email displayName roleAlias roleId passwordHash').exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
@@ -62,5 +63,15 @@ export class UserRepository {
         }
 
         return user;
+    }
+
+    async searchPermissions(roleId: mongoose.Types.ObjectId) {  //todo- implement this in permissions module when ready
+        let permissions;
+        try {
+            permissions = await mongoose.models['Permission'].findOne({roleId: roleId, isAllowed: true,}).exec();
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        return permissions;
     }
 }

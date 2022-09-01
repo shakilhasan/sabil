@@ -2,25 +2,25 @@ import { ConflictException, InternalServerErrorException, NotFoundException } fr
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../dto/getQueryDto';
-import { Blog } from '../entities/blog.entity';
-import { CreateBlogDto } from '../modules/blog/dto/createBlog.dto';
-import { UpdateBlogDto } from '../modules/blog/dto/updateBlog.dto';
+import { Product } from '../entities/product.entity';
+import { CreateProductDto } from '../modules/product/dto/createProduct.dto';
+import { UpdateProductDto } from '../modules/product/dto/updateProduct.dto';
 
-export class BlogRepository {
-    constructor(@InjectModel(Blog.name) private readonly blogModel: Model<Blog>) {}
+export class ProductRepository {
+    constructor(@InjectModel(Product.name) private readonly productModel: Model<Product>) {}
 
-    async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
-        let blog = new this.blogModel(createBlogDto);
+    async createProduct(createProductDto: CreateProductDto, session: ClientSession) {
+        let product = new this.productModel(createProductDto);
         try {
-            blog = await blog.save({ session });
+            product = await product.save({ session });
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        return blog;
+        return product;
     }
 
-    async updateBlog(updateBlog: UpdateBlogDto, session: ClientSession) {
+    async updateProduct(updateProduct: UpdateProductDto, session: ClientSession) {
         const actualDate = new Date();
         actualDate.toUTCString();
 
@@ -28,10 +28,10 @@ export class BlogRepository {
             updatedAt: actualDate,
         };
 
-        let blog;
+        let product;
         try {
-            blog = await this.blogModel
-                .findOneAndUpdate({ _id: updateBlog.id }, updateData, {
+            product = await this.productModel
+                .findOneAndUpdate({ _id: updateProduct.id }, updateData, {
                     new: true,
                 })
                 .session(session)
@@ -40,14 +40,14 @@ export class BlogRepository {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new ConflictException('Error trying to update blog');
+        if (!product) {
+            throw new ConflictException('Error trying to update product');
         }
 
-        return blog;
+        return product;
     }
 
-    async getBlogs(payload: GetQueryDto) {
+    async getProducts(payload: GetQueryDto) {
         let limit = payload?.pageSize || 0;
         limit = Number(limit);
 
@@ -55,19 +55,17 @@ export class BlogRepository {
         let skip = (payload?.current - 1) * limit || 0;
         skip = Number(skip);
 
-        let blogs: Blog[];
+        let products: Product[];
 
         try {
             if (limit === 0) {
-                blogs = await this.blogModel
+                products = await this.productModel
                     .find()
-                    .populate('client')
-                    .populate('user', 'name email')
                     .skip(skip)
                     .sort({ createdAt: -1 })
                     .exec();
             } else {
-                blogs = await this.blogModel
+                products = await this.productModel
                     .find()
                     .skip(skip)
                     .limit(limit)
@@ -77,19 +75,19 @@ export class BlogRepository {
 
             let response;
 
-            if (blogs.length > 0) {
+            if (products.length > 0) {
                 response = {
                     ok: true,
                     total:30,
-                    data: blogs,
-                    message: 'Get Blogs Ok!',
+                    data: products,
+                    message: 'Get Products Ok!',
                 };
             } else {
                 response = {
                     ok: true,
                     total:0,
                     data: [],
-                    message: 'No hay blogs',
+                    message: 'No hay products',
                 };
             }
             return response;
@@ -98,35 +96,34 @@ export class BlogRepository {
         }
     }
 
-    async getBlogById(id: MongooseSchema.Types.ObjectId) {
-        let blog;
+    async getProductById(id: MongooseSchema.Types.ObjectId) {
+        let product;
         try {
-            blog = await this.blogModel.findById(id).exec();
+            product = await this.productModel.findById(id).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new NotFoundException('The blog with this id does not exist');
+        if (!product) {
+            throw new NotFoundException('The product with this id does not exist');
         }
 
-        return blog;
+        return product;
     }
 
-
-    async deleteBlog(blogId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        let blog;
+    async deleteProduct(productId: MongooseSchema.Types.ObjectId, session: ClientSession) {
+        let product;
         try {
-            blog = await this.blogModel
-                .findOneAndDelete({ _id: blogId })
+            product = await this.productModel
+                .findOneAndDelete({ _id: productId })
                 .session(session)
                 .exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
-        if (!blog) {
-            throw new ConflictException('Error trying to delete blog');
+        if (!product) {
+            throw new ConflictException('Error trying to delete product');
         }
-        return blog;
+        return product;
     }
 }

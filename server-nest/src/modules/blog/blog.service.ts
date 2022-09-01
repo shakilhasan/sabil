@@ -24,4 +24,8 @@ export class BlogService {
     async updateBlog(updateBlogDto: UpdateBlogDto, session: ClientSession) {
         return await this.blogRepository.updateBlog(updateBlogDto, session);
     }
+
+    async deleteBlog(blogId: MongooseSchema.Types.ObjectId, session: ClientSession) {
+        return await this.blogRepository.deleteBlog(blogId, session);
+    }
 }

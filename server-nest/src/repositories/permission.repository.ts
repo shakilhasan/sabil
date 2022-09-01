@@ -2,25 +2,25 @@ import { ConflictException, InternalServerErrorException, NotFoundException } fr
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../dto/getQueryDto';
-import { Blog } from '../entities/blog.entity';
-import { CreateBlogDto } from '../modules/blog/dto/createBlog.dto';
-import { UpdateBlogDto } from '../modules/blog/dto/updateBlog.dto';
+import { Permission } from '../entities/permission.entity';
+import { CreatePermissionDto } from '../modules/permission/dto/createPermission.dto';
+import { UpdatePermissionDto } from '../modules/permission/dto/updatePermission.dto';
 
-export class BlogRepository {
-    constructor(@InjectModel(Blog.name) private readonly blogModel: Model<Blog>) {}
+export class PermissionRepository {
+    constructor(@InjectModel(Permission.name) private readonly permissionModel: Model<Permission>) {}
 
-    async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
-        let blog = new this.blogModel(createBlogDto);
+    async createPermission(createPermissionDto: CreatePermissionDto, session: ClientSession) {
+        let permission = new this.permissionModel(createPermissionDto);
         try {
-            blog = await blog.save({ session });
+            permission = await permission.save({ session });
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        return blog;
+        return permission;
     }
 
-    async updateBlog(updateBlog: UpdateBlogDto, session: ClientSession) {
+    async updatePermission(updatePermission: UpdatePermissionDto, session: ClientSession) {
         const actualDate = new Date();
         actualDate.toUTCString();
 
@@ -28,10 +28,10 @@ export class BlogRepository {
             updatedAt: actualDate,
         };
 
-        let blog;
+        let permission;
         try {
-            blog = await this.blogModel
-                .findOneAndUpdate({ _id: updateBlog.id }, updateData, {
+            permission = await this.permissionModel
+                .findOneAndUpdate({ _id: updatePermission.id }, updateData, {
                     new: true,
                 })
                 .session(session)
@@ -40,14 +40,14 @@ export class BlogRepository {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new ConflictException('Error trying to update blog');
+        if (!permission) {
+            throw new ConflictException('Error trying to update permission');
         }
 
-        return blog;
+        return permission;
     }
 
-    async getBlogs(payload: GetQueryDto) {
+    async getPermissions(payload: GetQueryDto) {
         let limit = payload?.pageSize || 0;
         limit = Number(limit);
 
@@ -55,11 +55,11 @@ export class BlogRepository {
         let skip = (payload?.current - 1) * limit || 0;
         skip = Number(skip);
 
-        let blogs: Blog[];
+        let permissions: Permission[];
 
         try {
             if (limit === 0) {
-                blogs = await this.blogModel
+                permissions = await this.permissionModel
                     .find()
                     .populate('client')
                     .populate('user', 'name email')
@@ -67,7 +67,7 @@ export class BlogRepository {
                     .sort({ createdAt: -1 })
                     .exec();
             } else {
-                blogs = await this.blogModel
+                permissions = await this.permissionModel
                     .find()
                     .skip(skip)
                     .limit(limit)
@@ -77,19 +77,19 @@ export class BlogRepository {
 
             let response;
 
-            if (blogs.length > 0) {
+            if (permissions.length > 0) {
                 response = {
                     ok: true,
                     total:30,
-                    data: blogs,
-                    message: 'Get Blogs Ok!',
+                    data: permissions,
+                    message: 'Get Permissions Ok!',
                 };
             } else {
                 response = {
                     ok: true,
                     total:0,
                     data: [],
-                    message: 'No hay blogs',
+                    message: 'No hay permissions',
                 };
             }
             return response;
@@ -98,35 +98,35 @@ export class BlogRepository {
         }
     }
 
-    async getBlogById(id: MongooseSchema.Types.ObjectId) {
-        let blog;
+    async getPermissionById(id: MongooseSchema.Types.ObjectId) {
+        let permission;
         try {
-            blog = await this.blogModel.findById(id).exec();
+            permission = await this.permissionModel.findById(id).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
 
-        if (!blog) {
-            throw new NotFoundException('The blog with this id does not exist');
+        if (!permission) {
+            throw new NotFoundException('The permission with this id does not exist');
         }
 
-        return blog;
+        return permission;
     }
 
 
-    async deleteBlog(blogId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        let blog;
+    async deletePermission(permissionId: MongooseSchema.Types.ObjectId, session: ClientSession) {
+        let permission;
         try {
-            blog = await this.blogModel
-                .findOneAndDelete({ _id: blogId })
+            permission = await this.permissionModel
+                .findOneAndDelete({ _id: permissionId })
                 .session(session)
                 .exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
-        if (!blog) {
-            throw new ConflictException('Error trying to delete blog');
+        if (!permission) {
+            throw new ConflictException('Error trying to delete permission');
         }
-        return blog;
+        return permission;
     }
 }
