@@ -5,6 +5,7 @@ import { GetQueryDto } from '../dto/getQueryDto';
 import { Permission } from '../entities/permission.entity';
 import { CreatePermissionDto } from '../modules/permission/dto/createPermission.dto';
 import { UpdatePermissionDto } from '../modules/permission/dto/updatePermission.dto';
+import mongoose from "mongoose";
 
 export class PermissionRepository {
     constructor(@InjectModel(Permission.name) private readonly permissionModel: Model<Permission>) {}
@@ -113,6 +114,16 @@ export class PermissionRepository {
         return permission;
     }
 
+    async searchPermissions(roleId: mongoose.Types.ObjectId) {
+        let permissions;
+        try {
+            // permissions = await this.permissionModel.find({roleId: roleId, isAllowed: true,}).exec();
+            permissions = await this.permissionModel.find().exec();
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        return permissions;
+    }
 
     async deletePermission(permissionId: MongooseSchema.Types.ObjectId, session: ClientSession) {
         let permission;

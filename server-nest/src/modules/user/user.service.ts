@@ -24,7 +24,4 @@ export class UserService {
     async getUserById(id: MongooseSchema.Types.ObjectId) {
         return await this.userRepository.getUserById(id);
     }
-    async searchPermissions(roleId: mongoose.Types.ObjectId) {
-        return await this.userRepository.searchPermissions(roleId);
-    }
 }

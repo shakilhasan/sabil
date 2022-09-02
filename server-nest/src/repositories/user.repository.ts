@@ -64,14 +64,4 @@ export class UserRepository {
 
         return user;
     }
-
-    async searchPermissions(roleId: mongoose.Types.ObjectId) {  //todo- implement this in permissions module when ready
-        let permissions;
-        try {
-            permissions = await mongoose.models['Permission'].findOne({roleId: roleId, isAllowed: true,}).exec();
-        } catch (error) {
-            throw new InternalServerErrorException(error);
-        }
-        return permissions;
-    }
 }
