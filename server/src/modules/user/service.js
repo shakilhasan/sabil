@@ -1,6 +1,6 @@
-const { ObjectId } = require("mongoose").Types;
+const {ObjectId} = require("mongoose").Types;
 const bcrypt = require("bcrypt");
-const { NotFound } = require("../../common/errors");
+const {NotFound} = require("../../common/errors");
 const {
   save,
   getById,
@@ -10,7 +10,7 @@ const {
   update,
 } = require("../../core/repository");
 
-const { Model, name: ModelName } = require("./model");
+const {Model, name : ModelName} = require("./model");
 
 const changePassword = async (user, newPassword) => {
   const id = user._id;
@@ -26,19 +26,19 @@ const changePassword = async (user, newPassword) => {
 };
 
 const getByUsername = async (username) => {
-  const item = await Model.findOne({ username }).lean();
+  const item = await Model.findOne({username}).lean();
   if (item) {
-    const { __v, passwordHash, ...rest } = item;
+    const {__v, passwordHash, ...rest} = item;
     return rest;
   }
   return null;
 };
 
 const checkUser = async (username, password) => {
-  const user = await Model.findOne({ username }).lean(); // status: "Active"
+  const user = await Model.findOne({username}).lean(); // status: "Active"
   if (user) {
     const match = await bcrypt.compare(password, user.passwordHash);
-    const { __v, passwordHash, ...rest } = user;
+    const {__v, passwordHash, ...rest} = user;
     return match ? rest : undefined;
   }
 
@@ -52,20 +52,20 @@ async function getPasswordHash(password) {
 
 const createUser = async (user) => {
   const passwordHash = await getPasswordHash(user.password);
-  const { _id } = await save({ passwordHash, ...user }, ModelName);
+  const {_id} = await save({passwordHash, ...user}, ModelName);
   return _id;
 };
 
 const tryCreateUser = async (user) => {
-  const { username, phoneNumber, email } = user;
+  const {username, phoneNumber, email} = user;
   const query = {
-    $or: [
+    $or : [
       // { phoneNumber: { $regex: phoneNumber, $options: "i" } },
       // { email: { $regex: email, $options: "i" } },
       // { username: { $regex: username, $options: "i" } },
-      { phoneNumber },
-      { email },
-      { username },
+      {phoneNumber},
+      {email},
+      {username},
     ],
   };
   const item = await Model.findOne(query);
@@ -78,27 +78,27 @@ const tryCreateUser = async (user) => {
 
 const getQuery = (payload) => {
   const createdBySubQuery = {
-    $or: [
-      { createdBy: ObjectId(payload?.userId) },
-      { _id: ObjectId(payload?.userId) },
+    $or : [
+      {createdBy : ObjectId(payload?.userId)},
+      {_id : ObjectId(payload?.userId)},
     ],
   };
 
   let query = {};
   if (payload?.name && payload?.userId) {
     query = {
-      $and: [
+      $and : [
         createdBySubQuery,
         {
-          $or: [
-            { firstName: { $regex: payload.name, $options: "i" } },
-            { lastName: { $regex: payload.name, $options: "i" } },
-            { username: { $regex: payload.name, $options: "i" } },
+          $or : [
+            {firstName : {$regex : payload.name, $options : "i"}},
+            {lastName : {$regex : payload.name, $options : "i"}},
+            {username : {$regex : payload.name, $options : "i"}},
           ],
         },
       ],
     };
-  } else if(payload?.userId){
+  } else if (payload?.userId) {
     query = createdBySubQuery;
   }
 
@@ -106,23 +106,19 @@ const getQuery = (payload) => {
 };
 
 const searchPermissions = async (roleId) => {
-  const permissions = await dynamicSearch(
-    {
-      roleId: ObjectId(roleId),
-      isAllowed: true,
-    },
-    "Permission"
-  );
+  const permissions = await dynamicSearch({
+    roleId : ObjectId(roleId),
+    isAllowed : true,
+  },
+                                          "Permission");
   return permissions;
 };
 
 const getPermittedUserById = async (id, userId) => {
   const user = await getById(id, ModelName);
   if (user) {
-    if (
-      user._id.toString() === userId ||
-      user.createdBy.toString() === userId
-    ) {
+    if (user._id.toString() === userId ||
+        user.createdBy.toString() === userId) {
       return user;
     }
   }
@@ -131,7 +127,7 @@ const getPermittedUserById = async (id, userId) => {
 
 module.exports = {
   save,
-  getById: getPermittedUserById,
+  getById : getPermittedUserById,
   searchOne,
   changePassword,
   checkUser,
