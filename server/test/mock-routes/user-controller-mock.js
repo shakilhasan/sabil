@@ -3,7 +3,7 @@ const express = require("express");
 const { faker } = require("@faker-js/faker");
 
 // internal imports
-const { Model: User } = require("../../src/modules/auth/model");
+const { Model: User } = require("../../src/modules/user/model");
 const bcrypt = require("bcrypt");
 
 const router = express.Router();
