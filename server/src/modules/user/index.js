@@ -1,5 +1,5 @@
-const authRoutes = require("./controller");
-const userRoutes = require("./user-controller");
+const authRoutes = require("./auth-controller");
+const userRoutes = require("./controller");
 const {
   authenticateRequest,
   authorizeRequest,
