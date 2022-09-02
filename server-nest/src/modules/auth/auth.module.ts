@@ -9,6 +9,7 @@ import { LocalStrategy } from './local.strategy';
 import { UserModule } from '../user/user.module';
 // import { UserServiceProvider } from 'src/users/users.provider';
 import { jwtConstants } from './constants';
+import {PermissionModule} from "../permission/permission.module";
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { jwtConstants } from './constants';
             signOptions: { expiresIn: '100000s' },
         }),
         UserModule,
+        PermissionModule,
     ],
     controllers: [AuthController],
     providers: [

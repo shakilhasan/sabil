@@ -4,6 +4,7 @@ import { GetQueryDto } from 'src/dto/getQueryDto';
 import { PermissionRepository } from '../../repositories/permission.repository';
 import { CreatePermissionDto } from './dto/createPermission.dto';
 import { UpdatePermissionDto } from './dto/updatePermission.dto';
+import mongoose from "mongoose";
 
 @Injectable()
 export class PermissionService {
@@ -20,7 +21,9 @@ export class PermissionService {
     async getPermissions(getQueryDto: GetQueryDto) {
         return await this.permissionRepository.getPermissions(getQueryDto);
     }
-
+    async searchPermissions(roleId: mongoose.Types.ObjectId) {
+        return await this.permissionRepository.searchPermissions(roleId);
+    }
     async updatePermission(updatePermissionDto: UpdatePermissionDto, session: ClientSession) {
         return await this.permissionRepository.updatePermission(updatePermissionDto, session);
     }
