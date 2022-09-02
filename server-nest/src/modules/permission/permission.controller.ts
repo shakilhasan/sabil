@@ -16,29 +16,29 @@ import { InjectConnection } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Connection, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../../dto/getQueryDto';
-import { CreateBlogDto } from './dto/createBlog.dto';
-import { UpdateBlogDto } from './dto/updateBlog.dto';
-import { BlogService } from './blog.service';
+import { CreatePermissionDto } from './dto/createPermission.dto';
+import { UpdatePermissionDto } from './dto/updatePermission.dto';
+import { PermissionService } from './permission.service';
 import { AuthGuard } from '@nestjs/passport';
 import {Roles} from "../auth/roles.decorator";
 import {RoleEnum} from "../auth/role.enum";
 import { RolesGuard } from '../auth/guards/roles.guard';
-import {Blog} from "../../entities/blog.entity";
+import {Permission} from "../../entities/permission.entity";
 
 @UseGuards(RolesGuard)
-@Controller('api/blogs')
-export class BlogController {
-    constructor(@InjectConnection() private readonly mongoConnection: Connection, private blogService: BlogService) {}
+@Controller('api/permissions')
+export class PermissionController {
+    constructor(@InjectConnection() private readonly mongoConnection: Connection, private permissionService: PermissionService) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Post('/create')
-    async createBlog(@Body() createBlogDto: CreateBlogDto, @Res() res: Response) {
+    async createPermission(@Body() createPermissionDto: CreatePermissionDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.createBlog(createBlogDto, session);
+            const newPermission: any = await this.permissionService.createPermission(createPermissionDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newPermission);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
@@ -51,27 +51,27 @@ export class BlogController {
     @Roles(RoleEnum.SuperAdmin)
     // @Roles(Role.Admin)
     @Post('/search')
-    async getAllBlogs(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
-        const storages: any = await this.blogService.getBlogs(getQueryDto);
+    async getAllPermissions(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
+        const storages: any = await this.permissionService.getPermissions(getQueryDto);
         return res.status(HttpStatus.OK).send(storages);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/detail')
-    async getBlogById(@Query() query: Blog, @Res() res: Response) {
-        const storage: any = await this.blogService.getBlogById(query?.id);
+    async getPermissionById(@Query() query: Permission, @Res() res: Response) {
+        const storage: any = await this.permissionService.getPermissionById(query?.id);
         return res.status(HttpStatus.OK).send(storage);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Put('/update')
-    async updateBlog(@Body() updateBlogDto: UpdateBlogDto, @Res() res: Response) {
+    async updatePermission(@Body() updatePermissionDto: UpdatePermissionDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.updateBlog(updateBlogDto, session);
+            const newPermission: any = await this.permissionService.updatePermission(updatePermissionDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newPermission);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
@@ -82,13 +82,13 @@ export class BlogController {
 
     @UseGuards(AuthGuard('jwt'))
     @Delete('/delete')
-    async deleteBlog(@Query() query: Blog, @Res() res: Response) {
+    async deletePermission(@Query() query: Permission, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const deletedBlog: any = await this.blogService.deleteBlog(query.id, session);
+            const deletedPermission: any = await this.permissionService.deletePermission(query.id, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(deletedBlog);
+            return res.status(HttpStatus.OK).send(deletedPermission);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);

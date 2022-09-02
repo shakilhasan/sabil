@@ -16,29 +16,29 @@ import { InjectConnection } from '@nestjs/mongoose';
 import { Response } from 'express';
 import { Connection, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from '../../dto/getQueryDto';
-import { CreateBlogDto } from './dto/createBlog.dto';
-import { UpdateBlogDto } from './dto/updateBlog.dto';
-import { BlogService } from './blog.service';
+import { CreateRoleDto } from './dto/createRole.dto';
+import { UpdateRoleDto } from './dto/updateRole.dto';
+import { RoleService } from './role.service';
 import { AuthGuard } from '@nestjs/passport';
 import {Roles} from "../auth/roles.decorator";
 import {RoleEnum} from "../auth/role.enum";
 import { RolesGuard } from '../auth/guards/roles.guard';
-import {Blog} from "../../entities/blog.entity";
+import {Role} from "../../entities/role.entity";
 
 @UseGuards(RolesGuard)
-@Controller('api/blogs')
-export class BlogController {
-    constructor(@InjectConnection() private readonly mongoConnection: Connection, private blogService: BlogService) {}
+@Controller('api/roles')
+export class RoleController {
+    constructor(@InjectConnection() private readonly mongoConnection: Connection, private roleService: RoleService) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Post('/create')
-    async createBlog(@Body() createBlogDto: CreateBlogDto, @Res() res: Response) {
+    async createRole(@Body() createRoleDto: CreateRoleDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.createBlog(createBlogDto, session);
+            const newRole: any = await this.roleService.createRole(createRoleDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newRole);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
@@ -51,27 +51,27 @@ export class BlogController {
     @Roles(RoleEnum.SuperAdmin)
     // @Roles(Role.Admin)
     @Post('/search')
-    async getAllBlogs(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
-        const storages: any = await this.blogService.getBlogs(getQueryDto);
+    async getAllRoles(@Body() getQueryDto: GetQueryDto, @Res() res: any) {
+        const storages: any = await this.roleService.getRoles(getQueryDto);
         return res.status(HttpStatus.OK).send(storages);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/detail')
-    async getBlogById(@Query() query: Blog, @Res() res: Response) {
-        const storage: any = await this.blogService.getBlogById(query?.id);
+    async getRoleById(@Query() query: Role, @Res() res: Response) {
+        const storage: any = await this.roleService.getRoleById(query?.id);
         return res.status(HttpStatus.OK).send(storage);
     }
 
     @UseGuards(AuthGuard('jwt'))
     @Put('/update')
-    async updateBlog(@Body() updateBlogDto: UpdateBlogDto, @Res() res: Response) {
+    async updateRole(@Body() updateRoleDto: UpdateRoleDto, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const newBlog: any = await this.blogService.updateBlog(updateBlogDto, session);
+            const newRole: any = await this.roleService.updateRole(updateRoleDto, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(newBlog);
+            return res.status(HttpStatus.OK).send(newRole);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);
@@ -82,13 +82,13 @@ export class BlogController {
 
     @UseGuards(AuthGuard('jwt'))
     @Delete('/delete')
-    async deleteBlog(@Query() query: Blog, @Res() res: Response) {
+    async deleteRole(@Query() query: Role, @Res() res: Response) {
         const session = await this.mongoConnection.startSession();
         session.startTransaction();
         try {
-            const deletedBlog: any = await this.blogService.deleteBlog(query.id, session);
+            const deletedRole: any = await this.roleService.deleteRole(query.id, session);
             await session.commitTransaction();
-            return res.status(HttpStatus.OK).send(deletedBlog);
+            return res.status(HttpStatus.OK).send(deletedRole);
         } catch (error) {
             await session.abortTransaction();
             throw new BadRequestException(error);

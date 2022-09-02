@@ -5,9 +5,9 @@ const {
   searchOne,
   updateAll,
   update,
-} = require("../src/modules/auth/service");
+} = require("../src/modules/user/service");
 
-const User = require("../src/modules/auth/model");
+const User = require("../src/modules/user/model");
 const { name: roleModel } = require("../src/modules/role/model");
 
 const seed = async (logger) => {
@@ -32,7 +32,7 @@ const seed = async (logger) => {
 
 const migrate = async (logger) => {
   logger.info("User starting");
-  const superadminUser = await searchOne({ username: "superadmin" }, "User");
+  const superadminUser = await searchOne({ username: "superadmin@sabil.com" }, "User");
   if (!superadminUser) {
     throw new Error("Superadmin user not found");
   }
