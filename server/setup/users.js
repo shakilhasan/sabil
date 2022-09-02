@@ -5,9 +5,9 @@ const {
   searchOne,
   updateAll,
   update,
-} = require("../src/modules/auth/service");
+} = require("../src/modules/user/service");
 
-const User = require("../src/modules/auth/model");
+const User = require("../src/modules/user/model");
 const { name: roleModel } = require("../src/modules/role/model");
 
 const seed = async (logger) => {
