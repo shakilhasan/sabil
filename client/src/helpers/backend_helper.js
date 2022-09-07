@@ -17,7 +17,7 @@ export const deleteUser = user => del(url.DELETE_USER, { params: { ...user } });
 export const updateFollowUser = user =>  put(url.UPDATE_FOLLOW_USER, user);
 
 //  .............................. PAYMENTS ....................................
-export const initPayment = () => get(url.INIT_PAYMENT, { params: {  } });
+export const initPayment = payment => post(url.INIT_PAYMENT, payment);
 export const validatePayment = () => get(url.VALIDATE_PAYMENT, { params: {  } });
 
 //  .............................. PRODUCTS ....................................
