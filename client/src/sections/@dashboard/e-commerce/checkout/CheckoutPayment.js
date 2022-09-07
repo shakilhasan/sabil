@@ -117,7 +117,9 @@ export default function CheckoutPayment() {
       const res= await addSalesOrder(finalData);
       console.log("addSalesOrder  res...", res);
 
-      const res1 = await initPayment();
+      const res1 = await initPayment({
+        total_amount: total,
+      });
       console.log("addSalesOrder  GatewayPageURL...", res1.GatewayPageURL);
       // navigate(res1.GatewayPageURL);
       global.window.location.href = res1.GatewayPageURL;
