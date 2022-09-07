@@ -5,7 +5,6 @@ export const USER_FORGOT_PASSWORD = "/auth/forgotPassword";
 export const USERNAME_CHECK = "/auth/check-username";
 export const USER_SIGNUP = "/auth/signup";
 
-
 // USER
 export const ACCOUNT_USER = "/users/account";
 export const ADD_USER = "/users/create";
