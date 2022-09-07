@@ -1,22 +1,22 @@
 // load repository.js
-const { name: ModelName } = require("./model");
+const {name : ModelName} = require("./model");
 
-const getQuery = (payload,followings) => {
+const getQuery = (payload, followings) => {
   const queries = [];
 
   if (payload.name) {
-    queries.push({ name: { $regex: payload.name, $options: "i" } });
+    queries.push({name : {$regex : payload.name, $options : "i"}});
   }
 
   // product.size (number)
   if (payload.size) {
-    queries.push({ size: parseInt(payload.size, 10) });
+    queries.push({size : parseInt(payload.size, 10)});
   }
   if (payload.category) {
-    queries.push({ category: payload.category });
+    queries.push({category : payload.category});
   }
   if (followings) {
-    queries.push({ authorId: { $in: followings } });
+    queries.push({authorId : {$in : followings}});
   }
 
   // payload.fromDate && payload.toDate
@@ -24,16 +24,16 @@ const getQuery = (payload,followings) => {
     const fromDate = payload.manufacturingDateRange[0];
     const toDate = payload.manufacturingDateRange[1];
     queries.push({
-      manufacturingDate: { $gte: new Date(fromDate), $lte: new Date(toDate) },
+      manufacturingDate : {$gte : new Date(fromDate), $lte : new Date(toDate)},
     });
   }
 
   let query = {};
   if (queries.length === 1) {
-    query = { ...queries[0] };
+    query = {...queries[0]};
   }
   if (queries.length > 1) {
-    query = { $and: queries };
+    query = {$and : queries};
   }
   return query;
 };
@@ -54,5 +54,5 @@ setupEventListeners();
 
 module.exports = {
   getQuery,
-  modelName: ModelName,
+  modelName : ModelName,
 };
