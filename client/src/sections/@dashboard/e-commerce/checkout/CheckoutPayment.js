@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import {useNavigate} from "react-router-dom";
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +17,7 @@ import CheckoutSummary from './CheckoutSummary';
 import CheckoutDelivery from './CheckoutDelivery';
 import CheckoutBillingInfo from './CheckoutBillingInfo';
 import CheckoutPaymentMethods from './CheckoutPaymentMethods';
-import {addSalesOrder} from "../../../../helpers/backend_helper";
+import {addSalesOrder, initPayment} from "../../../../helpers/backend_helper";
 
 
 // ----------------------------------------------------------------------
@@ -65,6 +66,7 @@ const CARDS_OPTIONS = [
 ];
 
 export default function CheckoutPayment() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { checkout } = useSelector((state) => state.product);
@@ -115,6 +117,10 @@ export default function CheckoutPayment() {
       const res= await addSalesOrder(finalData);
       console.log("addSalesOrder  res...", res);
 
+      const res1 = await initPayment();
+      console.log("addSalesOrder  GatewayPageURL...", res1.GatewayPageURL);
+      // navigate(res1.GatewayPageURL);
+      global.window.location.href = res1.GatewayPageURL;
       handleNextStep();
     } catch (error) {
       console.error(error);

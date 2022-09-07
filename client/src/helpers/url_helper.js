@@ -18,6 +18,9 @@ export const DELETE_USER = "/users/delete";
 export const CHECK_USER = "/users/check";
 export const COUNT_USERS = "/users/count";
 
+// PAYMENTS
+export const INIT_PAYMENT = "/payments/init";
+export const VALIDATE_PAYMENT = "/payments/validate";
 
 // PRODUCTS
 export const GET_PRODUCT = "/products/detail";
