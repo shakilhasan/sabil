@@ -1,68 +1,70 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const {MongoError} = require("../../common/errors");
+const { MongoError } = require("../../common/errors");
 
 const keyMapping = {
-  phoneNumber : "Phone number",
-  email : "Email",
-  username : "Username",
+  phoneNumber: "Phone number",
+  email: "Email",
+  username: "Username",
 };
-const userSchema = new mongoose.Schema({
-  firstName : {type : String, required : false}, // todo  required: true
-  lastName : {type : String, required : false},  // todo  required: true
-  username : {type : String, required : true, unique : true},
-  displayName : {type : String, required : true, trim : true},
-  phoneNumber : {type : String, required : true, index : true, unique : true},
-  email : {
-    type : String,
-    required : true,
-    unique : true,
-    trim : true,
-    lowercase : true,
-  },
-  roleName : {type : String, required : false}, // obsolete
-  roleId : {
-    type : mongoose.Schema.Types.ObjectId,
-    required : false
-  },                                             // todo  required: true
-  roleAlias : {type : String, required : false}, // todo  required: true
-  passwordHash : {type : String, required : true},
-  address : {type : String, required : false},
+const userSchema = new mongoose.Schema(
+  {
+    firstName: { type: String, required: false }, // todo  required: true
+    lastName: { type: String, required: false }, // todo  required: true
+    username: { type: String, required: true, unique: true },
+    displayName: { type: String, required: true, trim: true },
+    phoneNumber: { type: String, required: true, index: true, unique: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    roleName: { type: String, required: false }, // obsolete
+    roleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+    }, // todo  required: true
+    roleAlias: { type: String, required: false }, // todo  required: true
+    passwordHash: { type: String, required: true },
+    address: { type: String, required: false },
 
-  photoURL : {type : String, required : false},
-  country : {type : String, required : false},
-  state : {type : String, required : false},
-  city : {type : String, required : false},
-  zipCode : {type : String, required : false},
-  about : {type : String, required : false},
-  company : {type : String, required : false},
-  status : {type : String, required : false},
-  isPublic : {type : Boolean, required : false, default : true},
-  isVerified : {type : Boolean, required : false, default : true},
+    photoURL: { type: String, required: false },
+    country: { type: String, required: false },
+    state: { type: String, required: false },
+    city: { type: String, required: false },
+    zipCode: { type: String, required: false },
+    about: { type: String, required: false },
+    company: { type: String, required: false },
+    status: { type: String, required: false },
+    isPublic: { type: Boolean, required: false, default: true },
+    isVerified: { type: Boolean, required: false, default: true },
 
-  followings : [
-    {type : mongoose.Schema.Types.ObjectId, ref : 'User', required : false}
-  ],
-  followers : [
-    {type : mongoose.Schema.Types.ObjectId, ref : 'User', required : false}
-  ],
+    followings: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
+    ],
+    followers: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
+    ],
 
-  createdBy : {
-    type : mongoose.Schema.Types.ObjectId,
-    required : true,
-    default : "000000000000",
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      default: "000000000000",
+    },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      default: "000000000000",
+    },
   },
-  updatedBy : {
-    type : mongoose.Schema.Types.ObjectId,
-    required : true,
-    default : "000000000000",
-  },
-},
-                                       {timestamps : true});
+  { timestamps: true }
+);
 
 // create index for username and email individually
-userSchema.index({username : "text"});
-userSchema.index({email : "text"});
+userSchema.index({ username: "text" });
+userSchema.index({ email: "text" });
 
 userSchema.post("save", (error, doc, next) => {
   if (error.name === "MongoError" && error.code === 11000) {
@@ -72,8 +74,7 @@ userSchema.post("save", (error, doc, next) => {
       const keyName = Object.keys(error.keyValue)[0];
       const errorMessage = `${keyMapping[keyName]} already exists`;
       next(new MongoError(errorMessage));
-    } else
-      next(new MongoError(error.message));
+    } else next(new MongoError(error.message));
   } else {
     next();
   }
@@ -101,10 +102,10 @@ User.getHashedPassword = async (newPassword) => {
 
 User.setPassword = async (model, newPassword) => {
   const passwordHash = await getPasswordHash(newPassword);
-  return {passwordHash, ...model};
+  return { passwordHash, ...model };
 };
 
 module.exports = {
-  Model : User,
-  name : ModelName
+  Model: User,
+  name: ModelName,
 };
