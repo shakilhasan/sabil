@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const uri = process.env.IS_MONGODB_CLOUD_URL ? process.env.MONGODB_CLOUD_URL  : `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+
+const isMongoDbUrl = JSON.parse(
+    process.env.IS_MONGODB_CLOUD_URL ? process.env.IS_MONGODB_CLOUD_URL : "false"
+);
+const uri = isMongoDbUrl
+    ? process.env.MONGODB_CLOUD_URL
+    : `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 const options = {
   useNewUrlParser: true,
