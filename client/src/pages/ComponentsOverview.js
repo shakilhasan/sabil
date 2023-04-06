@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 // components
 import Page from '../components/Page';
 // sections
+// eslint-disable-next-line import/extensions,import/no-unresolved
 import { ComponentHero, ComponentOther, ComponentFoundation, ComponentMUI } from '../sections/overview';
 
 // ----------------------------------------------------------------------
