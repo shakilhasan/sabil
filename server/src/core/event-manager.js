@@ -7,9 +7,7 @@ class EventManager {
     }
   }
 
-  getInstance() {
-    return EventManager.instance;
-  }
+  getInstance() { return EventManager.instance; }
 }
 
 module.exports = new EventManager();
