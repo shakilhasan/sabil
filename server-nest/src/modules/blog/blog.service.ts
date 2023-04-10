@@ -7,25 +7,28 @@ import { UpdateBlogDto } from './dto/updateBlog.dto';
 
 @Injectable()
 export class BlogService {
-    constructor(private blogRepository: BlogRepository) {}
+  constructor(private blogRepository: BlogRepository) {}
 
-    async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
-        return await this.blogRepository.createBlog(createBlogDto, session);
-    }
+  async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
+    return await this.blogRepository.createBlog(createBlogDto, session);
+  }
 
-    async getBlogById(blogId: MongooseSchema.Types.ObjectId) {
-        return await this.blogRepository.getBlogById(blogId);
-    }
+  async getBlogById(blogId: MongooseSchema.Types.ObjectId) {
+    return await this.blogRepository.getBlogById(blogId);
+  }
 
-    async getBlogs(getQueryDto: GetQueryDto) {
-        return await this.blogRepository.getBlogs(getQueryDto);
-    }
+  async getBlogs(getQueryDto: GetQueryDto) {
+    return await this.blogRepository.getBlogs(getQueryDto);
+  }
 
-    async updateBlog(updateBlogDto: UpdateBlogDto, session: ClientSession) {
-        return await this.blogRepository.updateBlog(updateBlogDto, session);
-    }
+  async updateBlog(updateBlogDto: UpdateBlogDto, session: ClientSession) {
+    return await this.blogRepository.updateBlog(updateBlogDto, session);
+  }
 
-    async deleteBlog(blogId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        return await this.blogRepository.deleteBlog(blogId, session);
-    }
+  async deleteBlog(
+    blogId: MongooseSchema.Types.ObjectId,
+    session: ClientSession,
+  ) {
+    return await this.blogRepository.deleteBlog(blogId, session);
+  }
 }

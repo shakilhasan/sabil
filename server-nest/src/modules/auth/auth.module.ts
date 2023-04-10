@@ -9,25 +9,25 @@ import { LocalStrategy } from './local.strategy';
 import { UserModule } from '../user/user.module';
 // import { UserServiceProvider } from 'src/users/users.provider';
 import { jwtConstants } from './constants';
-import {PermissionModule} from "../permission/permission.module";
+import { PermissionModule } from '../permission/permission.module';
 
 @Module({
-    imports: [
-        PassportModule.register({ defaultStrategy: 'jwt' }),
-        JwtModule.register({
-            // secretOrPrivateKey: 'secretKey',
-            secret: jwtConstants.secret,
-            signOptions: { expiresIn: '100000s' },
-        }),
-        UserModule,
-        PermissionModule,
-    ],
-    controllers: [AuthController],
-    providers: [
-        AuthService,
-        LocalStrategy,
-        JwtStrategy,
-        // ...UserServiceProvider,
-    ],
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      // secretOrPrivateKey: 'secretKey',
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '100000s' },
+    }),
+    UserModule,
+    PermissionModule,
+  ],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    // ...UserServiceProvider,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

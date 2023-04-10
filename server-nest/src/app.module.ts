@@ -14,23 +14,23 @@ import { RoleModule } from './modules/role/role.module';
 import { ResourceModule } from './modules/resource/resource.module';
 
 @Module({
-    imports: [
-        ConfigModule,
-        // MongoDB Connection
-        MongooseModule.forRootAsync({
-            inject: [ConfigService],
-            useFactory: async (configService: ConfigService) => configService.getMongoConfig(),
-        }),
-        AuthModule,
-        UserModule,
-        BlogModule,
-        ProductModule,
-        PermissionModule,
-        RoleModule,
-        ResourceModule,
-
-    ],
-    controllers: [AppController],
-    providers: [AppService],
+  imports: [
+    ConfigModule,
+    // MongoDB Connection
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) =>
+        configService.getMongoConfig(),
+    }),
+    AuthModule,
+    UserModule,
+    BlogModule,
+    ProductModule,
+    PermissionModule,
+    RoleModule,
+    ResourceModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

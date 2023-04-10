@@ -2,18 +2,20 @@ import { UserService } from '../user/user.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
-import * as mongoose from "mongoose";
-import {PermissionService} from "../permission/permission.service";
+import * as mongoose from 'mongoose';
+import { PermissionService } from '../permission/permission.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService,
-              private readonly userService: UserService,
-              private readonly permissionService: PermissionService) { }
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userService: UserService,
+    private readonly permissionService: PermissionService,
+  ) {}
 
   async createToken(user: JwtPayload) {
     // const user: JwtPayload = { email: 'test@email.com' };
-    console.log("createToken user----",user);
+    console.log('createToken user----', user);
     const accessToken = this.jwtService.sign(user);
     return {
       expiresIn: 100000,

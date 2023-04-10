@@ -1,33 +1,39 @@
 import * as dotenv from 'dotenv';
 
 export class ConfigService {
-    private readonly envConfig: Record<string, string>;
-    constructor() {
-        const result = dotenv.config();
-
-        if (result.error) {
-            this.envConfig = process.env;
-        } else {
-            this.envConfig = result.parsed;
-        }
+  private readonly envConfig: Record<string, string>;
+  constructor() {
+    const result = dotenv.config();
+    if (result.error) {
+      this.envConfig = process.env;
+    } else {
+      this.envConfig = result.parsed;
     }
+  }
 
-    public get(key: string): string {
-        return this.envConfig[key];
-    }
+  public get(key: string): string {
+    return this.envConfig[key];
+  }
 
-    public async getPortConfig() {
-        return this.get('PORT');
-    }
+  public async getPortConfig() {
+    return this.get('PORT');
+  }
+  public async getMongoConfig() {
+    const isMongoDbUrl = JSON.parse(
+      this.get('IS_MONGODB_CLOUD_URL')
+        ? this.get('IS_MONGODB_CLOUD_URL')
+        : 'false',
+    );
+    const uri = isMongoDbUrl
+      ? this.get('MONGODB_CLOUD_URL')
+      : `mongodb://${this.get('MONGODB_HOST')}:${this.get(
+          'MONGODB_PORT',
+        )}/${this.get('MONGODB_NAME')}`;
 
-    public async getMongoConfig() {
-        return {
-            uri:'mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/test?retryWrites=true&w=majority',
-            // uri:'mongodb://' + this.get('MONGO_HOST') + '/' + this.get('MONGO_DATABASE'),
-
-            // 'mongodb+srv://' + this.get('MONGO_USER') + ':' + this.get('MONGO_PASSWORD') + '@' + this.get('MONGO_HOST') + '/' + this.get('MONGO_DATABASE'),
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        };
-    }
+    return {
+      uri,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    };
+  }
 }

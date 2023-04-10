@@ -7,25 +7,40 @@ import { UpdateProductDto } from './dto/updateProduct.dto';
 
 @Injectable()
 export class ProductService {
-    constructor(private productRepository: ProductRepository) {}
+  constructor(private productRepository: ProductRepository) {}
 
-    async createProduct(createProductDto: CreateProductDto, session: ClientSession) {
-        return await this.productRepository.createProduct(createProductDto, session);
-    }
+  async createProduct(
+    createProductDto: CreateProductDto,
+    session: ClientSession,
+  ) {
+    return await this.productRepository.createProduct(
+      createProductDto,
+      session,
+    );
+  }
 
-    async getProductById(productId: MongooseSchema.Types.ObjectId) {
-        return await this.productRepository.getProductById(productId);
-    }
+  async getProductById(productId: MongooseSchema.Types.ObjectId) {
+    return await this.productRepository.getProductById(productId);
+  }
 
-    async getProducts(getQueryDto: GetQueryDto) {
-        return await this.productRepository.getProducts(getQueryDto);
-    }
+  async getProducts(getQueryDto: GetQueryDto) {
+    return await this.productRepository.getProducts(getQueryDto);
+  }
 
-    async updateProduct(updateProductDto: UpdateProductDto, session: ClientSession) {
-        return await this.productRepository.updateProduct(updateProductDto, session);
-    }
+  async updateProduct(
+    updateProductDto: UpdateProductDto,
+    session: ClientSession,
+  ) {
+    return await this.productRepository.updateProduct(
+      updateProductDto,
+      session,
+    );
+  }
 
-    async deleteProduct(productId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        return await this.productRepository.deleteProduct(productId, session);
-    }
+  async deleteProduct(
+    productId: MongooseSchema.Types.ObjectId,
+    session: ClientSession,
+  ) {
+    return await this.productRepository.deleteProduct(productId, session);
+  }
 }

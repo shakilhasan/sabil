@@ -4,31 +4,49 @@ import { GetQueryDto } from 'src/dto/getQueryDto';
 import { PermissionRepository } from '../../repositories/permission.repository';
 import { CreatePermissionDto } from './dto/createPermission.dto';
 import { UpdatePermissionDto } from './dto/updatePermission.dto';
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 @Injectable()
 export class PermissionService {
-    constructor(private permissionRepository: PermissionRepository) {}
+  constructor(private permissionRepository: PermissionRepository) {}
 
-    async createPermission(createPermissionDto: CreatePermissionDto, session: ClientSession) {
-        return await this.permissionRepository.createPermission(createPermissionDto, session);
-    }
+  async createPermission(
+    createPermissionDto: CreatePermissionDto,
+    session: ClientSession,
+  ) {
+    return await this.permissionRepository.createPermission(
+      createPermissionDto,
+      session,
+    );
+  }
 
-    async getPermissionById(permissionId: MongooseSchema.Types.ObjectId) {
-        return await this.permissionRepository.getPermissionById(permissionId);
-    }
+  async getPermissionById(permissionId: MongooseSchema.Types.ObjectId) {
+    return await this.permissionRepository.getPermissionById(permissionId);
+  }
 
-    async getPermissions(getQueryDto: GetQueryDto) {
-        return await this.permissionRepository.getPermissions(getQueryDto);
-    }
-    async searchPermissions(roleId: mongoose.Types.ObjectId) {
-        return await this.permissionRepository.searchPermissions(roleId);
-    }
-    async updatePermission(updatePermissionDto: UpdatePermissionDto, session: ClientSession) {
-        return await this.permissionRepository.updatePermission(updatePermissionDto, session);
-    }
+  async getPermissions(getQueryDto: GetQueryDto) {
+    return await this.permissionRepository.getPermissions(getQueryDto);
+  }
+  async searchPermissions(roleId: mongoose.Types.ObjectId) {
+    return await this.permissionRepository.searchPermissions(roleId);
+  }
+  async updatePermission(
+    updatePermissionDto: UpdatePermissionDto,
+    session: ClientSession,
+  ) {
+    return await this.permissionRepository.updatePermission(
+      updatePermissionDto,
+      session,
+    );
+  }
 
-    async deletePermission(permissionId: MongooseSchema.Types.ObjectId, session: ClientSession) {
-        return await this.permissionRepository.deletePermission(permissionId, session);
-    }
+  async deletePermission(
+    permissionId: MongooseSchema.Types.ObjectId,
+    session: ClientSession,
+  ) {
+    return await this.permissionRepository.deletePermission(
+      permissionId,
+      session,
+    );
+  }
 }
