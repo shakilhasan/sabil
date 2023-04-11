@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
-import { GetQueryDto } from '../dto/getQueryDto';
-import { Product } from '../entities/product.entity';
-import { CreateProductDto } from '../modules/product/dto/createProduct.dto';
-import { UpdateProductDto } from '../modules/product/dto/updateProduct.dto';
+import { GetQueryDto } from '../../../dto/getQueryDto';
+import { Product } from '../entity/product.entity';
+import { CreateProductDto } from '../dto/createProduct.dto';
+import { UpdateProductDto } from '../dto/updateProduct.dto';
 
 export class ProductRepository {
   constructor(

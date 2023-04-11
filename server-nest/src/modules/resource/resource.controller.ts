@@ -23,7 +23,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../auth/roles.decorator';
 import { RoleEnum } from '../auth/role.enum';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { Resource } from '../../entities/resource.entity';
+import { Resource } from './entity/resource.entity';
 
 @UseGuards(RolesGuard)
 @Controller('api/resources')

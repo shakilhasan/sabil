@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ClientSession, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from 'src/dto/getQueryDto';
-import { RoleRepository } from '../../repositories/role.repository';
+import { RoleRepository } from './repository/role.repository';
 import { CreateRoleDto } from './dto/createRole.dto';
 import { UpdateRoleDto } from './dto/updateRole.dto';
 

@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
-import { GetQueryDto } from '../dto/getQueryDto';
-import { Permission } from '../entities/permission.entity';
-import { CreatePermissionDto } from '../modules/permission/dto/createPermission.dto';
-import { UpdatePermissionDto } from '../modules/permission/dto/updatePermission.dto';
+import { GetQueryDto } from '../../../dto/getQueryDto';
+import { Permission } from '../entity/permission.entity';
+import { CreatePermissionDto } from '../dto/createPermission.dto';
+import { UpdatePermissionDto } from '../dto/updatePermission.dto';
 import mongoose from 'mongoose';
 
 export class PermissionRepository {

@@ -5,28 +5,28 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
-import { GetQueryDto } from '../dto/getQueryDto';
-import { Role } from '../entities/role.entity';
-import { CreateRoleDto } from '../modules/role/dto/createRole.dto';
-import { UpdateRoleDto } from '../modules/role/dto/updateRole.dto';
+import { GetQueryDto } from '../../../dto/getQueryDto';
+import { Blog } from '../entity/blog.entity';
+import { CreateBlogDto } from '../dto/createBlog.dto';
+import { UpdateBlogDto } from '../dto/updateBlog.dto';
 
-export class RoleRepository {
+export class BlogRepository {
   constructor(
-    @InjectModel(Role.name) private readonly roleModel: Model<Role>,
+    @InjectModel(Blog.name) private readonly blogModel: Model<Blog>,
   ) {}
 
-  async createRole(createRoleDto: CreateRoleDto, session: ClientSession) {
-    let role = new this.roleModel(createRoleDto);
+  async createBlog(createBlogDto: CreateBlogDto, session: ClientSession) {
+    let blog = new this.blogModel(createBlogDto);
     try {
-      role = await role.save({ session });
+      blog = await blog.save({ session });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
 
-    return role;
+    return blog;
   }
 
-  async updateRole(updateRole: UpdateRoleDto, session: ClientSession) {
+  async updateBlog(updateBlog: UpdateBlogDto, session: ClientSession) {
     const actualDate = new Date();
     actualDate.toUTCString();
 
@@ -34,10 +34,10 @@ export class RoleRepository {
       updatedAt: actualDate,
     };
 
-    let role;
+    let blog;
     try {
-      role = await this.roleModel
-        .findOneAndUpdate({ _id: updateRole.id }, updateData, {
+      blog = await this.blogModel
+        .findOneAndUpdate({ _id: updateBlog.id }, updateData, {
           new: true,
         })
         .session(session)
@@ -46,25 +46,25 @@ export class RoleRepository {
       throw new InternalServerErrorException(error);
     }
 
-    if (!role) {
-      throw new ConflictException('Error trying to update role');
+    if (!blog) {
+      throw new ConflictException('Error trying to update blog');
     }
 
-    return role;
+    return blog;
   }
 
-  async getRoles(payload: GetQueryDto) {
+  async getBlogs(payload: GetQueryDto) {
     let limit = payload?.pageSize || 0;
     limit = Number(limit);
 
     let skip = (payload?.current - 1) * limit || 0;
     skip = Number(skip);
 
-    let roles: Role[];
+    let blogs: Blog[];
 
     try {
       if (limit === 0) {
-        roles = await this.roleModel
+        blogs = await this.blogModel
           .find()
           .populate('client')
           .populate('user', 'name email')
@@ -72,7 +72,7 @@ export class RoleRepository {
           .sort({ createdAt: -1 })
           .exec();
       } else {
-        roles = await this.roleModel
+        blogs = await this.blogModel
           .find()
           .skip(skip)
           .limit(limit)
@@ -82,19 +82,19 @@ export class RoleRepository {
 
       let response;
 
-      if (roles.length > 0) {
+      if (blogs.length > 0) {
         response = {
           ok: true,
           total: 30,
-          data: roles,
-          message: 'Get Roles Ok!',
+          data: blogs,
+          message: 'Get Blogs Ok!',
         };
       } else {
         response = {
           ok: true,
           total: 0,
           data: [],
-          message: 'No hay roles',
+          message: 'No hay blogs',
         };
       }
       return response;
@@ -103,37 +103,37 @@ export class RoleRepository {
     }
   }
 
-  async getRoleById(id: MongooseSchema.Types.ObjectId) {
-    let role;
+  async getBlogById(id: MongooseSchema.Types.ObjectId) {
+    let blog;
     try {
-      role = await this.roleModel.findById(id).exec();
+      blog = await this.blogModel.findById(id).exec();
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
 
-    if (!role) {
-      throw new NotFoundException('The role with this id does not exist');
+    if (!blog) {
+      throw new NotFoundException('The blog with this id does not exist');
     }
 
-    return role;
+    return blog;
   }
 
-  async deleteRole(
-    roleId: MongooseSchema.Types.ObjectId,
+  async deleteBlog(
+    blogId: MongooseSchema.Types.ObjectId,
     session: ClientSession,
   ) {
-    let role;
+    let blog;
     try {
-      role = await this.roleModel
-        .findOneAndDelete({ _id: roleId })
+      blog = await this.blogModel
+        .findOneAndDelete({ _id: blogId })
         .session(session)
         .exec();
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
-    if (!role) {
-      throw new ConflictException('Error trying to delete role');
+    if (!blog) {
+      throw new ConflictException('Error trying to delete blog');
     }
-    return role;
+    return blog;
   }
 }

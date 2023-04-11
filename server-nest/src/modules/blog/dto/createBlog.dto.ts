@@ -1,7 +1,7 @@
 import { IsOptional } from 'class-validator';
 import { Schema as MongooseSchema } from 'mongoose';
 import { Prop } from '@nestjs/mongoose';
-import { User } from '../../../entities/user.entity';
+import { User } from '../../user/entity/user.entity';
 
 export class CreateBlogDto {
   @IsOptional() id: MongooseSchema.Types.ObjectId;

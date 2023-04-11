@@ -36,4 +36,29 @@ export class ConfigService {
       useUnifiedTopology: true,
     };
   }
+
+  public async getPostgresConfig() {
+    return {
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'user',
+      password: 'password',
+      database: 'db',
+      entities: [],
+      synchronize: true,
+    };
+  }
+  public async getMySqlConfig() {
+    return {
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
+    };
+  }
 }

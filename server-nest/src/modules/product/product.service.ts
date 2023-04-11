@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ClientSession, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from 'src/dto/getQueryDto';
-import { ProductRepository } from '../../repositories/product.repository';
+import { ProductRepository } from './repository/product.repository';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 

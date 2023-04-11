@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
-import { GetQueryDto } from '../dto/getQueryDto';
-import { Resource } from '../entities/resource.entity';
-import { CreateResourceDto } from '../modules/resource/dto/createResource.dto';
-import { UpdateResourceDto } from '../modules/resource/dto/updateResource.dto';
+import { GetQueryDto } from '../../../dto/getQueryDto';
+import { Resource } from '../entity/resource.entity';
+import { CreateResourceDto } from '../dto/createResource.dto';
+import { UpdateResourceDto } from '../dto/updateResource.dto';
 
 export class ResourceRepository {
   constructor(

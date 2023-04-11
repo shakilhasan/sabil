@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ClientSession, Schema as MongooseSchema } from 'mongoose';
 import { GetQueryDto } from 'src/dto/getQueryDto';
-import { PermissionRepository } from '../../repositories/permission.repository';
+import { PermissionRepository } from './repository/permission.repository';
 import { CreatePermissionDto } from './dto/createPermission.dto';
 import { UpdatePermissionDto } from './dto/updatePermission.dto';
 import mongoose from 'mongoose';

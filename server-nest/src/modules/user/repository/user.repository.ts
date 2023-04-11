@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Model, Schema as MongooseSchema } from 'mongoose';
-import { User } from '../entities/user.entity';
-import { CreateUserDto } from '../modules/user/dto/createUser.dto';
+import { User } from '../entity/user.entity';
+import { CreateUserDto } from '../dto/createUser.dto';
 import * as mongoose from 'mongoose';
 
 export class UserRepository {

@@ -15,7 +15,7 @@ import { Connection, Schema as MongooseSchema } from 'mongoose';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
 // @ts-ignore
-import { User } from '../../entities/user.entity';
+import { User } from './entity/user.entity';
 
 @Controller('api/users')
 export class UserController {

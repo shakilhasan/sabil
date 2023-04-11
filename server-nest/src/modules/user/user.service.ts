@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ClientSession, Schema as MongooseSchema } from 'mongoose';
-import { UserRepository } from '../../repositories/user.repository';
+import { UserRepository } from './repository/user.repository';
 import { CreateUserDto } from './dto/createUser.dto';
 import { JwtPayload } from '../auth/jwt-payload.interface';
-import { User } from '../../entities/user.entity';
+import { User } from './entity/user.entity';
 import * as bcrypt from 'bcrypt';
 import * as mongoose from 'mongoose';
 
