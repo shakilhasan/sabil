@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Location } from './entity/location.entity';
@@ -10,7 +10,7 @@ export class LocationService {
     @InjectRepository(Location)
     private locationRepository: Repository<Location>,
   ) {}
-
+  private readonly logger = new Logger(LocationService.name);
   async createLocation(
     createLocationDto: CreateLocationDto,
   ): Promise<Location> {
@@ -21,6 +21,7 @@ export class LocationService {
   async getLocationById(id: number): Promise<Location> {
     const location = await this.locationRepository.findOne({ where: { id } });
     if (!location) {
+      this.logger.log(`Location with ID ${id} not found`);
       throw new NotFoundException(`Location with ID ${id} not found`);
     }
     return location;
@@ -45,6 +46,7 @@ export class LocationService {
   async deleteLocation(id: number): Promise<void> {
     const result = await this.locationRepository.delete(id);
     if (result.affected === 0) {
+      this.logger.log(`Location with ID ${id} not found for delete`);
       throw new NotFoundException(`Location with ID ${id} not found`);
     }
   }

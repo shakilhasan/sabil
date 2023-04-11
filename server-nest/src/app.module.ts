@@ -16,6 +16,7 @@ import { RoleModule } from './modules/role/role.module';
 import { ResourceModule } from './modules/resource/resource.module';
 import { LocationModule } from './modules/location/location.module';
 
+const configService = new ConfigService();
 @Module({
   imports: [
     ConfigModule,
@@ -25,17 +26,8 @@ import { LocationModule } from './modules/location/location.module';
       useFactory: async (configService: ConfigService) =>
         configService.getMongoConfig(),
     }),
-    // Postgres DB
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '#sH1404087',
-      database: 'sabil',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
+    // Postgres DB Connection
+    TypeOrmModule.forRoot(configService.postgresConfig),
     AuthModule,
     UserModule,
     BlogModule,
