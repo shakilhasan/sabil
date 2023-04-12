@@ -14,7 +14,6 @@ import { Response } from 'express';
 import { Connection, Schema as MongooseSchema } from 'mongoose';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
-// @ts-ignore
 import { User } from './entity/user.entity';
 
 @Controller('api/users')
