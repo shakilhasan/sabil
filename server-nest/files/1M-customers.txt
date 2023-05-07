@@ -1,0 +1,26 @@
+Robert,Branch,Haines city,FL,33844,4074686162,rbranch@pacbell.net,65.215.76.5
+Janny,Gaines,Augusta,GA,30904,7063065591,jannygaines@yahoo.com,152.85.91.83
+deborah,yankosky,milford,in,46542,5746584567,dyankosky@hotmail.com,69.253.17.250
+Harry,Wehrle,Mulberry grv,IL,62262,6188302788,harry.wehrle@myway.com,60.254.163.217
+Sharon,Dorn,Felton,PA,17322,7175780948,sdorn@msn.com,208.71.183.227
+Julie,Haiss,Waldorf,MD,20601,3016538341,jhaiss@msn.com,209.26.27.67
+Jeffrey,Harrell,Malden,MA,2148,7815219544,jharrell54@verizon.net,69.20.116.35
+Stephanie,Holland,Trussville,AL,35173,2056613123,ssholland55@yahoo.com,69.19.32.244
+Stella,Knurowski,Lakewood,NJ,8701,7329057711,sknurowski@yahoo.com,192.91.190.92
+Jerome,Hickcox,Janesville,WI,53545,6087525272,francoprussian@yahoo.com,216.110.41.221
+Donald,Hayati,Wauseon,OH,43567,5138846862,dhayati@msn.com,138.236.85.227
+robert,schutt,frankfort,il,60423,8473430628,robert.schutt@bellsouth.net,64.39.21.39
+Tracey,Facto,Kissimmee,FL,34759,3522493146,tfacto@yahoo.com,208.184.221.121
+earawanna,murates,canton,oh,44721,3305266764,emurates@excite.com,66.199.172.116
+Sheree,Jackson,Roseville,MI,48066,3133048491,shereej@pacbell.net,65.189.241.130
+Joseph,Burke,Brooklyn,NY,11221,5652415341,jo1se3ph@yahoo.com,66.96.37.102
+Ernesto,Menchaca,Austin,TX,78750,5127502540,emenchaca@yahoo.com,152.183.61.0
+Ian,Scholl,Florence,MT,59833,3215361082,ian.scholl@msn.com,209.122.16.58
+Charles,Phelps,Detroit,MI,48204,3135908199,charles.phelps@msn.com,66.199.186.228
+Rosanda,Kuylen,Houston,TX,77007,2813231080,rosanda_angel@yahoo.com,72.32.107.239
+Stanley,Maltz,Margate city,NJ,8402,6096470243,stanley.maltz@netzero.net,194.246.96.212
+Tracie,Simmons,Weirsdale,FL,32195,3528214230,swearengintas@yahoo.com,64.116.134.65
+Eloy,Rivera,Orlando,FL,32824,4076907377,yaxzeleloy@yahoo.com,200.12.168.245
+Erika,Mcculloch,Howell,NJ,7731,6093713134,ek62580@msn.com,192.203.152.102
+rick,mcguiggan,osceola,wi,54020,6123098461,team_bootleggers@yahoo.com,200.12.225.192
+Betty,Oster,Hyndman,PA,15545,8148429582,boster@yahoo.com,130.55.116.167

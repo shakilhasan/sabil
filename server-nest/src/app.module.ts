@@ -6,15 +6,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
-// modules
-import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BlogModule } from './modules/blog/blog.module';
-import { ProductModule } from './modules/product/product.module';
-import { PermissionModule } from './modules/permission/permission.module';
-import { RoleModule } from './modules/role/role.module';
-import { ResourceModule } from './modules/resource/resource.module';
+import { CustomerModule } from './modules/customer/customer.module';
 import { LocationModule } from './modules/location/location.module';
+import { PermissionModule } from './modules/permission/permission.module';
+import { ProductModule } from './modules/product/product.module';
+import { ResourceModule } from './modules/resource/resource.module';
+import { RoleModule } from './modules/role/role.module';
+// modules
+import { UserModule } from './modules/user/user.module';
 
 const configService = new ConfigService();
 @Module({
@@ -36,6 +37,7 @@ const configService = new ConfigService();
     RoleModule,
     ResourceModule,
     LocationModule,
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
