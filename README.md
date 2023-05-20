@@ -1,7 +1,11 @@
-# Welcome to the Sabil Project By MERN-STACK
-### This is a full-functional (Work in progress now)  ecommerce web application that is developed by using MERN (MongoDB, Express.js, React.js, and Node.js).
+# Welcome to the Sabil Project
+#### This is a full-functional (Work in progress now)  ecommerce web application that is developed by using MERN (MongoDB, Express.js, React.js, and Node.js).
 
-In this repository I will keep adding the best practices we should follow in a MERN project. Also for better UX I am using MUI for the UI.
+## Features:
+1. In this repository I will keep adding the best practices we should follow in a MERN project. Also for better UX I am using MUI for the UI.
+2. It can be run in two ways. One is using Docker, another way is to run manually.
+3. Dynamically control the access of any component or API for any user or role via the admin control panel.
+4. I will keep adding the best practices we should follow in a MERN project. Also for better UX I am using MUI for the UI.
 
 Below are the sample of a product-shop and list page:
 
