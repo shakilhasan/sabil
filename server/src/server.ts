@@ -10,12 +10,12 @@ const PORT = process.env.PORT;
 
 const start = async () => {
   // eslint-disable-next-line no-return-await
-  const initModules = async (app) => await init(app);
+  const initModules = async (app: any) => await init(app);
 
-  const configureRoutes = async (app) => {
+  const configureRoutes = async (app:any) => {
     app.use(handleRequest);
     const app2 = await initModules(app);
-    app2.get("/", (req, res) => {
+    app2.get("/", (req:any, res:any) => {
       res.send("Hello World!");
     });
 
@@ -33,7 +33,7 @@ const start = async () => {
     app.listen(PORT, async () => {
       logger.info(`Server started on port ${PORT}`);
 
-      const broadcastDatabaseConnectionEstablished = (em) => {
+      const broadcastDatabaseConnectionEstablished = (em:any) => {
         em.emit("databaseConnectionEstablished");
       };
 
