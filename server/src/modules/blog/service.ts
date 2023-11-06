@@ -1,7 +1,4 @@
-// load repository.js
-const { name: ModelName } = require("./model");
-
-const getQuery = (payload,followings) => {
+const getQuery = (payload:any,followings?:any) => {
   const queries = [];
 
   if (payload.name) {
@@ -52,7 +49,4 @@ const setupEventListeners = () => {
 
 setupEventListeners();
 
-module.exports = {
-  getQuery,
-  modelName: ModelName,
-};
+export {getQuery};

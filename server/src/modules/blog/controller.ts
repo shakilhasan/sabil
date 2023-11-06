@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
-const express = require("express");
-const mongoose = require("mongoose");
-const eventEmitter = require("nodemon");
-const { getQuery } = require("./service");
+import express from "express";
+import mongoose from "mongoose";
+import eventEmitter from "nodemon";
+import {getQuery} from "./service";
 const {
   getByIdHandler,
   saveHandler,
@@ -18,18 +18,18 @@ const {
 
 const router = express.Router();
 
-const searchHandler = async (req, res, next) => {
+const searchHandler = async (req:any, res:any, next:any) => {
   console.log("blog searchHandler body---------- ", req.body);
   const user = await mongoose.models.User.findOne({ _id: req.user.id });
   req.searchQuery = getQuery(req.body, user.followings);
   return baseSearchHandler(req, res, next);
 };
 
-const countHandler = async (req, res, next) => {
+const countHandler = async (req:any, res:any, next:any) => {
   req.searchQuery = getQuery(req.body);
   return baseCountHandler(req, res, next);
 };
-const updateLikeHandler = async (req) => {
+const updateLikeHandler = async (req:any) => {
   const { body } = req;
   const favorite = parseInt(body.favorite, 10) + 1;
   console.log(body.id, "-------------", body.favorite);
@@ -45,7 +45,7 @@ const updateLikeHandler = async (req) => {
     throw new NotFound(`${req.modelName} not found by the id: ${body.id}`);
   }
 };
-const processRequestCreate = async (req, res, next) => {
+const processRequestCreate = async (req:any, res:any, next:any) => {
   // const fakeBlog = await getFakeBlog();
   req.body.authorId = req.user.id;
   req.body.author.name = req.user.username;
@@ -70,4 +70,4 @@ router.post("/search", searchHandler);
 router.post("/count", countHandler);
 router.delete("/delete", deleteHandler);
 
-module.exports = router;
+export {router};

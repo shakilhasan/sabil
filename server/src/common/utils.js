@@ -18,6 +18,4 @@ const generateResource = async (app) => {
     console.log("error--", error);
   }
 };
-module.exports = {
-  generateResource,
-};
+export {generateResource,};

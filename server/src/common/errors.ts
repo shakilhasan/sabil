@@ -1,7 +1,5 @@
-/* eslint-disable class-methods-use-this */
-// eslint-disable-next-line max-classes-per-file
 class GeneralError extends Error {
-  constructor(message) {
+  constructor(message:any) {
     super();
     this.message = message;
   }
@@ -12,7 +10,7 @@ class GeneralError extends Error {
 }
 
 class BadRequest extends GeneralError {
-  constructor(message) {
+  constructor(message:any) {
     super(message);
     this.name = "BadRequest";
   }
@@ -23,7 +21,7 @@ class BadRequest extends GeneralError {
 }
 
 class NotFound extends GeneralError {
-  constructor(message) {
+  constructor(message:any) {
     super(message);
     this.name = "NotFound";
   }
@@ -34,7 +32,7 @@ class NotFound extends GeneralError {
 }
 
 class MongoError extends GeneralError {
-  constructor(message) {
+  constructor(message:any) {
     super(message);
     this.name = "MongoError";
   }
@@ -44,4 +42,4 @@ class MongoError extends GeneralError {
   }
 }
 
-module.exports = { GeneralError, BadRequest, NotFound, MongoError };
+export { GeneralError, BadRequest, NotFound, MongoError };

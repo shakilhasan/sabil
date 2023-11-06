@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // schema
 const schema = new mongoose.Schema(
@@ -67,6 +67,6 @@ schema.index({ updatedAt: 1 });
 
 // reference model
 const Blog = mongoose.model("Blog", schema);
-const ModelName = "Blog";
+const modelName = "Blog";
 
-module.exports = { Model: Blog, name: ModelName };
+export {  Blog, modelName }
