@@ -1,18 +1,11 @@
 const { ObjectId } = require("mongoose").Types;
-const bcrypt = require("bcrypt");
-const { NotFound } = require("../../common/errors");
-const {
-  save,
-  getById,
-  searchOne,
-  dynamicSearch,
-  updateAll,
-  update,
-} = require("../../core/repository");
+import bcrypt from "bcrypt";
+import {NotFound} from "../../common/errors";
+import {save, getById, searchOne, dynamicSearch, updateAll, update} from "../../core/repository";
 
 const { Model, name: ModelName } = require("./model");
 
-const changePassword = async (user, newPassword) => {
+const changePassword = async (user:any, newPassword:any) => {
   const id = user._id;
   const model = await Model.findById(id);
   if (model) {
@@ -25,7 +18,7 @@ const changePassword = async (user, newPassword) => {
   throw new NotFound(`User not found by the id: ${id}`);
 };
 
-const getByUsername = async (username) => {
+const getByUsername = async (username:any) => {
   const item = await Model.findOne({ username }).lean();
   if (item) {
     const { __v, passwordHash, ...rest } = item;
@@ -34,7 +27,7 @@ const getByUsername = async (username) => {
   return null;
 };
 
-const checkUser = async (username, password) => {
+const checkUser = async (username:any, password:any) => {
   const user = await Model.findOne({ username }).lean(); // status: "Active"
   if (user) {
     const match = await bcrypt.compare(password, user.passwordHash);
@@ -45,18 +38,18 @@ const checkUser = async (username, password) => {
   return undefined;
 };
 
-async function getPasswordHash(password) {
+async function getPasswordHash(password:any) {
   const hash = await bcrypt.hash(password, 10);
   return hash;
 }
 
-const createUser = async (user) => {
+const createUser = async (user:any) => {
   const passwordHash = await getPasswordHash(user.password);
   const { _id } = await save({ passwordHash, ...user }, ModelName);
   return _id;
 };
 
-const tryCreateUser = async (user) => {
+const tryCreateUser = async (user:any) => {
   const { username, phoneNumber, email } = user;
   const query = {
     $or: [
@@ -76,7 +69,7 @@ const tryCreateUser = async (user) => {
   return id;
 };
 
-const getQuery = (payload) => {
+const getQuery = (payload:any) => {
   const createdBySubQuery = {
     $or: [
       { createdBy: ObjectId(payload?.userId) },
@@ -105,7 +98,7 @@ const getQuery = (payload) => {
   return query;
 };
 
-const searchPermissions = async (roleId) => {
+const searchPermissions = async (roleId:any) => {
   const permissions = await dynamicSearch(
     {
       roleId: ObjectId(roleId),
@@ -116,7 +109,7 @@ const searchPermissions = async (roleId) => {
   return permissions;
 };
 
-const getPermittedUserById = async (id, userId) => {
+const getPermittedUserById = async (id:any, userId:any) => {
   const user = await getById(id, ModelName);
   if (user) {
     if (
@@ -129,9 +122,9 @@ const getPermittedUserById = async (id, userId) => {
   throw new NotFound(`User not found by the id: ${id}`);
 };
 
-module.exports = {
+export  {
   save,
-  getById: getPermittedUserById,
+  getById as getPermittedUserById,
   searchOne,
   changePassword,
   checkUser,
@@ -142,5 +135,4 @@ module.exports = {
   updateAll,
   update,
   getQuery,
-  ModelName,
 };

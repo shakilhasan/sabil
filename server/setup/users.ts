@@ -1,18 +1,12 @@
 const data = require("./users.json");
 
-const {
-  createUser,
-  searchOne,
-  updateAll,
-  update,
-} = require("../src/modules/user/service");
+import {createUser, searchOne, updateAll, update} from "../src/modules/user/service";
 
-const User = require("../src/modules/user/model");
-const { name: roleModel } = require("../src/modules/role/model");
+import {User} from "../src/modules/user/model";
 
-const seed = async (logger) => {
+const seed = async (logger:any) => {
   await Promise.all(
-    data.map(async (user) => {
+    data.map(async (user:any) => {
       logger.info(`Checking if user ${user.username} exists`);
       const userExists = await searchOne({ username: user.username }, "User");
       if (!userExists) {
@@ -30,7 +24,7 @@ const seed = async (logger) => {
   logger.info(`Seeding users finished`);
 };
 
-const migrate = async (logger) => {
+const migrate = async (logger:any) => {
   logger.info("User starting");
   const superadminUser = await searchOne({ username: "superadmin@sabil.com" }, "User");
   if (!superadminUser) {

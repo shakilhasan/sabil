@@ -3,7 +3,8 @@ import {v4 as uuidv4} from "uuid";
 import {GeneralError} from "./errors";
 import {searchOne} from "../core/repository";
 import mongoose, {Schema} from "mongoose";
-
+import config from "config";
+const JWT_SECRET = config.get<string>("JWT_SECRET");
 const handleError = async (err: any, req: any, res: any, next: any) => {
     if (res?.headersSent) {
         return next(err);
@@ -49,7 +50,7 @@ const handleValidation = (validate: any) => (req: any, res: any, next: any) => {
     }
 
     const {details} = result.error;
-    const messages = details.map((e) => e.message);
+    const messages = details.map((e:any) => e.message);
     const msg = messages.join(",");
     // throw new BadRequest(msg);
     return res.status(400).send({status: "error", message: msg});
@@ -62,7 +63,7 @@ const authenticateRequest = async (req: any, res: any, next: any) => {
         auth = auth.replace("Bearer ", "");
         // eslint-disable-next-line no-console
         console.log("auth-token---", auth);
-        jwt.verify(auth, process.env.JWT_SECRET, (err: any, decoded: any) => {
+        jwt.verify(auth, JWT_SECRET, (err: any, decoded: any) => {
             if (err) {
                 const {stack, name, ...errorProps} = err;
                 req.log.error({...errorProps, name}, "jwt token invalid");
@@ -111,7 +112,7 @@ const authorizeRequest = async (req: any, res: any, next: any) => {
     });
 };
 
-export = {
+export  {
     handleError,
     handleRequest,
     handleValidation,

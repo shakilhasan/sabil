@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const { MongoError } = require("../../common/errors");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import {MongoError} from "../../common/errors";
 
 const keyMapping = {
   phoneNumber: "Phone number",
@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema(
 userSchema.index({ username: "text" });
 userSchema.index({ email: "text" });
 
-userSchema.post("save", (error, doc, next) => {
+userSchema.post("save", (error:any, doc:any, next:any) => {
   if (error.name === "MongoError" && error.code === 11000) {
     // if error.message contains the substring 'duplicate key error' then it's a duplicate username
     if (error.message.includes("duplicate key error")) {
@@ -72,29 +72,29 @@ userSchema.post("save", (error, doc, next) => {
   }
 });
 
-const ModelName = "User";
+const userModelName = "User";
 const User = mongoose.model(ModelName, userSchema);
 
-async function getPasswordHash(password) {
+async function getPasswordHash(password:any) {
   const hash = await bcrypt.hash(password, 10);
   return hash;
 }
 
-User.createNew = async (user) => {
+User.createNew = async (user:any) => {
   const model = new User(user);
   const hash = await getPasswordHash(user.password);
   model.passwordHash = hash;
   return model;
 };
 
-User.getHashedPassword = async (newPassword) => {
+User.getHashedPassword = async (newPassword:any) => {
   const hash = await getPasswordHash(newPassword);
   return hash;
 };
 
-User.setPassword = async (model, newPassword) => {
+User.setPassword = async (model:any, newPassword:any) => {
   const passwordHash = await getPasswordHash(newPassword);
   return { passwordHash, ...model };
 };
 
-module.exports = { Model: User, name: ModelName };
+export {  User, userModelName };

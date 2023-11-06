@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongoose").Types;
-const Joi = require("joi");
+import Joi from "joi";
 
 const commonKeys = {
   firstName: Joi.string().min(3).max(30).required(),
@@ -21,13 +21,13 @@ const usernameSchema = Joi.object().keys({
   username: Joi.string().min(3).max(30).label("Username").required(),
 });
 
-const validateRegistration = (data) => {
+const validateRegistration = (data:any) => {
   const result = registrationSchema.validate(data);
   result.value = { roleName: "user", ...data };
   return result;
 };
 
-const validateUsername = (data) => {
+const validateUsername = (data:any) => {
   const result = usernameSchema.validate(data);
   result.value = data;
   return result;
@@ -39,7 +39,7 @@ const userCreateSchema = Joi.object().keys({
   roleAlias: Joi.string().min(4).max(15).required(),
 });
 
-const validateUserCreate = (data, requestor) => {
+const validateUserCreate = (data:any, requestor:any) => {
   const result = userCreateSchema.validate(data);
   result.value = {
     ...data,
@@ -60,13 +60,13 @@ const userUpdateSchema = Joi.object().keys({
   roleId: Joi.string().required(),
 });
 
-const validateUserUpdate = (data) => {
+const validateUserUpdate = (data:any) => {
   const result = userUpdateSchema.validate(data);
   result.value = data;
   return result;
 };
 
-module.exports = {
+export{
   validateRegistration,
   validateUsername,
   validateUserCreate,

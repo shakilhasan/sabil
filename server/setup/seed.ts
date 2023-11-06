@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 require("dotenv").config();
-const logger = require("../src/core/logger");
+import {logger} from "../src/core/logger";
 
 logger.info("Seed starting");
 
 // seed roles
-const { seed: seedRoles } = require("./roles");
+import {seed as seedRoles} from "./roles";
 
 // seed users
-const { seed: seedUsers } = require("./users");
+import {seed as seedUsers} from "./users";
 
 // seed products
-const { seed: seedProducts } = require("./products");
+import {seed as seedProducts} from "./products";
 
 // seed resources
 const { seed: seedResources } = require("./resources");

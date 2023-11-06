@@ -1,8 +1,8 @@
-const listEndpoints = require("express-list-endpoints");
+import listEndpoints from "express-list-endpoints";
 // const mongoose = require("mongoose");
-const { Model: Resource } = require("../modules/resource/model");
+import { Resource} from "../modules/resource/model";
 
-const generateResource = async (app) => {
+const generateResource = async (app:any) => {
   const endpoints = listEndpoints(app);
   const resources = endpoints.map((d) => ({
     name: d.path,

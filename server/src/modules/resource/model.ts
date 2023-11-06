@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // schema
 const schema = new mongoose.Schema(
@@ -30,6 +30,7 @@ schema.index({ type: 1 });
 schema.index({ createdAt: 1 });
 schema.index({ updatedAt: 1 });
 
-const ModelName = "Resource";
+const resourceModelName = "Resource";
+const Resource = mongoose.model(resourceModelName, schema);
 
-module.exports = { Model: mongoose.model(ModelName, schema), name: ModelName };
+export { Resource, resourceModelName };

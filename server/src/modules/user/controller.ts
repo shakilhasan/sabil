@@ -1,22 +1,23 @@
 /* eslint-disable no-undef */
-const express = require("express");
-const mongoose = require("mongoose");
-const eventEmitter = require("nodemon");
-const { tryCreateUser, searchOne, getQuery, ModelName } = require("./service");
-const {
+import express from "express";
+import mongoose from "mongoose";
+import eventEmitter from "nodemon";
+import {tryCreateUser, searchOne, getQuery} from "./service";
+import {
   getByIdHandler,
   updateHandler,
-  searchHandler: baseSearchHandler,
-  countHandler: baseCountHandler,
-  deleteHandler,
-} = require("../../core/controller");
-const { validateUserCreate } = require("./request");
-const { handleValidation } = require("../../common/middlewares");
+  searchHandler as baseSearchHandler,
+  countHandler as baseCountHandler,
+  deleteHandler
+} from "../../core/controller";
+import {validateUserCreate} from "./request";
+import {handleValidation} from "../../common/middlewares";
+import {userModelName} from "./model";
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // add user
-const saveHandler = async (req, res, next) => {
+const saveHandler = async (req:any, res:any, next:any) => {
   try {
     const user = req.body;
     const id = await tryCreateUser(user);
@@ -34,7 +35,7 @@ const saveHandler = async (req, res, next) => {
   }
 };
 
-const searchHandler = async (req, res, next) => {
+const searchHandler = async (req:any, res:any, next:any) => {
   const query = {
     ...req.body,
     // userId: req.user.id // todo - uncomment if needed
@@ -43,15 +44,15 @@ const searchHandler = async (req, res, next) => {
   return baseSearchHandler(req, res, next);
 };
 
-const countHandler = async (req, res, next) => {
+const countHandler = async (req:any, res:any, next:any) => {
   const query = { ...req.body, userId: req.user.id };
   req.searchQuery = getQuery(query);
   return baseCountHandler(req, res, next);
 };
 
-const checkUserHandler = async (req, res) => {
+const checkUserHandler = async (req:any, res:any) => {
   if (req.body) {
-    const user = await searchOne(req.body, ModelName);
+    const user = await searchOne(req.body, userModelName);
     if (user) {
       return res.status(200).send({ status: "success", message: "User found" });
     }
@@ -59,12 +60,12 @@ const checkUserHandler = async (req, res) => {
   return res.status(200).send({ status: "error", message: "User not found" });
 };
 
-const processRequestForAccount = async (req, res, next) => {
+const processRequestForAccount = async (req:any, res:any, next:any) => {
   // todo - remove if unnecessary
   req.query.id = req.user.id;
   return next();
 };
-const updateFollowHandler = async (req) => {
+const updateFollowHandler = async (req:any) => {
   const { body } = req;
   const doc = null;
   if (body.toggle) {
@@ -91,20 +92,22 @@ const updateFollowHandler = async (req) => {
   eventEmitter.emit(`${req.modelName} Updated follow`, doc);
   return doc;
 };
-router.get("/account", processRequestForAccount, getByIdHandler); // todo - remove if unnecessary
-router.get("/detail", getByIdHandler);
-router.post("/create",
+userRouter.get("/account", processRequestForAccount, getByIdHandler); // todo - remove if unnecessary
+userRouter.get("/detail", getByIdHandler);
+userRouter.post("/create",
     // handleValidation(validateUserCreate), // todo - uncomment when ready
     saveHandler);
-router.put(
+userRouter.put(
   "/update",
   // handleValidation(validateUserUpdate),  // todo - uncomment when ready
   updateHandler
 );
-router.put("/updateFollow", updateFollowHandler);
-router.post("/search", searchHandler);
-router.post("/count", countHandler);
-router.delete("/delete", deleteHandler);
-router.post("/check", checkUserHandler);
+userRouter.put("/updateFollow", updateFollowHandler);
+userRouter.post("/search", searchHandler);
+userRouter.post("/count", countHandler);
+userRouter.delete("/delete", deleteHandler);
+userRouter.post("/check", checkUserHandler);
 
-module.exports = router;
+export {
+  userRouter
+};
