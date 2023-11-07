@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Schema
 
@@ -27,7 +27,7 @@ const permissionSchema = new mongoose.Schema(
 );
 
 // reference model
-const ModelName = "Permission";
-const Permission = mongoose.model(ModelName, permissionSchema);
+const permissionModelName = "Permission";
+const Permission = mongoose.model(permissionModelName, permissionSchema);
 
-module.exports = { Model: Permission, name: ModelName };
+export {  Permission, permissionModelName };

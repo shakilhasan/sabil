@@ -1,6 +1,5 @@
-const { name } = require("./model");
 
-const getQuery = (payload) => {
+const getQuery = (payload:any) => {
   let query = {};
   if (payload.name) {
     query = {
@@ -13,7 +12,6 @@ const getQuery = (payload) => {
   return query;
 };
 
-module.exports = {
+export{
   getQuery,
-  modelName: name,
 };

@@ -30,7 +30,7 @@ schema.index({updatedAt: 1});
 schema.index({isSuperAdmin: 1});
 schema.index({isAdmin: 1});
 
-schema.post("save", (error:any, doc:any, next:any) => {
+schema.post("save", (error: any, doc: any, next: any) => {
     if (error.name === "MongoError" && error.code === 11000) {
         // if error.message contains the substring 'duplicate key error' then it's a duplicate username
         if (error.message.includes("duplicate key error")) {

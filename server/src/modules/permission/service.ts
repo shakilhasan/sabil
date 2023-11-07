@@ -1,7 +1,6 @@
 const { ObjectId } = require("mongoose").Types;
-const { name } = require("./model");
 
-const getQuery = (payload) => {
+const getQuery = (payload:any) => {
   const createdBySubQuery = { createdBy: ObjectId(payload.userId) };
   const subQueries = [];
   subQueries.push(createdBySubQuery);
@@ -12,7 +11,7 @@ const getQuery = (payload) => {
     subQueries.push(roleQuery);
   }
 
-  let nameQuery = [];
+  let nameQuery:any = [];
   if (payload.name) {
     nameQuery = {
       $or: [
@@ -31,7 +30,6 @@ const getQuery = (payload) => {
   return query;
 };
 
-module.exports = {
-  getQuery,
-  modelName: name,
+export {
+  getQuery
 };

@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from "joi";
 
 const schema = Joi.object().keys({
   _id: Joi.string().optional(),
@@ -12,7 +12,7 @@ const schema = Joi.object().keys({
   isDisabled: Joi.bool().required(),
 });
 
-const validate = (data, user) => {
+const validate = (data:any, user:any) => {
   const result = schema.validate(data);
   result.value = {
     ...data,
@@ -22,4 +22,4 @@ const validate = (data, user) => {
   return result;
 };
 
-module.exports = { validate };
+export { validate };

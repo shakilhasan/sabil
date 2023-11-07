@@ -1,6 +1,6 @@
-const fs = require("fs");
+import fs from "fs";
 
-const init = async (app) => {
+const init = async (app:any) => {
   const rootPath = __dirname;
   const moduleNames = await fs.promises.readdir(rootPath);
   await Promise.all(
