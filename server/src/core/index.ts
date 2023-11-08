@@ -7,4 +7,4 @@ const setup = async () => {
   return { app, eventEmitter, connectWithDb, logger };
 };
 
-module.exports = { setup };
+export  { setup };

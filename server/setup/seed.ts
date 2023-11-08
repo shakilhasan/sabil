@@ -5,24 +5,26 @@ import {logger} from "../src/core/logger";
 logger.info("Seed starting");
 
 // seed roles
+// @ts-ignore
 import {seed as seedRoles} from "./roles";
 
 // seed users
 import {seed as seedUsers} from "./users";
 
 // seed products
+// @ts-ignore
 import {seed as seedProducts} from "./products";
 
 // seed resources
-const { seed: seedResources } = require("./resources");
+import {seed as seedResources} from "./resources";
 
 // seed permissions
-const { seed: seedPermissions } = require("./permissions");
+import {seed as seedPermissions} from "./permissions";
 
 const isMongoDbUrl = JSON.parse(
   process.env.IS_MONGODB_CLOUD_URL ? process.env.IS_MONGODB_CLOUD_URL : "false"
 );
-const uri = isMongoDbUrl
+const uri:any = isMongoDbUrl
   ? process.env.MONGODB_CLOUD_URL
   : `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };

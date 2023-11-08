@@ -19,4 +19,4 @@ const init = async (app:any) => {
     return app;
 };
 
-module.exports = {init};
+export {init};

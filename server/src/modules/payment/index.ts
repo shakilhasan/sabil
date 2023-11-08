@@ -1,19 +1,19 @@
-import {permissionRouter} from "./controller";
+import {paymentRouter} from "./controller";
 import {authenticateRequest, authorizeRequest} from "../../common/middlewares";
-import {permissionModelName} from "./model";
+const { name: ModelName } = require("./model");
 
 const processRequest = async (req:any, res:any, next:any) => {
-  req.modelName = permissionModelName;
+  req.modelName = ModelName;
   return next();
 };
 
 const init = async (app:any) => {
   app.use(
-    "/api/permissions",
+    "/api/payments",
     authenticateRequest,
-    authorizeRequest,
+    // authorizeRequest,
     processRequest,
-      permissionRouter
+      paymentRouter
   );
   return app;
 };

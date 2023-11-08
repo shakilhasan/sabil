@@ -67,4 +67,4 @@ const migrate = async (logger:any) => {
   return response;
 };
 
-module.exports = { seed, migrate };
+export  { seed, migrate };

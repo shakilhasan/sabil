@@ -16,7 +16,7 @@
     "prod": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
     "db:up": "docker-compose -f ./db.yml up",
     "db:seed": "node setup/seed.ts",
-    "db:migrate": "node ./setup/migrate.js",
+    "db:migrate": "node setup/migrate.ts",
     "lint": "eslint"
   },
   "keywords": [],
@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
+    "@types/autocannon": "^7.12.5",
     "@types/bcrypt": "^5.0.1",
     "@types/compression": "^1.7.4",
     "@types/config": "^3.3.2",

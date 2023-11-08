@@ -1,9 +1,9 @@
-const { setup: setupCore } = require("./core");
-const { init } = require("./modules");
-const { handleError, handleRequest } = require("./common/middlewares");
+import {setup as setupCore} from "./core";
+import {init} from "./modules";
+import {handleError, handleRequest} from "./common/middlewares";
 // todo: remove in production
-const mockRoutes = require("../test/mock-routes/routes");
-const { generateResource } = require("./common/utils");
+import {router as mockRoutes} from "../test/mock-routes/routes";
+import {generateResource} from "./common/utils";
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -52,7 +52,7 @@ const start = async () => {
     // auto-generated resource-model from routes todo: remove if unnecessary
     // await generateResource(app);
   } catch (err) {
-    await handleError(err);
+    // await handleError(err);
   }
 };
 

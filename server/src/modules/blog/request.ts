@@ -51,4 +51,4 @@ const validate = (data: any) => {
     return result;
 };
 
-module.exports = {validate};
+export {validate};

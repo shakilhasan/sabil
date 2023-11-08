@@ -1,19 +1,19 @@
-import {permissionRouter} from "./controller";
+import {salesOrderRouter} from "./controller";
 import {authenticateRequest, authorizeRequest} from "../../common/middlewares";
-import {permissionModelName} from "./model";
+import {blogModelName} from "./model";
 
 const processRequest = async (req:any, res:any, next:any) => {
-  req.modelName = permissionModelName;
+  req.modelName = blogModelName;
   return next();
 };
 
 const init = async (app:any) => {
   app.use(
-    "/api/permissions",
+    "/api/sales-orders",
     authenticateRequest,
-    authorizeRequest,
+    // authorizeRequest,
     processRequest,
-      permissionRouter
+      salesOrderRouter
   );
   return app;
 };
