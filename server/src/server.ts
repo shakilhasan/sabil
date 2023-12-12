@@ -45,7 +45,7 @@ const start = async () => {
         });
 
         // auto-generated resource-model from routes todo: remove if unnecessary
-        // await generateResource(app);
+        await generateResource(app);
     } catch (err) {
         logger.error(err);
         // await handleError(err);
