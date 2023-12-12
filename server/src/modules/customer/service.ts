@@ -1,6 +1,6 @@
 // load repository.js functions
 import {save, update, getById, deleteById} from "../../core/repository";
-const eventEmitter = require("../../core/event-manager").getInstance();
+import {eventEmitter} from "../../core/event-manager";
 
 const modelName = "Customer";
 

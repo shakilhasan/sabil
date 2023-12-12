@@ -4,7 +4,7 @@ import {GeneralError} from "./errors";
 import {searchOne} from "../core/repository";
 import mongoose, {Schema} from "mongoose";
 import config from "config";
-const JWT_SECRET = config.get<string>("JWT_SECRET");
+const JWT_SECRET = config.get<string>("jwt.secret");
 const handleError = async (err: any, req: any, res: any, next: any) => {
     if (res?.headersSent) {
         return next(err);
@@ -91,7 +91,7 @@ const authorizeRequest = async (req: any, res: any, next: any) => {
         const permission = await searchOne(
             {
                 // roleId: r,
-                roleId: new mongoose.Schema.Types.ObjectId(roleId),
+                roleId: new mongoose.Types.ObjectId(roleId),
                 resourceName: req._parsedUrl.pathname,
                 isAllowed: true,
             },

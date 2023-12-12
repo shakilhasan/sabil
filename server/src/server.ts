@@ -3,57 +3,53 @@ import {init} from "./modules";
 import {handleError, handleRequest} from "./common/middlewares";
 // todo: remove in production
 import {router as mockRoutes} from "../test/mock-routes/routes";
+import config from "config";
 import {generateResource} from "./common/utils";
-require("dotenv").config();
-
-const PORT = process.env.PORT;
+const PORT = config.get<number>("server.port");
 
 const start = async () => {
-  // eslint-disable-next-line no-return-await
-  const initModules = async (app: any) => await init(app);
+    const initModules = async (app: any) => await init(app);
 
-  const configureRoutes = async (app:any) => {
-    app.use(handleRequest);
-    const app2 = await initModules(app);
-    app2.get("/", (req:any, res:any) => {
-      res.send("Hello World!");
-    });
+    const configureRoutes = async (app: any) => {
+        app.use(handleRequest);
+        const app2 = await initModules(app);
+        app2.get("/", (req: any, res: any) => {
+            res.send("Hello World!");
+        });
 
-    console.log(" routes", app2._router.stack);
-    // todo: remove in production
-    app2.use("/mock", mockRoutes);
-    app2.use(handleError);
-    return app2;
-  };
+        console.log(" routes", app2._router.stack);
+        // todo: remove in production
+        app2.use("/mock", mockRoutes);
+        app2.use(handleError);
+        return app2;
+    };
 
-  const { app, eventEmitter, connectWithDb, logger } = await setupCore();
+    const {app, eventEmitter, connectWithDb, logger} = await setupCore();
 
-  try {
-    await configureRoutes(app);
-    app.listen(PORT, async () => {
-      logger.info(`Server started on port ${PORT}`);
+    try {
+        await configureRoutes(app);
+        app.listen(PORT, async () => {
+            logger.info(`Server started on port ${PORT}`);
+            const broadcastDatabaseConnectionEstablished = (em: any) => {
+                em.emit("databaseConnectionEstablished");
+            };
 
-      const broadcastDatabaseConnectionEstablished = (em:any) => {
-        em.emit("databaseConnectionEstablished");
-      };
+            eventEmitter.on("databaseConnectionEstablished", () => {
+                logger.info(
+                    "eventEmitterHealthCheck()=> Database connection established"
+                );
+            });
 
-      eventEmitter.on("databaseConnectionEstablished", () => {
-        logger.info(
-          "eventEmitterHealthCheck()=> Database connection established"
-        );
-      });
+            await connectWithDb(broadcastDatabaseConnectionEstablished, eventEmitter);
+            logger.info(`Database connection established at ${new Date()}`);
+        });
 
-      await connectWithDb(broadcastDatabaseConnectionEstablished, eventEmitter);
-      logger.info(`Database connection established at ${new Date()}`);
-      // eslint-disable-next-line no-console
-      console.log(`Server is running on port ${PORT}`);
-    });
-
-    // auto-generated resource-model from routes todo: remove if unnecessary
-    // await generateResource(app);
-  } catch (err) {
-    // await handleError(err);
-  }
+        // auto-generated resource-model from routes todo: remove if unnecessary
+        // await generateResource(app);
+    } catch (err) {
+        logger.error(err);
+        // await handleError(err);
+    }
 };
 
-start();
+start().then(r => console.log(r));

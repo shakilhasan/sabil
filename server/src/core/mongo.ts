@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import config from "config";
 require("dotenv").config();
+const db = config.get<number>("db");
 
-
+console.log(db);
 const isMongoDbUrl = JSON.parse(
     process.env.IS_MONGODB_CLOUD_URL ? process.env.IS_MONGODB_CLOUD_URL : "false"
 );
@@ -22,4 +24,4 @@ const connectWithDb = async (cb:any, em:any) => {
   );
   if (cb && em) cb(em);
 };
-module.exports = connectWithDb;
+export {connectWithDb};

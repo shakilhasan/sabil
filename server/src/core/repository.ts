@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const eventEmitter = require("./event-manager").getInstance();
+import {eventEmitter} from "./event-manager";
 
 const save = async (item: any, modelName: any) => {
     const model = new mongoose.models[modelName](item);

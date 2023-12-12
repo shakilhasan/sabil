@@ -5,46 +5,46 @@ import helmet from "helmet";
 // const pino = require("pino-http")();
 // const pino = require("pino");
 import ExpressPinoLogger from "express-pino-logger";
+import compression from "compression";
+import swaggerUI from "swagger-ui-express";
 
 const logger = ExpressPinoLogger({
-  // customLogLevel(res:any, err:any) { //TODO: uncomment later
-  //   if (res.statusCode >= 400 && res.statusCode < 500) {
-  //     return "warn";
-  //   }
-  //   if (res.statusCode >= 500 || err) {
-  //     return "error";
-  //   }
-  //   if (res.statusCode >= 300 && res.statusCode < 400) {
-  //     return "silent";
-  //   }
-  //   return "info";
-  // },
-  serializers: {
-    req: (req) => ({
-      method: req.method,
-      url: req.url,
-      query: req.query,
-      params: req.params,
-      headers: {
-        "user-agent": req.headers["user-agent"],
-        "session-id": req.headers["session-id"] ?? "",
-        host: req.headers.host,
-      },
-      remoteAddress: req.remoteAddress,
-    }),
-    res: (res) => ({
-      statusCode: res.statusCode,
-      header: {
-        date: res.headers.date,
-        "x-correlation-id": res.headers["x-correlation-id"],
-      },
-    }),
-  },
+    // customLogLevel(res:any, err:any) { //TODO: uncomment later
+    //   if (res.statusCode >= 400 && res.statusCode < 500) {
+    //     return "warn";
+    //   }
+    //   if (res.statusCode >= 500 || err) {
+    //     return "error";
+    //   }
+    //   if (res.statusCode >= 300 && res.statusCode < 400) {
+    //     return "silent";
+    //   }
+    //   return "info";
+    // },
+    serializers: {
+        req: (req) => ({
+            method: req.method,
+            url: req.url,
+            query: req.query,
+            params: req.params,
+            headers: {
+                "user-agent": req.headers["user-agent"],
+                "session-id": req.headers["session-id"] ?? "",
+                host: req.headers.host,
+            },
+            remoteAddress: req.remoteAddress,
+        }),
+        res: (res) => ({
+            statusCode: res.statusCode,
+            header: {
+                date: res.headers.date,
+                "x-correlation-id": res.headers["x-correlation-id"],
+            },
+        }),
+    },
 });
 
 require("dotenv").config();
-import compression from "compression";
-import swaggerUI from "swagger-ui-express";
 
 // const limiter = rateLimit({ //TODO: uncomment later
 //   windowMs: 15 * 60 * 1000, // 15 minutes

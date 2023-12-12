@@ -8,8 +8,8 @@ import {validateRegistration, validateUsername} from "./request";
 import {checkUser, searchOne, changePassword, tryCreateUser, searchPermissions} from "./service";
 import config from "config";
 
-const JWT_EXPIRES_IN = config.get<string>("JWT_EXPIRES_IN");
-const JWT_SECRET = config.get<string>("JWT_SECRET");
+const JWT_SECRET = config.get<string>("jwt.secret");
+const JWT_EXPIRES_IN = config.get<string>("jwt.accessTokenExpiresIn");
 const authRouter = express.Router();
 const modelName = "User";
 

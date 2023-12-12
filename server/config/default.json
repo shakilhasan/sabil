@@ -1,14 +1,27 @@
 {
-  "PROJECT_PATH": "server",
-  "PORT": 8080,
-  "DB_HOST": "localhost",
-  "DB_PORT": 27017,
-  "DB_NAME": "sabil",
-  "IS_MONGODB_CLOUD_URL": false,
-  "MONGODB_CLOUD_URL": "mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/sabil?retryWrites:true&w:majority",
-  "SENDGRID_API_KEY": 123,
-  "DEFAULT_PAGE_SIZE": 20,
-  "JWT_SECRET": "JWT_SECRETfsdfsdfsdsd3435353",
-  "JWT_EXPIRES_IN": 10000,
-  "APP_NAME": "Sabil"
+  "app_name": "Sabil",
+  "env": "development",
+  "project_path": "server",
+  "server": {
+    "port": 8080
+  },
+  "jwt": {
+    "secret": "JWT_SECRETfsdfsdfsdsd3435353",
+    "accessTokenExpiresIn": 10000
+  },
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "name": "sabil",
+    "is_mongodb_cloud_url": false,
+    "mongodb_cloud_url": "mongodb+srv://shakilhasan:sH1404087@cluster0.9r8bg.mongodb.net/sabil?retryWrites:true&w:majority"
+  },
+  "pagination": {
+    "limit": 20
+  },
+  "api": {
+    "sendgrid": {
+      "apiKey": "123"
+    }
+  }
 }

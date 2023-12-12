@@ -18,6 +18,8 @@ const init = async (app:any) => {
     processRequest,
       userRouter
   );
+
+  console.log("app:>",app)
   return app;
 };
 

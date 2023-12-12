@@ -3,13 +3,13 @@ import bcrypt from "bcrypt";
 import {NotFound} from "../../common/errors";
 import {save, getById, searchOne, dynamicSearch, updateAll, update} from "../../core/repository";
 
-const { Model, name: ModelName } = require("./model");
+import {User, userModelName} from "./model";
 
 const changePassword = async (user:any, newPassword:any) => {
   const id = user._id;
-  const model = await Model.findById(id);
+  const model = await User.findById(id);
   if (model) {
-    await Model.setPassword(model, newPassword);
+    await User.setPassword(model, newPassword);
     model.updatedAt = Date.now().toString();
     model.save();
     return model._id;
@@ -19,7 +19,7 @@ const changePassword = async (user:any, newPassword:any) => {
 };
 
 const getByUsername = async (username:any) => {
-  const item = await Model.findOne({ username }).lean();
+  const item = await User.findOne({ username }).lean();
   if (item) {
     const { __v, passwordHash, ...rest } = item;
     return rest;
@@ -28,7 +28,7 @@ const getByUsername = async (username:any) => {
 };
 
 const checkUser = async (username:any, password:any) => {
-  const user = await Model.findOne({ username }).lean(); // status: "Active"
+  const user = await User.findOne({ username }).lean(); // status: "Active"
   if (user) {
     const match = await bcrypt.compare(password, user.passwordHash);
     const { __v, passwordHash, ...rest } = user;
@@ -45,7 +45,7 @@ async function getPasswordHash(password:any) {
 
 const createUser = async (user:any) => {
   const passwordHash = await getPasswordHash(user.password);
-  const { _id } = await save({ passwordHash, ...user }, ModelName);
+  const { _id } = await save({ passwordHash, ...user }, userModelName);
   return _id;
 };
 
@@ -61,7 +61,7 @@ const tryCreateUser = async (user:any) => {
       { username },
     ],
   };
-  const item = await Model.findOne(query);
+  const item = await User.findOne(query);
   if (item) {
     return false;
   }
@@ -110,7 +110,7 @@ const searchPermissions = async (roleId:any) => {
 };
 
 const getPermittedUserById = async (id:any, userId:any) => {
-  const user = await getById(id, ModelName);
+  const user = await getById(id, userModelName);
   if (user) {
     if (
       user._id.toString() === userId ||

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import {MongoError} from "../../common/errors";
 
-const keyMapping = {
+const keyMapping:any = {
   phoneNumber: "Phone number",
   email: "Email",
   username: "Username",
@@ -63,7 +63,7 @@ userSchema.post("save", (error:any, doc:any, next:any) => {
   if (error.name === "MongoError" && error.code === 11000) {
     // if error.message contains the substring 'duplicate key error' then it's a duplicate username
     if (error.message.includes("duplicate key error")) {
-      const keyName = Object.keys(error.keyValue)[0];
+      const keyName = Object.keys(error?.keyValue)[0];
       const errorMessage = `${keyMapping[keyName]} already exists`;
       next(new MongoError(errorMessage));
     } else next(new MongoError(error.message));
@@ -73,11 +73,10 @@ userSchema.post("save", (error:any, doc:any, next:any) => {
 });
 
 const userModelName = "User";
-const User = mongoose.model(ModelName, userSchema);
+const User:any = mongoose.model(userModelName, userSchema);
 
 async function getPasswordHash(password:any) {
-  const hash = await bcrypt.hash(password, 10);
-  return hash;
+    return await bcrypt.hash(password, 10);
 }
 
 User.createNew = async (user:any) => {

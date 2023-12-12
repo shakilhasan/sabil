@@ -1,9 +1,9 @@
-/* eslint-disable global-require */
+import {logger} from "./logger";
+import {eventEmitter} from "./event-manager";
+import {app} from "./app";
+import {connectWithDb} from "./mongo";
+
 const setup = async () => {
-  const logger = require("./logger");
-  const eventEmitter = require("./event-manager").getInstance();
-  const app = require("./app");
-  const connectWithDb = require("./mongo");
   return { app, eventEmitter, connectWithDb, logger };
 };
 
