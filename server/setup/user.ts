@@ -1,8 +1,5 @@
 const data = require("./users.json");
-
 import {createUser, searchOne, updateAll, update} from "../src/modules/user/service";
-
-import {User} from "../src/modules/user/model";
 
 const seed = async (logger:any) => {
   await Promise.all(
@@ -27,20 +24,11 @@ const seed = async (logger:any) => {
 const migrate = async (logger:any) => {
   logger.info("User starting");
   const superadminUser = await searchOne({ username: "superadmin@sabil.com" }, "User");
-  if (!superadminUser) {
-    throw new Error("Superadmin user not found");
-  }
-
+  if (!superadminUser) throw new Error("Superadmin user not found");
   const adminRole = await searchOne({ name: "admin" }, "Role");
-  if (!adminRole) {
-    throw new Error("Admin role not found");
-  }
-
+  if (!adminRole) throw new Error("Admin role not found");
   const superadminRole = await searchOne({ name: "superadmin" }, "Role");
-  if (!adminRole) {
-    throw new Error("Superadmin role not found");
-  }
-
+  if (!adminRole) throw new Error("Superadmin role not found");
   const response = await updateAll(
     // { createdBy: { $exists: false } },
     {},
