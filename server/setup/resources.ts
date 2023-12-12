@@ -1,26 +1,28 @@
 import fs from "fs";
-import parser from "jsonc-parser";
-
-const dataStr = fs.readFileSync("./setup/resources.jsonc", "utf8");
+import * as jsonc from 'jsonc-parser';
+const dataStr = fs.readFileSync("./setup/resources.jsonc", 'utf-8');
 import {save, searchOne, updateAll} from "../src/core/repository";
 import {resourceModelName} from "../src/modules/resource/model";
 
-// const model = "Resource";
 const seed = async (logger:any) => {
-  const data = parser.parse(dataStr);
-  await Promise.all(
-    data.map(async (item:any) => {
-      logger.info(`Checking if ${resourceModelName} ${item.name} exists`);
-      const itemExists = await searchOne({ name: item.name }, resourceModelName);
-      if (!itemExists) {
-        const savedItem = await save(item, resourceModelName);
-        logger.info(`Saved role id: ${savedItem._id}`);
-      } else {
-        logger.info(`${resourceModelName} ${item.name} already exists`);
-      }
-    })
-  );
-  logger.info(`${resourceModelName} seeding finished`);
+    try {
+        const data = jsonc.parse(dataStr);
+        await Promise.all(
+            data.map(async (item:any) => {
+                logger.info(`Checking if ${resourceModelName} ${item.name} exists`);
+                const itemExists = await searchOne({ name: item.name }, resourceModelName);
+                if (!itemExists) {
+                    const savedItem = await save(item, resourceModelName);
+                    logger.info(`Saved role id: ${savedItem._id}`);
+                } else logger.info(`${resourceModelName} ${item.name} already exists`);
+            })
+        );
+        logger.info(`${resourceModelName} seeding finished`);
+    }catch (error) {
+        console.log("seedResources error:>",error)
+        logger.error(error);
+    }
+
 };
 
 const migrate = async (logger:any) => {

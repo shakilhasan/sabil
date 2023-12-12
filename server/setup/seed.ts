@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import {seed as seedRoles} from "./roles";
-import {seed as seedUsers} from "./users";
+import { seedRoles} from "./role";
+import {seed as seedUsers} from "./user";
 import {seed as seedProducts} from "./products";
 import {seed as seedResources} from "./resources";
 import {seed as seedPermissions} from "./permissions";
@@ -8,10 +8,10 @@ import config from "config";
 require("dotenv").config();
 import {logger} from "../src/core/logger";
 const IS_MONGODB_CLOUD_URL:boolean = config.get<boolean>("db.is_mongodb_cloud_url");
-const MONGODB_CLOUD_URL:boolean = config.get<boolean>("db.mongodb_cloud_url");
-const DB_HOST:boolean = config.get<boolean>("db.host");
-const DB_PORT:boolean = config.get<boolean>("db.port");
-const DB_NAME:boolean = config.get<boolean>("db.name");
+const MONGODB_CLOUD_URL:string = config.get<string>("db.mongodb_cloud_url");
+const DB_HOST:string = config.get<string>("db.host");
+const DB_PORT:number = config.get<number>("db.port");
+const DB_NAME:string = config.get<string>("db.name");
 
 logger.info("Seed starting");
 
@@ -35,6 +35,7 @@ const seed = async () => {
     // exit process
     process.exit(0);
   } catch (error) {
+    console.log("seed error:>",error)
     logger.error(error);
     process.exit(0);
   }
