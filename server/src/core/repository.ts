@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-
 import {eventEmitter} from "./event-manager";
-
+import config from "config";
+const DEFAULT_PAGE_SIZE=config.get<boolean>("pagination.limit")
 const save = async (item: any, modelName: any) => {
     const model = new mongoose.models[modelName](item);
     const savedItem = await model.save();
@@ -78,7 +78,7 @@ const getAll = async (modelName: any) => {  // todo - remove later
 
 const search = async (payload: any, query: any, modelName: any) => {
     const sort = getSortClause(payload);
-    const take = parseInt(payload?.pageSize ?? process.env.DEFAULT_PAGE_SIZE, 10);
+    const take = parseInt(payload?.pageSize ?? DEFAULT_PAGE_SIZE, 10);
     const skip = (parseInt(payload?.current, 10) - 1) * take;
 
     return mongoose.models[modelName]

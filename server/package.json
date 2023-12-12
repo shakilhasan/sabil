@@ -15,8 +15,8 @@
     "dev": "nodemon src/server.ts | pino-pretty -c -L",
     "prod": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
     "db:up": "docker-compose -f ./db.yml up",
-    "db:seed": "node setup/seed.ts",
-    "db:migrate": "node setup/migrate.ts",
+    "db:seed": "nodemon setup/seed.ts",
+    "db:migrate": "nodemon setup/migrate.ts",
     "lint": "eslint"
   },
   "keywords": [],
@@ -69,6 +69,7 @@
     "@types/nodemon": "^1.19.4",
     "@types/swagger-ui-express": "^4.1.5",
     "@types/uuid": "^9.0.6",
+    "@types/winston": "^2.4.4",
     "concurrently": "^8.2.2",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
