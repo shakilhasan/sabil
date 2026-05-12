@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # ─── Message Broker ─────────────────────────────────────────────
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: school_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '2181:2181'
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: school_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - '9092:9092'
+      - '29092:29092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: school_kafka_ui
+    depends_on:
+      - kafka
+    ports:
+      - '8090:8080'
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+  # ─── Master Database ─────────────────────────────────────────────
+  mysql-master:
+    image: mysql:8.0
+    container_name: school_mysql_master
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: school_saas_master
+      MYSQL_USER: saas_admin
+      MYSQL_PASSWORD: saas_password
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_master_data:/var/lib/mysql
+      - ./scripts/init-master.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # ─── Microservices ────────────────────────────────────────────────
+  api-gateway:
+    build:
+      context: .
+      dockerfile: apps/api-gateway/Dockerfile
+    container_name: school_api_gateway
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: apps/auth-service/Dockerfile
+    container_name: school_auth_service
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+  tenant-service:
+    build:
+      context: .
+      dockerfile: apps/tenant-service/Dockerfile
+    container_name: school_tenant_service
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+  user-service:
+    build:
+      context: .
+      dockerfile: apps/user-service/Dockerfile
+    container_name: school_user_service
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+  academic-service:
+    build:
+      context: .
+      dockerfile: apps/academic-service/Dockerfile
+    container_name: school_academic_service
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+  exam-service:
+    build:
+      context: .
+      dockerfile: apps/exam-service/Dockerfile
+    container_name: school_exam_service
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - kafka
+      - mysql-master
+
+volumes:
+  mysql_master_data:
